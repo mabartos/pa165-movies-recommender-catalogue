@@ -61,4 +61,23 @@ public class User extends GenericEntity {
     public void setUserType(UserType userType) {
         this.userType = userType;
     }
+
+
+    @Override
+    public String toString() {
+        return String.format("User: Name = %s, Email = %s, User Type = %s", name, email, userType);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof User)) return false;
+        User user = (User) obj;
+        return Objects.equals(email, user.getEmail()) && Objects.equals(name, user.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email, name);
+    }
 }

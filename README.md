@@ -16,7 +16,7 @@
 - **Developers**:
     - Maxim Svistunov @xsvistun
     - Martin Bartoš @xbartos5
-    - Daniel Puchala @puchal1
+    - Daniel Puchala @xpuchal1
     - Petr Slezar - _Project Leader_ @xslezar
 - **Assigment**:
     - The web application is a catalogue of movies of different genres. Each movie has a title, description, film director, and list of actors, and image(s) from the main playbill. Each movie is categorized in one or more genres. Only the administrator can create, remove and update the list of movies. Users can rate the movies according to different criteria (e.g how novel are the ideas of the movie, their final score, etc…). The main feature of the system is that users can pick one movie and get the list of similar movies and / or movies that were liked the most by other users watching the same movie (no need of complex algorithms, some simple recommendation is enough!).
@@ -45,6 +45,3 @@ System has two authorization roles - **Basic User** and **Administrator**.
 # Diagrams
 
 ![Class Diagram](https://gitlab.fi.muni.cz/xslezar/pa165-movies-recommender-catalogue/-/blob/readme/MovieRecommenderEntity.jpg)
-
----
-

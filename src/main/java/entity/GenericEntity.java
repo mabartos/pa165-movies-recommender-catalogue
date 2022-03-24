@@ -25,4 +25,25 @@ public class GenericEntity {
     @NotNull
     @Temporal(TemporalType.DATE)
     private LocalTime updatedAt;
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }

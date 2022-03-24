@@ -22,9 +22,7 @@ public class UserDaoImpl extends EntityDaoImpl<User> implements UserDao  {
     }
 
     @Override
-    public List<User> findByName(String name) {
-        return em.createQuery("select u from User u where name = :name", User.class)
-                .setParameter("name", name)
-                .getResultList();
+    public User findByName(String name) {
+        return em.find(User.class, name);
     }
 }

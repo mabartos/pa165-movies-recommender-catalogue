@@ -11,5 +11,5 @@ public interface UserDao extends EntityDao<User> {
 
     User findByEmail(String email);
 
-    List<User> findByName(String name);
+    User findByName(String name);
 }

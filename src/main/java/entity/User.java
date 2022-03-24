@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import java.util.Objects;
 
 /**
  * @author Daniel Puchala
@@ -16,11 +17,15 @@ import javax.persistence.Enumerated;
 public class User extends GenericEntity {
 
     @NotNull(message = "Email cannot be null")
-    @Column(unique=true)
+    @Column(unique = true)
     private String email;
 
     @NotNull(message = "Name cannot be null")
+    @Column(unique = true)
     private String name;
+
+    @NotNull
+    private String passwordHash;
 
     @Enumerated(EnumType.STRING)
     private UserType userType;
@@ -39,6 +44,14 @@ public class User extends GenericEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
     public UserType getUserType() {

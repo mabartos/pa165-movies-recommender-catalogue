@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -29,6 +30,12 @@ public class User extends GenericEntity {
 
     @Enumerated(EnumType.STRING)
     private UserType userType;
+
+    private String avatar;
+
+    private String about;
+
+    private LocalDateTime lastOnline;
 
     public String getEmail() {
         return email;
@@ -62,6 +69,29 @@ public class User extends GenericEntity {
         this.userType = userType;
     }
 
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
+    }
+
+    public LocalDateTime getLastOnline() {
+        return lastOnline;
+    }
+
+    public void setLastOnline(LocalDateTime lastOnline) {
+        this.lastOnline = lastOnline;
+    }
 
     @Override
     public String toString() {

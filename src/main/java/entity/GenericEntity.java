@@ -1,17 +1,20 @@
 package entity;
 
 import jakarta.validation.constraints.NotNull;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import java.time.LocalTime;
+import javax.persistence.MappedSuperclass;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 /**
  * @author Daniel Puchala
  */
+@MappedSuperclass
 public class GenericEntity {
 
     @Id
@@ -19,12 +22,12 @@ public class GenericEntity {
     private Long id;
 
     @NotNull
-    @Temporal(TemporalType.DATE)
-    private LocalTime createdAt;
+    @CreationTimestamp
+    private Timestamp createdAt;
 
     @NotNull
-    @Temporal(TemporalType.DATE)
-    private LocalTime updatedAt;
+    @UpdateTimestamp
+    private Timestamp updatedAt;
 
 
     public Long getId() {
@@ -35,15 +38,11 @@ public class GenericEntity {
         this.id = id;
     }
 
-    public LocalTime getCreatedAt() {
-        return createdAt;
+    public LocalDateTime getCreatedAt() {
+        return createdAt.toLocalDateTime();
     }
 
-    public LocalTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalTime updatedAt) {
-        this.updatedAt = updatedAt;
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt.toLocalDateTime();
     }
 }

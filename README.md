@@ -43,6 +43,7 @@ System has two authorization roles - **Basic User** and **Administrator**.
 - **User** - entity representing a user of the system as described in the previous section
 
 # Diagrams
-
+###Entity 
 ![Class Diagram](https://gitlab.fi.muni.cz/xslezar/pa165-movies-recommender-catalogue/-/raw/readme/documentation/MovieRecommenderEntity.jpg)
+###Use case
 ![Use Case Diagram](https://gitlab.fi.muni.cz/xslezar/pa165-movies-recommender-catalogue/-/raw/readme/documentation/movieRecommenderUseCase.png)

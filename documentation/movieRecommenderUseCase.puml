@@ -1,0 +1,58 @@
+@startuml
+
+'https://plantuml.com/use-case-diagram
+skinparam actorStyle awesome
+
+skinparam usecase {
+    BackgroundColor PapayaWhip
+    BorderColor Black
+}
+
+skinparam Actor {
+    BackgroundColor Green
+    BorderColor Black
+}
+
+skinparam Arrow {
+    Color Black
+}
+
+:Admin:
+:User:
+
+(Person CRUD)
+(Movie CRUD)
+(User CRUD)
+(Review CRUD)
+(Modify list of favorite movies) as fav
+
+(Get movie\n recommendations) as recommend
+
+(Login)
+(Logout)
+
+Admin -up->(Review CRUD)
+Admin -right-> (User CRUD)
+Admin -left-> (Person CRUD)
+Admin -up-> (Movie CRUD)
+User --> (User CRUD)
+User --> (Review CRUD)
+User --> fav
+(User CRUD) --> fav : Includes
+
+User -right-> recommend
+
+User --> (Login)
+User --> (Logout)
+
+
+'Generalization
+Admin -> User : Specifies
+
+note top of User
+    Can create his own profile, modify it and delete it.
+    Can create, modify, delete his own reviews.
+    Can read reviews created by any user.
+end note
+
+@enduml

@@ -25,22 +25,25 @@ skinparam Arrow {
 (User CRUD)
 (Review CRUD)
 (Modify list of favorite movies) as fav
+(Get movie/movies) as view
 
 (Get movie\n recommendations) as recommend
 
 (Login)
 (Logout)
 
-Admin -up->(Review CRUD)
+Admin -down->(Review CRUD)
 Admin -right-> (User CRUD)
 Admin -left-> (Person CRUD)
 Admin -up-> (Movie CRUD)
 User --> (User CRUD)
 User --> (Review CRUD)
 User --> fav
+User -up-> view
 (User CRUD) --> fav : Includes
+(Movie CRUD) -> view : Includes
 
-User -right-> recommend
+User --> recommend
 
 User --> (Login)
 User --> (Logout)
@@ -49,10 +52,12 @@ User --> (Logout)
 'Generalization
 Admin -> User : Specifies
 
-note top of User
+note right of User
     Can create his own profile, modify it and delete it.
     Can create, modify, delete his own reviews.
     Can read reviews created by any user.
+    Can search for a specific movie/movies.
+    Can filter and order list of movies.
 end note
 
 @enduml

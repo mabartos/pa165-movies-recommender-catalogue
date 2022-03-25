@@ -13,6 +13,8 @@ public interface EntityDao<Entity extends GenericEntity> {
 
     void delete(Entity entity);
 
+    void update(Entity entity);
+
     List<Entity> findAll();
 
     Entity findById(Long id);

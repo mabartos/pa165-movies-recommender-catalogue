@@ -1,4 +1,4 @@
-package entity;
+package cz.fi.muni.pa165.movierecommender.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

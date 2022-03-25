@@ -1,4 +1,4 @@
-package entity;
+package cz.fi.muni.pa165.movierecommender.entity;
 
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 /**
@@ -23,11 +22,11 @@ public class GenericEntity {
 
     @NotNull
     @CreationTimestamp
-    private Timestamp createdAt;
+    private LocalDateTime createdAt;
 
     @NotNull
     @UpdateTimestamp
-    private Timestamp updatedAt;
+    private LocalDateTime updatedAt;
 
 
     public Long getId() {
@@ -39,10 +38,10 @@ public class GenericEntity {
     }
 
     public LocalDateTime getCreatedAt() {
-        return createdAt.toLocalDateTime();
+        return createdAt;
     }
 
     public LocalDateTime getUpdatedAt() {
-        return updatedAt.toLocalDateTime();
+        return updatedAt;
     }
 }

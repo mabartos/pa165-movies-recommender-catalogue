@@ -1,6 +1,6 @@
-package dao;
+package cz.fi.muni.pa165.movierecommender.dao;
 
-import entity.Person;
+import cz.fi.muni.pa165.movierecommender.entity.Person;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.criteria.CriteriaBuilder;

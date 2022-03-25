@@ -1,6 +1,6 @@
-package dao;
+package cz.fi.muni.pa165.movierecommender.dao;
 
-import entity.GenericEntity;
+import cz.fi.muni.pa165.movierecommender.entity.GenericEntity;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

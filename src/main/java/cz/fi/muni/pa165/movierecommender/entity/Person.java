@@ -26,7 +26,6 @@ public class Person extends GenericEntity {
     private String name;
 
     @Column
-    @Temporal(TemporalType.DATE)
     private LocalDate birth;
 
     @Column

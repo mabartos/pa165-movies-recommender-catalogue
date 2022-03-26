@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
+ * Entity representing single user of the application.
+ *
  * @author Daniel Puchala
  */
 

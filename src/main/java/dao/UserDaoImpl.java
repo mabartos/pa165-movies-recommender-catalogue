@@ -4,11 +4,12 @@ import entity.User;
 import org.springframework.stereotype.Repository;
 
 /**
+ * Implementation of {@link UserDao} interface.
+ *
  * @author Daniel Puchala
  */
 @Repository
 public class UserDaoImpl extends EntityDaoImpl<User> implements UserDao  {
-
 
     public UserDaoImpl() {
         super(User.class);

@@ -44,6 +44,6 @@ System has two authorization roles - **Basic User** and **Administrator**.
 
 # Diagrams
 ### Class 
-![Class Diagram](https://gitlab.fi.muni.cz/xslezar/pa165-movies-recommender-catalogue/-/raw/readme/documentation/MovieRecommenderEntity.jpg)
+![Class Diagram](https://gitlab.fi.muni.cz/xslezar/pa165-movies-recommender-catalogue/-/raw/milestone-1/documentation/MovieRecommenderEntity.jpg)
 ### Use case
-![Use Case Diagram](https://gitlab.fi.muni.cz/xslezar/pa165-movies-recommender-catalogue/-/raw/readme/documentation/movieRecommenderUseCase.png)
+![Use Case Diagram](https://gitlab.fi.muni.cz/xslezar/pa165-movies-recommender-catalogue/-/raw/milestone-1/documentation/movieRecommenderUseCase.png)

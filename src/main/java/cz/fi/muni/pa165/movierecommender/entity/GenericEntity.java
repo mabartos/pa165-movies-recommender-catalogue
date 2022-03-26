@@ -1,17 +1,19 @@
-package entity;
+package cz.fi.muni.pa165.movierecommender.entity;
 
 import jakarta.validation.constraints.NotNull;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import java.time.LocalTime;
+import javax.persistence.MappedSuperclass;
+import java.time.LocalDateTime;
 
 /**
  * @author Daniel Puchala
  */
+@MappedSuperclass
 public class GenericEntity {
 
     @Id
@@ -19,12 +21,12 @@ public class GenericEntity {
     private Long id;
 
     @NotNull
-    @Temporal(TemporalType.DATE)
-    private LocalTime createdAt;
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 
     @NotNull
-    @Temporal(TemporalType.DATE)
-    private LocalTime updatedAt;
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
 
 
     public Long getId() {
@@ -35,15 +37,11 @@ public class GenericEntity {
         this.id = id;
     }
 
-    public LocalTime getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public LocalTime getUpdatedAt() {
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalTime updatedAt) {
-        this.updatedAt = updatedAt;
     }
 }

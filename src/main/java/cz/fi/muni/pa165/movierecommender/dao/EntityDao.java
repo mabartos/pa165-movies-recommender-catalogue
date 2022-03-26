@@ -1,6 +1,6 @@
-package dao;
+package cz.fi.muni.pa165.movierecommender.dao;
 
-import entity.GenericEntity;
+import cz.fi.muni.pa165.movierecommender.entity.GenericEntity;
 
 import java.util.List;
 
@@ -12,6 +12,8 @@ public interface EntityDao<Entity extends GenericEntity> {
     void create(Entity entity);
 
     void delete(Entity entity);
+
+    void update(Entity entity);
 
     List<Entity> findAll();
 

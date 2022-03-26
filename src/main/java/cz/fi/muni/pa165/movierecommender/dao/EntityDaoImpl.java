@@ -1,6 +1,6 @@
-package dao;
+package cz.fi.muni.pa165.movierecommender.dao;
 
-import entity.GenericEntity;
+import cz.fi.muni.pa165.movierecommender.entity.GenericEntity;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -23,14 +23,22 @@ public abstract class EntityDaoImpl<Entity extends GenericEntity> implements Ent
         this.entityClass = entityClass;
     }
 
+    @Override
     public void create(Entity entity) {
         em.persist(entity);
     }
 
+    @Override
     public void delete(Entity entity) {
         em.remove(entity);
     }
 
+    @Override
+    public void update(Entity entity) {
+        em.merge(entity);
+    }
+
+    @Override
     public List<Entity> findAll() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Entity> query = cb.createQuery(entityClass);

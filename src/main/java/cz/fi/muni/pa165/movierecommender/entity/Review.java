@@ -5,13 +5,19 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 /**
- * @author Petr Slezar
+ * Entity that represents a review for a movie submitted by a particular user.
+ * Basically a join table symbolizing many-to-many relationship between user
+ * and a movie.
+ *
+ * @author Petr Slezar 485504@mail.muni.cz
  */
 @Entity
 @Table(name = "REVIEW")
 public class Review extends GenericEntity {
+
 
     @ManyToOne
     @NotNull
@@ -23,9 +29,17 @@ public class Review extends GenericEntity {
     @JoinColumn(name = "movie_id")
     private Movie movie;
 
+    /**
+     * The review can also contain user's text. However, only important parts are ratings.
+     * The text can be blank, but not null.
+     */
     @NotNull
     private String text;
 
+    /**
+     * All ratings are withing a whole number scale ranging from 1 to 10.
+     * Where 1 is the worst and 10 the best. The rating cannot be null.
+     */
     @NotNull
     @Min(1)
     @Max(10)
@@ -51,13 +65,14 @@ public class Review extends GenericEntity {
     @Max(10)
     private Integer actingRating;
 
-    /*
-    User for finding best movies in recommendation
+    /**
+     * Average rating is automatically calculated as (scriptR. + ideaR. + visualsEditR. + musicR. + actingR)/5
+     * It is crucial attribute for recommendation algorithm.
      */
     @NotNull
     @Min(1)
     @Max(10)
-    private Integer averageRating;
+    private Double averageRating;
 
     @ManyToOne(optional=false)
     @NotNull
@@ -136,5 +151,23 @@ public class Review extends GenericEntity {
 
     public void setAuthor(User author) {
         this.author = author;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Review review = (Review) o;
+        return user.equals(review.user) && movie.equals(review.movie) && text.equals(review.text)
+                && scriptRating.equals(review.scriptRating) && ideaRating.equals(review.ideaRating)
+                && visualsEditRating.equals(review.visualsEditRating) && musicRating.equals(review.musicRating)
+                && actingRating.equals(review.actingRating) && averageRating.equals(review.averageRating)
+                && author.equals(review.author);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(user, movie, text, scriptRating, ideaRating, visualsEditRating,
+                musicRating, actingRating, averageRating, author);
     }
 }

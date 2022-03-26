@@ -16,6 +16,7 @@ public interface UserDao extends EntityDao<User> {
      *
      * @param email Email of the wanted user
      * @return User with given email
+     * @throws IllegalArgumentException when email is null
      */
     User findByEmail(String email);
 
@@ -24,6 +25,7 @@ public interface UserDao extends EntityDao<User> {
      *
      * @param name Name of the wanted user
      * @return User with given name
+     * @throws IllegalArgumentException when name is null
      */
     User findByName(String name);
 }

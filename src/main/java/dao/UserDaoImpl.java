@@ -16,11 +16,15 @@ public class UserDaoImpl extends EntityDaoImpl<User> implements UserDao  {
 
     @Override
     public User findByEmail(String email) {
-        return em.find(User.class, email);
+        return em.createQuery("select u from User u where email = :email", User.class)
+                .setParameter("email", email)
+                .getSingleResult();
     }
 
     @Override
     public User findByName(String name) {
-        return em.find(User.class, name);
+        return em.createQuery("select u from User u where name = :name", User.class)
+                .setParameter("name", name)
+                .getSingleResult();
     }
 }

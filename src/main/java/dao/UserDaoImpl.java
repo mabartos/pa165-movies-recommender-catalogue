@@ -3,8 +3,6 @@ package dao;
 import entity.User;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 /**
  * @author Daniel Puchala
  */
@@ -12,8 +10,8 @@ import java.util.List;
 public class UserDaoImpl extends EntityDaoImpl<User> implements UserDao  {
 
 
-    public UserDaoImpl(Class<User> userClass) {
-        super(userClass);
+    public UserDaoImpl() {
+        super(User.class);
     }
 
     @Override

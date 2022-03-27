@@ -9,7 +9,7 @@ public class Movie extends GenericEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "movie", targetEntity = Review.class )
     Set<Review> reviews;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Person.class)
     @JoinColumn(name = "director_id")
     private Person director;
 

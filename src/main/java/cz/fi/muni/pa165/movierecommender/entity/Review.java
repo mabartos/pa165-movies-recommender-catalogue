@@ -19,12 +19,12 @@ import java.util.Objects;
 public class Review extends GenericEntity {
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = User.class)
     @NotNull
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = User.class)
     @NotNull
     @JoinColumn(name = "movie_id")
     private Movie movie;

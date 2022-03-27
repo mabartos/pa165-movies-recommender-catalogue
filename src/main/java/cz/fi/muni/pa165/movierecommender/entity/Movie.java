@@ -49,6 +49,9 @@ public class Movie extends GenericEntity {
             inverseJoinColumns = @JoinColumn(name = "person_id"))
     private Set<Person> actors;
 
+    @ManyToMany(mappedBy = "favoriteMovies")
+    Set<User> favorites;
+
     public Movie() {}
 
     public Person getDirector() {

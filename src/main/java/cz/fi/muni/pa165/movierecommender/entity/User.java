@@ -8,6 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -22,10 +25,15 @@ import java.util.Set;
 @Entity
 public class User extends GenericEntity {
 
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", targetEntity = Review.class)
     Set<Review> reviews;
 
+    @ManyToMany(fetch = FetchType.LAZY, targetEntity = Movie.class)
+    @JoinTable(
+            name = "favorite_movies",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "movie_id"))
+    Set<Movie> favoriteMovies;
 
     @NotNull(message = "Email cannot be null")
     @Column(unique = true)

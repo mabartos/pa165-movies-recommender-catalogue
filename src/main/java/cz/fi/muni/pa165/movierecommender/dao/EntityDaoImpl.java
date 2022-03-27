@@ -2,7 +2,9 @@ package cz.fi.muni.pa165.movierecommender.dao;
 
 import cz.fi.muni.pa165.movierecommender.entity.GenericEntity;
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -25,16 +27,35 @@ public abstract class EntityDaoImpl<Entity extends GenericEntity> implements Ent
 
     @Override
     public void create(Entity entity) {
+
+        if (entity == null) throw new IllegalArgumentException("Cannot create null entity");
+
+        if(entity.getId() != null && findById(entity.getId()) != null)
+            throw new EntityExistsException("Entity of type " + entityClass.getName() +
+                    " with id " + entity.getId() + " already exists");
+
         em.persist(entity);
     }
 
     @Override
     public void delete(Entity entity) {
+
+        if(entity == null) throw new IllegalArgumentException("Entity to delete is null");
+
+        if(entity.getId() != null && findById(entity.getId()) == null)
+            throw new EntityNotFoundException("Cannot delete non-existent entity");
+
         em.remove(entity);
     }
 
     @Override
     public void update(Entity entity) {
+
+        if(entity == null) throw new IllegalArgumentException("Entity to update is null");
+
+        if(entity.getId() != null && findById(entity.getId()) == null)
+            throw new EntityNotFoundException("Cannot update non-existent entity");
+
         em.merge(entity);
     }
 
@@ -50,10 +71,13 @@ public abstract class EntityDaoImpl<Entity extends GenericEntity> implements Ent
     }
 
     public Entity findById(Long id) {
+
+        if (id == null) throw new IllegalArgumentException("Id is null");
+
         return em.find(entityClass, id);
     }
 
-    public long count() {
+    public Long count() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> query = cb.createQuery(Long.class);
 

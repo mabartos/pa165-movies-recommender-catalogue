@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
+ * Implementation of {@link ReviewDao} interface.
+ *
  * @author Petr Slezar
  */
 @Repository

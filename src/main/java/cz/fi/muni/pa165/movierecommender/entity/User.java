@@ -1,7 +1,6 @@
 package cz.fi.muni.pa165.movierecommender.entity;
 
 import cz.fi.muni.pa165.movierecommender.enums.UserType;
-import jakarta.validation.constraints.NotNull;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;

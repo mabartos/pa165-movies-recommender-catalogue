@@ -1,6 +1,5 @@
 package cz.muni.pa165.movierecommender.test;
 
-import cz.fi.muni.pa165.movierecommender.dao.*;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -8,27 +7,29 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver;
 import org.springframework.instrument.classloading.LoadTimeWeaver;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
-import javax.sql.DataSource;
+import javax.persistence.EntityManagerFactory;
 
 
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories
-@ComponentScan(basePackageClasses = {EntityDao.class, PersonDao.class, ReviewDao.class,MovieDao.class,UserDao.class},
-        basePackages = "cz.fi.muni.pa165.movierecommender")
+@ComponentScan({"cz.fi.muni.pa165.movierecommender"})
 public class PersistenceTestApplicationContext {
 
     @Bean
     public JpaTransactionManager transactionManager() {
-        return new JpaTransactionManager(entityManagerFactory().getObject());
+        EntityManagerFactory factory = entityManagerFactory().getObject();
+        if (factory == null) {
+            throw new IllegalStateException("Entity manager factory bean not initialized. " +
+                    "Cannot create transaction manager bean.");
+        }
+        return new JpaTransactionManager();
     }
 
     /**
@@ -37,7 +38,7 @@ public class PersistenceTestApplicationContext {
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean jpaFactoryBean = new LocalContainerEntityManagerFactoryBean();
-        jpaFactoryBean.setDataSource(db());
+        jpaFactoryBean.setPersistenceUnitName("test"); // persistence unit name in persistence.xml
         jpaFactoryBean.setLoadTimeWeaver(instrumentationLoadTimeWeaver());
         jpaFactoryBean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
         return jpaFactoryBean;
@@ -54,9 +55,9 @@ public class PersistenceTestApplicationContext {
     }
 
     @Bean
-    public DataSource db() {
-        EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-        EmbeddedDatabase db = builder.setType(EmbeddedDatabaseType.DERBY).build();
-        return db;
+    public TransactionTemplate transactionTemplate() {
+        TransactionTemplate transaction = new TransactionTemplate(transactionManager());
+        transaction.afterPropertiesSet();
+        return transaction;
     }
 }

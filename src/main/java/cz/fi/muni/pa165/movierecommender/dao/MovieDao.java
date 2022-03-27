@@ -12,8 +12,9 @@ public interface MovieDao extends EntityDao<Movie> {
     /**
      * Find movies by name
      *
-     * @param name name to search for
+     * @param name Movie name to search for
      * @return list of movies
+     * @throws IllegalArgumentException if name is null
      */
     List<Movie> findByName(String name);
 

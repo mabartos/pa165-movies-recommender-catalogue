@@ -1,10 +1,12 @@
 package cz.fi.muni.pa165.movierecommender.entity;
 
+import cz.fi.muni.pa165.movierecommender.enums.Genre;
 import jakarta.validation.constraints.NotNull;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -12,35 +14,14 @@ import java.util.Set;
  */
 @Entity
 public class Movie extends GenericEntity {
-
-    enum Genre {
-        DRAMA,
-        COMEDY,
-        ACTION,
-        THRILLER,
-        ROMANCE,
-        HORROR,
-        CRIME,
-        ADVENTURE,
-        MYSTERY,
-        FAMILY,
-        FANTASY,
-        SCI_FI,
-        MUSIC,
-        ANIMATION,
-        BIOGRAPHY,
-        HISTORY,
-        WAR,
-        SPORT,
-        WESTERN,
-        SLICE_OF_LIFE
-    }
-
     @NotNull
     @Column(nullable = false)
     private String name;
 
-    private int runtimeMin;
+    /**
+     * Duration of the movie (in minutes)
+     */
+    private Integer duration;
 
     private String poster;
 
@@ -55,13 +36,13 @@ public class Movie extends GenericEntity {
     private Integer releaseYear;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "movie", targetEntity = Review.class )
-    Set<Review> reviews;
+    private Set<Review> reviews;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "director_id")
     private Person director;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "movie_actors",
             joinColumns = @JoinColumn(name = "movie_id"),
@@ -82,12 +63,12 @@ public class Movie extends GenericEntity {
         this.name = name;
     }
 
-    public int getRuntimeMin() {
-        return runtimeMin;
+    public Integer getDuration() {
+        return duration;
     }
 
-    public void setRuntimeMin(int runtimeMin) {
-        this.runtimeMin = runtimeMin;
+    public void setDuration(Integer duration) {
+        this.duration = duration;
     }
 
     public String getDescription() {
@@ -107,7 +88,7 @@ public class Movie extends GenericEntity {
     }
 
     public Set<Genre> getGenres() {
-        return genres;
+        return Optional.ofNullable(genres).orElseGet(HashSet::new);
     }
 
     public void setGenres(Set<Genre> genres) {
@@ -115,7 +96,7 @@ public class Movie extends GenericEntity {
     }
 
     public Set<Review> getReviews() {
-        return reviews;
+        return Optional.ofNullable(reviews).orElseGet(HashSet::new);
     }
 
     public void setReviews(Set<Review> reviews) {
@@ -127,7 +108,7 @@ public class Movie extends GenericEntity {
     }
 
     public Set<Person> getActors() {
-        return actors;
+        return Optional.ofNullable(actors).orElseGet(HashSet::new);
     }
 
     public void setActors(Set<Person> actors) {
@@ -142,31 +123,22 @@ public class Movie extends GenericEntity {
         this.poster = poster;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Movie movie)) return false;
+        if (!(o instanceof Movie)) return false;
+        Movie movie = (Movie) o;
+        return name.equals(movie.getName()) && duration.equals(movie.getDuration())
+                && poster.equals(movie.getPoster()) && genres.equals(movie.getGenres())
+                && description.equals(movie.getDescription()) && releaseYear.equals(movie.getReleaseYear())
+                && reviews.equals(movie.getReviews()) && director.equals(movie.getDirector())
+                && actors.equals(movie.getActors());
 
-        if (runtimeMin != movie.runtimeMin) return false;
-        if (!name.equals(movie.name)) return false;
-        if (!Objects.equals(genres, movie.genres)) return false;
-        if (!Objects.equals(description, movie.description)) return false;
-        if (!Objects.equals(releaseYear, movie.releaseYear)) return false;
-        if (!Objects.equals(reviews, movie.reviews)) return false;
-        if (!Objects.equals(director, movie.director)) return false;
-        return Objects.equals(actors, movie.actors);
     }
 
     @Override
     public int hashCode() {
-        int result = name.hashCode();
-        result = 31 * result + runtimeMin;
-        result = 31 * result + (genres != null ? genres.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (releaseYear != null ? releaseYear.hashCode() : 0);
-        result = 31 * result + (reviews != null ? reviews.hashCode() : 0);
-        result = 31 * result + (director != null ? director.hashCode() : 0);
-        result = 31 * result + (actors != null ? actors.hashCode() : 0);
-        return result;
+        return Objects.hash(name, duration, genres, description, releaseYear, reviews, director, actors);
     }
 }

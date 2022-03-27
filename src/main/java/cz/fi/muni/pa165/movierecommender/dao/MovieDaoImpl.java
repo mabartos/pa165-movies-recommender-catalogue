@@ -1,12 +1,14 @@
 package cz.fi.muni.pa165.movierecommender.dao;
 
 import cz.fi.muni.pa165.movierecommender.entity.Movie;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * @author Maxim Svistunov
  */
+@Repository
 public class MovieDaoImpl extends EntityDaoImpl<Movie> implements MovieDao {
 
     public MovieDaoImpl() {

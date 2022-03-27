@@ -55,6 +55,22 @@ public class User extends GenericEntity {
 
     private LocalDateTime lastOnline;
 
+    public void createReview(Review review) {
+        reviews.add(review);
+    }
+
+    public void deleteReview(Review review) {
+        reviews.remove(review);
+    }
+
+    public void addFavorite(Movie movie) {
+        favoriteMovies.add(movie);
+    }
+
+    public void removeFavorite(Movie movie) {
+        favoriteMovies.remove(movie);
+    }
+
     public String getEmail() {
         return email;
     }

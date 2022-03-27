@@ -52,4 +52,13 @@ public abstract class EntityDaoImpl<Entity extends GenericEntity> implements Ent
     public Entity findById(Long id) {
         return em.find(entityClass, id);
     }
+
+    public long count() {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Long> query = cb.createQuery(Long.class);
+
+        query.select(cb.count(query.from(entityClass)));
+
+        return em.createQuery(query).getSingleResult();
+    }
 }

@@ -6,8 +6,6 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Version;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -26,7 +24,6 @@ public class Person extends GenericEntity {
     private String name;
 
     @Column
-    @Temporal(TemporalType.DATE)
     private LocalDate birth;
 
     @Column

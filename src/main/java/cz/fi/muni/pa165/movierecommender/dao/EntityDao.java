@@ -18,4 +18,6 @@ public interface EntityDao<Entity extends GenericEntity> {
     List<Entity> findAll();
 
     Entity findById(Long id);
+
+    long count();
 }

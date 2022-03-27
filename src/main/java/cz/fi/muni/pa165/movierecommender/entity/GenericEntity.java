@@ -1,5 +1,6 @@
 package cz.fi.muni.pa165.movierecommender.entity;
 
+
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -28,7 +29,6 @@ public class GenericEntity {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-
     public Long getId() {
         return id;
     }
@@ -44,4 +44,5 @@ public class GenericEntity {
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
+
 }

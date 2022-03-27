@@ -1,6 +1,7 @@
-package dao;
+package cz.fi.muni.pa165.movierecommender.dao;
 
-import entity.User;
+import cz.fi.muni.pa165.movierecommender.entity.User;
+
 import org.springframework.stereotype.Repository;
 
 /**

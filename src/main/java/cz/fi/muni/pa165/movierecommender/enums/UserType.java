@@ -1,4 +1,4 @@
-package enums;
+package cz.fi.muni.pa165.movierecommender.enums;
 
 /**
  * @author Daniel Puchala

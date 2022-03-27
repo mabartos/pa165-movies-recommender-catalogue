@@ -2,11 +2,11 @@ package cz.fi.muni.pa165.movierecommender.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
+import javax.persistence.FetchType;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;

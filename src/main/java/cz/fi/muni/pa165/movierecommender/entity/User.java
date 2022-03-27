@@ -55,6 +55,23 @@ public class User extends GenericEntity {
 
     private LocalDateTime lastOnline;
 
+    public User() {
+
+    }
+
+    public User(Set<Review> reviews, Set<Movie> favoriteMovies, String email, String name, String passwordHash,
+                UserType userType, String avatar, String about, LocalDateTime lastOnline) {
+        this.reviews = reviews;
+        this.favoriteMovies = favoriteMovies;
+        this.email = email;
+        this.name = name;
+        this.passwordHash = passwordHash;
+        this.userType = userType;
+        this.avatar = avatar;
+        this.about = about;
+        this.lastOnline = lastOnline;
+    }
+
     public void createReview(Review review) {
         reviews.add(review);
     }

@@ -1,9 +1,9 @@
 package cz.fi.muni.pa165.movierecommender.entity;
 
 import cz.fi.muni.pa165.movierecommender.enums.Genre;
+import jakarta.validation.constraints.NotNull;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;

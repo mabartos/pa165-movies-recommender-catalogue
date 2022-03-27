@@ -1,6 +1,7 @@
 package cz.fi.muni.pa165.movierecommender.entity;
 
 import cz.fi.muni.pa165.movierecommender.enums.UserType;
+import jakarta.validation.constraints.NotNull;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;
@@ -54,6 +54,39 @@ public class User extends GenericEntity {
     private String about;
 
     private LocalDateTime lastOnline;
+
+    public User() {
+
+    }
+
+    public User(Set<Review> reviews, Set<Movie> favoriteMovies, String email, String name, String passwordHash,
+                UserType userType, String avatar, String about, LocalDateTime lastOnline) {
+        this.reviews = reviews;
+        this.favoriteMovies = favoriteMovies;
+        this.email = email;
+        this.name = name;
+        this.passwordHash = passwordHash;
+        this.userType = userType;
+        this.avatar = avatar;
+        this.about = about;
+        this.lastOnline = lastOnline;
+    }
+
+    public void createReview(Review review) {
+        reviews.add(review);
+    }
+
+    public void deleteReview(Review review) {
+        reviews.remove(review);
+    }
+
+    public void addFavorite(Movie movie) {
+        favoriteMovies.add(movie);
+    }
+
+    public void removeFavorite(Movie movie) {
+        favoriteMovies.remove(movie);
+    }
 
     public String getEmail() {
         return email;

@@ -1,4 +1,4 @@
-package cz.muni.pa165.movierecommender.test;
+package cz.fi.muni.pa165.movierecommender.test;
 
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.context.annotation.Bean;

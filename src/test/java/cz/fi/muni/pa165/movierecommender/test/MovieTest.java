@@ -1,4 +1,4 @@
-package cz.muni.pa165.movierecommender.test;
+package cz.fi.muni.pa165.movierecommender.test;
 
 import cz.fi.muni.pa165.movierecommender.dao.MovieDao;
 import cz.fi.muni.pa165.movierecommender.entity.Movie;

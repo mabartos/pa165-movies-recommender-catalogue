@@ -1,6 +1,6 @@
-package cz.muni.pa165.movierecommender.test.daos;
+package cz.fi.muni.pa165.movierecommender.test.daos;
 
-import cz.muni.pa165.movierecommender.test.PersistenceTestApplicationContext;
+import cz.fi.muni.pa165.movierecommender.test.PersistenceTestApplicationContext;
 import cz.fi.muni.pa165.movierecommender.dao.UserDao;
 import cz.fi.muni.pa165.movierecommender.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;

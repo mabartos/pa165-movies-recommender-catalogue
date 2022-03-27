@@ -22,8 +22,9 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories
-@ComponentScan(basePackageClasses = {EntityDao.class, PersonDao.class, ReviewDao.class,MovieDao.class,UserDao.class}, basePackages = "cz.fi.muni.pa165.movierecommender")
-public class PersistenceSampleApplicationContext {
+@ComponentScan(basePackageClasses = {EntityDao.class, PersonDao.class, ReviewDao.class,MovieDao.class,UserDao.class},
+        basePackages = "cz.fi.muni.pa165.movierecommender")
+public class PersistenceTestApplicationContext {
 
     @Bean
     public JpaTransactionManager transactionManager() {

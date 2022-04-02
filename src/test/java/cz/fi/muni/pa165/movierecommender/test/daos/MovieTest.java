@@ -1,8 +1,9 @@
-package cz.fi.muni.pa165.movierecommender.test;
+package cz.fi.muni.pa165.movierecommender.test.daos;
 
 import cz.fi.muni.pa165.movierecommender.dao.MovieDao;
 import cz.fi.muni.pa165.movierecommender.entity.Movie;
 import cz.fi.muni.pa165.movierecommender.enums.Genre;
+import cz.fi.muni.pa165.movierecommender.test.PersistenceTestApplicationContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;

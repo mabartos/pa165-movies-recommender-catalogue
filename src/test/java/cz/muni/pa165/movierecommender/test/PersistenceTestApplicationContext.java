@@ -68,7 +68,7 @@ public class PersistenceTestApplicationContext {
     @Bean
     public DataSource db() {
         EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-        EmbeddedDatabase db = builder.setType(EmbeddedDatabaseType.DERBY).build();
+        EmbeddedDatabase db = builder.setType(EmbeddedDatabaseType.H2).build();
         return db;
     }
 }

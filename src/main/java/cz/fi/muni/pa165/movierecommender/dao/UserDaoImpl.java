@@ -4,6 +4,8 @@ import cz.fi.muni.pa165.movierecommender.entity.User;
 
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * Implementation of {@link UserDao} interface.
  *
@@ -21,9 +23,12 @@ public class UserDaoImpl extends EntityDaoImpl<User> implements UserDao {
         if (email == null) {
             throw new IllegalArgumentException("Email cannot be null");
         }
-        return em.createQuery("select u from User u where email = :email", User.class)
+
+        final List<User> users = em.createQuery("select u from User u where u.email = :email", User.class)
                 .setParameter("email", email)
-                .getSingleResult();
+                .getResultList();
+
+        return users.isEmpty() ? null : users.get(0);
     }
 
     @Override
@@ -31,8 +36,11 @@ public class UserDaoImpl extends EntityDaoImpl<User> implements UserDao {
         if (name == null) {
             throw new IllegalArgumentException("Name cannot be null");
         }
-        return em.createQuery("select u from User u where name = :name", User.class)
+
+        final List<User> users = em.createQuery("select u from User u where u.name = :name", User.class)
                 .setParameter("name", name)
-                .getSingleResult();
+                .getResultList();
+
+        return users.isEmpty() ? null : users.get(0);
     }
 }

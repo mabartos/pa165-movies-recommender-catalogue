@@ -1,12 +1,14 @@
 package cz.fi.muni.pa165.movierecommender.dao;
 
 import cz.fi.muni.pa165.movierecommender.entity.GenericEntity;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
  * @author Daniel Puchala
  */
+@Transactional
 public interface EntityDao<Entity extends GenericEntity> {
 
     /**

@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Version;
 import javax.persistence.FetchType;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -37,9 +36,6 @@ public class Person extends GenericEntity {
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "actors", targetEntity = Movie.class)
     private Set<Movie> actedInMovies;
-
-    @Version
-    private int version;
 
     public Person() {
     }
@@ -100,13 +96,11 @@ public class Person extends GenericEntity {
         return getName().equals(person.getName()) &&
                 Objects.equals(getBirth(), person.getBirth()) &&
                 Objects.equals(getAbout(), person.getAbout()) &&
-                Objects.equals(getPicture(), person.getPicture()) &&
-                Objects.equals(getDirectedMovies(), person.getDirectedMovies()) &&
-                Objects.equals(getActedInMovies(), person.getActedInMovies());
+                Objects.equals(getPicture(), person.getPicture());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getBirth(), getAbout(), getPicture(), getDirectedMovies(), getActedInMovies());
+        return Objects.hash(getName(), getBirth(), getAbout(), getPicture());
     }
 }

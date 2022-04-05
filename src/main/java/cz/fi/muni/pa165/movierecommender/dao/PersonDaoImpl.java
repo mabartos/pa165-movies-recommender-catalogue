@@ -3,9 +3,6 @@ package cz.fi.muni.pa165.movierecommender.dao;
 import cz.fi.muni.pa165.movierecommender.entity.Person;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import java.util.List;
 
 /**
@@ -20,12 +17,8 @@ public class PersonDaoImpl extends EntityDaoImpl<Person> implements PersonDao {
 
     @Override
     public List<Person> findByName(String name) {
-        final CriteriaBuilder cb = em.getCriteriaBuilder();
-        final CriteriaQuery<Person> query = cb.createQuery(Person.class);
-        final Root<Person> person = query.from(Person.class);
-
-        query.select(person).where(cb.like(person.get(name), name));
-
-        return em.createQuery(query).getResultList();
+        return em.createQuery("select p from Person p where p.name like :name", Person.class)
+                .setParameter("name", name)
+                .getResultList();
     }
 }

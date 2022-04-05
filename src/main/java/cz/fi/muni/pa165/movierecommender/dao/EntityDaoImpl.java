@@ -45,7 +45,7 @@ public abstract class EntityDaoImpl<Entity extends GenericEntity> implements Ent
         if(entity.getId() != null && findById(entity.getId()) == null)
             throw new EntityNotFoundException("Cannot delete non-existent entity");
 
-        em.remove(entity);
+        em.remove(em.contains(entity) ? entity : em.merge(entity));
     }
 
     @Override
@@ -70,6 +70,7 @@ public abstract class EntityDaoImpl<Entity extends GenericEntity> implements Ent
         return em.createQuery(query).getResultList();
     }
 
+    @Override
     public Entity findById(Long id) {
 
         if (id == null) throw new IllegalArgumentException("Id is null");
@@ -77,6 +78,7 @@ public abstract class EntityDaoImpl<Entity extends GenericEntity> implements Ent
         return em.find(entityClass, id);
     }
 
+    @Override
     public Long count() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> query = cb.createQuery(Long.class);

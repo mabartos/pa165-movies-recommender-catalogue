@@ -13,6 +13,7 @@ import java.util.Set;
  * @author Maxim Svistunov
  */
 @Entity
+@Table(name = "MOVIES")
 public class Movie extends GenericEntity {
     @NotNull
     @Column(nullable = false)

@@ -6,7 +6,10 @@ import cz.fi.muni.pa165.movierecommender.enums.Genre;
 import cz.fi.muni.pa165.movierecommender.test.PersistenceTestApplicationContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.transaction.annotation.Transactional;
 import org.testng.annotations.Test;
 
 import java.util.HashSet;
@@ -20,7 +23,9 @@ import static org.testng.Assert.assertNotNull;
  * @author Martin Bartos
  */
 @ContextConfiguration(classes = PersistenceTestApplicationContext.class)
-public class MovieTest extends AbstractTransactionalTestNGSpringContextTests {
+@TestExecutionListeners(TransactionalTestExecutionListener.class)
+@Transactional
+public class MovieTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
     protected MovieDao movieDao;

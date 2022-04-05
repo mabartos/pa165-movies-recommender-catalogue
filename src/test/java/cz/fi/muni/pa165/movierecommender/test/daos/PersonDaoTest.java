@@ -7,7 +7,10 @@ import cz.fi.muni.pa165.movierecommender.enums.Genre;
 import cz.fi.muni.pa165.movierecommender.test.PersistenceTestApplicationContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.transaction.annotation.Transactional;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -24,6 +27,8 @@ import java.util.List;
  * @author Petr Slezar
  */
 @ContextConfiguration(classes = PersistenceTestApplicationContext.class)
+@TestExecutionListeners(TransactionalTestExecutionListener.class)
+@Transactional
 public class PersonDaoTest extends AbstractTestNGSpringContextTests {
 
     @PersistenceUnit
@@ -64,16 +69,16 @@ public class PersonDaoTest extends AbstractTestNGSpringContextTests {
 
 
         quentin = new Person();
-        tim.setName("Quentin Tarantino");
-        tim.setBirth(LocalDate.of(1963, Month.MARCH, 27));
-        tim.setAbout("About Quentin");
-        tim.setPicture("https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Quentin_Tarantino_by_Gage_Skidmore.jpg/225px-Quentin_Tarantino_by_Gage_Skidmore.jpg");
+        quentin.setName("Quentin Tarantino");
+        quentin.setBirth(LocalDate.of(1963, Month.MARCH, 27));
+        quentin.setAbout("About Quentin");
+        quentin.setPicture("https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Quentin_Tarantino_by_Gage_Skidmore.jpg/225px-Quentin_Tarantino_by_Gage_Skidmore.jpg");
 
         michael = new Person();
-        tim.setName("Michael Madsen");
-        tim.setBirth(LocalDate.of(1957, Month.SEPTEMBER, 25));
-        tim.setAbout("About Michael");
-        tim.setPicture("https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQ0-eFDys64AccHCm7s8vnoVwDFh95EFa56Gs2JPJAexGc_xNKb");
+        michael.setName("Michael Madsen");
+        michael.setBirth(LocalDate.of(1957, Month.SEPTEMBER, 25));
+        michael.setAbout("About Michael");
+        michael.setPicture("https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQ0-eFDys64AccHCm7s8vnoVwDFh95EFa56Gs2JPJAexGc_xNKb");
 
         reservoirdogs.setDirector(quentin);
         HashSet<Person> actors = new HashSet<>();
@@ -92,7 +97,6 @@ public class PersonDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findAll() {
-
         List<Person> obtained = repository.findAll();
 
         Assert.assertEquals(obtained.size(),3);
@@ -101,7 +105,6 @@ public class PersonDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findById() {
-
         Person obtained = repository.findById(quentin.getId());
 
         Assert.assertNotNull(obtained);
@@ -120,33 +123,24 @@ public class PersonDaoTest extends AbstractTestNGSpringContextTests {
     @Test
     public void create() {
         Person harvey = new Person();
-        tim.setName("Harvey Keitel");
-        tim.setBirth(LocalDate.of(1939, Month.MAY, 13));
-        tim.setAbout("About Harvey");
-        tim.setPicture("http://t0.gstatic.com/licensed-image?q=tbn:ANd9GcToz-PO-Dh-dy4OcPI4u_aKe4XLP_MIVbiZaxtrVD7-8qoW_rk0XzTsRh1mZHXT");
+        harvey.setName("Harvey Keitel");
+        harvey.setBirth(LocalDate.of(1939, Month.MAY, 13));
+        harvey.setAbout("About Harvey");
+        harvey.setPicture("http://t0.gstatic.com/licensed-image?q=tbn:ANd9GcToz-PO-Dh-dy4OcPI4u_aKe4XLP_MIVbiZaxtrVD7-8qoW_rk0XzTsRh1mZHXT");
         repository.create(harvey);
 
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        Person obtained = em.find(Person.class,harvey.getId());
-        em.getTransaction().commit();
-        em.close();
+        Person obtained = repository.findById(harvey.getId());
 
         Assert.assertNotNull(obtained);
-        Assert.assertEquals(obtained,harvey);
+        Assert.assertEquals(obtained, harvey);
     }
 
     @Test
     public void update() {
-
         quentin.setName("Tarantino Quentin");
         repository.update(quentin);
 
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        Person obtained = em.find(Person.class,quentin.getId());
-        em.getTransaction().commit();
-        em.close();
+        Person obtained = repository.findById(quentin.getId());
 
         Assert.assertNotNull(obtained);
         Assert.assertEquals(obtained.getName(),"Tarantino Quentin");
@@ -154,15 +148,10 @@ public class PersonDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void delete() {
-
         Long michaelId = michael.getId();
         repository.delete(michael);
 
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        Person obtained = em.find(Person.class,michaelId);
-        em.getTransaction().commit();
-        em.close();
+        Person obtained = repository.findById(michaelId);
 
         Assert.assertNull(obtained);
     }

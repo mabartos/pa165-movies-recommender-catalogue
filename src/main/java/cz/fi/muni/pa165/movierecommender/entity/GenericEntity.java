@@ -1,14 +1,12 @@
 package cz.fi.muni.pa165.movierecommender.entity;
 
-
-
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Version;
 import java.time.LocalDateTime;
 
 /**
@@ -18,16 +16,17 @@ import java.time.LocalDateTime;
 public class GenericEntity {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @NotNull
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @NotNull
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    @Version
+    private int version;
 
     public Long getId() {
         return id;

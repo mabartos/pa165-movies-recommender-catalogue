@@ -2,10 +2,10 @@ package cz.fi.muni.pa165.movierecommender.persistence.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.FetchType;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
@@ -91,7 +91,7 @@ public class Person extends GenericEntity {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Person person)) return false;
+        if (!(o instanceof final Person person)) return false;
 
         return getName().equals(person.getName()) &&
                 Objects.equals(getBirth(), person.getBirth()) &&

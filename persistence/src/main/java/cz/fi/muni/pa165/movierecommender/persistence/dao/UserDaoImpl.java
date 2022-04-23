@@ -43,4 +43,17 @@ public class UserDaoImpl extends EntityDaoImpl<User> implements UserDao {
 
         return users.isEmpty() ? null : users.get(0);
     }
+
+    @Override
+    public User findByReview(Long reviewId) {
+        if (reviewId == null) {
+            throw new IllegalArgumentException("Id cannot be null");
+        }
+
+        final List<User> users = em.createQuery("select r.user from Review r where r.id = :reviewId", User.class)
+                .setParameter("reviewId", reviewId)
+                .getResultList();
+
+        return users.isEmpty() ? null : users.get(0);
+    }
 }

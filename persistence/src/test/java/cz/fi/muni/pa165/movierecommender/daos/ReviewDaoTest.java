@@ -1,7 +1,10 @@
 package cz.fi.muni.pa165.movierecommender.daos;
 
 import cz.fi.muni.pa165.movierecommender.PersistenceTestApplicationContext;
+import cz.fi.muni.pa165.movierecommender.api.enums.UserType;
+import cz.fi.muni.pa165.movierecommender.persistence.dao.MovieDao;
 import cz.fi.muni.pa165.movierecommender.persistence.dao.ReviewDao;
+import cz.fi.muni.pa165.movierecommender.persistence.dao.UserDao;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Movie;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Review;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.User;
@@ -12,16 +15,15 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Ignore;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceUnit;
+import java.time.LocalDateTime;
 
 /**
  * Tests for {@link ReviewDao}
@@ -31,180 +33,150 @@ import javax.persistence.PersistenceUnit;
 @ContextConfiguration(classes = PersistenceTestApplicationContext.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
-@Ignore("Review in setup must be properly set up")
 public class ReviewDaoTest extends AbstractTestNGSpringContextTests {
 
     @PersistenceUnit
     private EntityManagerFactory emf;
 
     @Autowired
-    private ReviewDao dao;
+    private ReviewDao reviewDao;
 
-    @BeforeClass
+    @Autowired
+    private UserDao userDao;
+
+    @Autowired
+    private MovieDao movieDao;
+
+    Review review;
+    Movie movie;
+    User user;
+
+
+    @BeforeMethod
     public void setup() {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
+        user = new User("email", "name", "hash",
+                UserType.BASIC_USER, "avatar", "about", LocalDateTime.now());
+        movie = new Movie();
+        movie.setName("Name");
+        review = new Review(user, movie, "Desc", 10, 10,
+                10, 10, 10, 10.0);
 
-        Review review = new Review();
-        Review review2 = new Review();
-        Review review3 = new Review();
-
-        dao.create(review);
-        dao.create(review2);
-        dao.create(review3);
+        userDao.create(user);
+        movieDao.create(movie);
+        reviewDao.create(review);
     }
 
     @Test
     public void updateTest() {
-        Review review = new Review();
-        review.setText("");
-        dao.create(review);
         review.setText("Test");
-        dao.update(review);
-        Assert.assertEquals(dao.findById(review.getId()).getText(), "Test");
+        reviewDao.update(review);
+        Assert.assertEquals(reviewDao.findById(review.getId()).getText(), "Test");
     }
 
     @Test
     public void updateNonExisting() {
         Review review = new Review();
         review.setText("Test");
+        review.setId(2L);
         assertThatExceptionOfType(EntityNotFoundException.class)
-                .isThrownBy(() -> dao.update(review))
+                .isThrownBy(() -> reviewDao.update(review))
                 .withMessage("Cannot update non-existent entity");
     }
 
     @Test
     public void updateNullReview() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-                .isThrownBy(() -> dao.update(null))
+                .isThrownBy(() -> reviewDao.update(null))
                 .withMessage("Entity to update is null");
     }
 
     @Test
     public void delete() {
-        Review review = new Review();
-        dao.create(review);
-        dao.delete(review);
-        Assert.assertNull(dao.findById(review.getId()));
-        Assert.assertEquals(dao.findAll().size(), 3);
+        Review review2 = new Review(user, movie, "Desc", 10, 10,
+                10, 10, 10, 10.0);
+        reviewDao.create(review2);
+        Assert.assertEquals(reviewDao.findAll().size(), 2);
+
+        reviewDao.delete(review2);
+        Assert.assertNull(reviewDao.findById(review2.getId()));
+        Assert.assertEquals(reviewDao.findAll().size(), 1);
     }
 
     @Test
     public void deleteNonExisting() {
-        Review review = new Review();
+        Review review2 = new Review();
+        review2.setId(1L);
         assertThatExceptionOfType(EntityNotFoundException.class)
-                .isThrownBy(() -> dao.update(review))
+                .isThrownBy(() -> reviewDao.delete(review2))
                 .withMessage("Cannot delete non-existent entity");
     }
 
     @Test
     public void deleteNullReview() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-                .isThrownBy(() -> dao.update(null))
+                .isThrownBy(() -> reviewDao.delete(null))
                 .withMessage("Entity to delete is null");
     }
 
     @Test
     public void findAll() {
-        Assert.assertEquals(dao.findAll().size(), 3);
+        Assert.assertEquals(reviewDao.findAll().size(), 1);
     }
 
     @Test
     public void findById() {
         Review review = new Review();
-        dao.create(review);
-        Assert.assertEquals(dao.findById(review.getId()), review);
+        reviewDao.create(review);
+        Assert.assertEquals(reviewDao.findById(review.getId()), review);
     }
 
     @Test
     public void findByIdNull() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-                .isThrownBy(() -> dao.findById(null))
+                .isThrownBy(() -> reviewDao.findById(null))
                 .withMessage("Id is null");
     }
 
     @Test
     public void count() {
-        Assert.assertEquals(dao.count(), 3);
+        Assert.assertEquals(reviewDao.count(), 1);
     }
 
     @Test
     public void findByUser() {
-        User user = new User();
-
-        Review review = new Review();
-        review.setUser(user);
-        dao.create(review);
-
-        review = new Review();
-        review.setUser(user);
-        dao.create(review);
-
-        Assert.assertEquals(dao.findByUser(user).size(), 2);
+        assert(reviewDao.findByUser(user).contains(review));
     }
 
     @Test
     public void findByUserNull() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-                .isThrownBy(() -> dao.findByUser(null))
+                .isThrownBy(() -> reviewDao.findByUser(null))
                 .withMessage("User is null");
     }
 
     @Test
     public void findByMovie() {
-        Movie movie = new Movie();
-
-        Review review = new Review();
-        review.setMovie(movie);
-        dao.create(review);
-
-        review = new Review();
-        review.setMovie(movie);
-        dao.create(review);
-
-        Assert.assertEquals(dao.findByMovie(movie).size(), 2);
+        assert(reviewDao.findByMovie(movie).contains(review));
     }
 
     @Test
     public void findByMovieNull() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-                .isThrownBy(() -> dao.findByMovie(null))
+                .isThrownBy(() -> reviewDao.findByMovie(null))
                 .withMessage("Movie is null");
     }
 
     @Test
     public void findByMovieAndUser() {
-        Movie movie = new Movie();
-        User user = new User();
-
-        Review review = new Review();
-        review.setUser(user);
-        dao.create(review);
-
-        Review review2 = new Review();
-        review2.setMovie(movie);
-        dao.create(review2);
-
-        Review review3 = new Review();
-        review3.setUser(user);
-        review3.setMovie(movie);
-        dao.create(review3);
-
-        Assert.assertEquals(dao.findByMovieAndUser(movie, user), review3);
+        Assert.assertEquals(reviewDao.findByMovieAndUser(movie, user), review);
     }
 
-    @Test
-    public void findByMovieAndUserEmpty() {
-        Movie movie = new Movie();
-        User user = new User();
-        Assert.assertNull(dao.findByMovieAndUser(movie, user));
-    }
 
     @Test
     public void findByMovieAndUserNullUser() {
         Movie movie = new Movie();
         assertThatExceptionOfType(IllegalArgumentException.class)
-                .isThrownBy(() -> dao.findByMovieAndUser(movie,null))
+                .isThrownBy(() -> reviewDao.findByMovieAndUser(movie, null))
                 .withMessage("At least on argument is null");
     }
 
@@ -212,14 +184,14 @@ public class ReviewDaoTest extends AbstractTestNGSpringContextTests {
     public void findByMovieAndUserNullMovie() {
         User user = new User();
         assertThatExceptionOfType(IllegalArgumentException.class)
-                .isThrownBy(() -> dao.findByMovieAndUser(null, user))
+                .isThrownBy(() -> reviewDao.findByMovieAndUser(null, user))
                 .withMessage("At least on argument is null");
     }
 
     @Test
     public void findByMovieAndUserNullBoth() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-                .isThrownBy(() -> dao.findByMovieAndUser(null, null))
+                .isThrownBy(() -> reviewDao.findByMovieAndUser(null, null))
                 .withMessage("At least on argument is null");
     }
 }

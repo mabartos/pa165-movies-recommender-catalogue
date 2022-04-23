@@ -1,6 +1,7 @@
 package cz.fi.muni.pa165.movierecommender.persistence.dao;
 
 import cz.fi.muni.pa165.movierecommender.persistence.entity.User;
+import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 
 
@@ -29,4 +30,14 @@ public interface UserDao extends EntityDao<User> {
      * @throws IllegalArgumentException when name is null
      */
     User findByName(String name);
+
+    /**
+     * Finds a user who created given review
+     *
+     * @param reviewId ID of Review
+     * @return User who created given review
+     * @throws IllegalArgumentException when id is null
+     * @throws DataAccessException      when there is no review with such ID
+     */
+    User findByReview(Long reviewId);
 }

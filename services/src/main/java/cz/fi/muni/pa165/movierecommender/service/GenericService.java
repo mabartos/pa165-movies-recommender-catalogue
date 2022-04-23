@@ -5,7 +5,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Transactional
 public interface GenericService<Entity extends GenericEntity> {
 
     void create(Entity entity);

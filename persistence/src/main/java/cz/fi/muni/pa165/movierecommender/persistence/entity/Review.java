@@ -80,6 +80,19 @@ public class Review extends GenericEntity {
     public Review() {
     }
 
+    public Review(User user, Movie movie, String text, Integer scriptRating, Integer ideaRating, Integer visualsEditRating, Integer musicRating, Integer actingRating, Double averageRating) {
+        this.user = user;
+        this.author = user;
+        this.movie = movie;
+        this.text = text;
+        this.scriptRating = scriptRating;
+        this.ideaRating = ideaRating;
+        this.visualsEditRating = visualsEditRating;
+        this.musicRating = musicRating;
+        this.actingRating = actingRating;
+        this.averageRating = averageRating;
+    }
+
     public User getUser() {
         return user;
     }

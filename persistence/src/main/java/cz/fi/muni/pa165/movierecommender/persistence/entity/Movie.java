@@ -62,9 +62,6 @@ public class Movie extends GenericEntity {
             inverseJoinColumns = @JoinColumn(name = "person_id"))
     private Set<Person> actors;
 
-    @ManyToMany(mappedBy = "favoriteMovies")
-    Set<User> favorites;
-
     public Movie() {}
 
     public Person getDirector() {
@@ -150,7 +147,6 @@ public class Movie extends GenericEntity {
                 && description.equals(movie.getDescription()) && releaseYear.equals(movie.getReleaseYear())
                 && reviews.equals(movie.getReviews()) && director.equals(movie.getDirector())
                 && actors.equals(movie.getActors());
-
     }
 
     @Override

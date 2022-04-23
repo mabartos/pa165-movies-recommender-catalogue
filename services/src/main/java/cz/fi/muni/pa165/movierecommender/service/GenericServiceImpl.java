@@ -2,47 +2,47 @@ package cz.fi.muni.pa165.movierecommender.service;
 
 import cz.fi.muni.pa165.movierecommender.persistence.dao.EntityDao;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.GenericEntity;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.List;
 
-@Transactional
-public class GenericServiceImpl<Entity extends GenericEntity> implements GenericService<Entity> {
-    private final EntityDao<Entity> entityDao;
-
-    public GenericServiceImpl(EntityDao<Entity> entityDao) {
-        this.entityDao = entityDao;
-    }
+public abstract class GenericServiceImpl<Entity extends GenericEntity> implements GenericService<Entity> {
 
     @Override
     public void create(Entity entity) {
-        entityDao.create(entity);
+        if (entity == null) throw new IllegalArgumentException("Provided Entity is null");
+
+        getEntityDao().create(entity);
     }
 
     @Override
     public void delete(Entity entity) {
-        entityDao.delete(entity);
+        if (entity == null) throw new IllegalArgumentException("Provided Entity is null");
+
+        getEntityDao().delete(entity);
     }
 
     @Override
     public void update(Entity entity) {
-        entityDao.update(entity);
+        if (entity == null) throw new IllegalArgumentException("Provided Entity is null");
+
+        getEntityDao().update(entity);
     }
 
     @Override
     public List<Entity> findAll() {
-        return entityDao.findAll();
+        return getEntityDao().findAll();
     }
 
     @Override
     public Entity findById(Long id) {
-        return entityDao.findById(id);
+        return getEntityDao().findById(id);
     }
 
     @Override
     public Long getCount() {
-        return entityDao.count();
+        return getEntityDao().count();
     }
+
+    public abstract EntityDao<Entity> getEntityDao();
 }

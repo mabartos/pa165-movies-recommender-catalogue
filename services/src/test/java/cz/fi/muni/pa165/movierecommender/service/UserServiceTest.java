@@ -6,6 +6,7 @@ import cz.fi.muni.pa165.movierecommender.persistence.entity.Movie;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Review;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.User;
 import cz.fi.muni.pa165.movierecommender.service.config.ServiceConfiguration;
+import cz.fi.muni.pa165.movierecommender.service.service.UserService;
 import org.assertj.core.util.Arrays;
 
 import org.mockito.InjectMocks;
@@ -18,7 +19,6 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
@@ -44,7 +44,7 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests {
     @BeforeMethod
     public void setup() {
         user = new User("email", "name", "hash",
-                UserType.BASIC_USER, "avatar", "about", LocalDateTime.now());
+                UserType.BASIC_USER, "avatar", "about");
 
         Movie movie = new Movie();
         movie.setName("Movie");

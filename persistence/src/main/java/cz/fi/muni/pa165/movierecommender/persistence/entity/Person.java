@@ -1,5 +1,11 @@
 package cz.fi.muni.pa165.movierecommender.persistence.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,6 +22,11 @@ import java.util.Set;
  * @author Martin Bartos
  */
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = false)
+@AllArgsConstructor
 @Table(name = "PERSONS")
 public class Person extends GenericEntity {
 
@@ -37,70 +48,11 @@ public class Person extends GenericEntity {
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "actors", targetEntity = Movie.class)
     private Set<Movie> actedInMovies;
 
-    public Person() {
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public LocalDate getBirth() {
-        return birth;
-    }
-
-    public void setBirth(LocalDate birth) {
-        this.birth = birth;
-    }
-
-    public String getAbout() {
-        return about;
-    }
-
-    public void setAbout(String about) {
-        this.about = about;
-    }
-
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture;
-    }
-
     public Set<Movie> getDirectedMovies() {
         return Optional.ofNullable(directedMovies).orElseGet(HashSet::new);
     }
 
-    public void setDirectedMovies(Set<Movie> directedMovies) {
-        this.directedMovies = directedMovies;
-    }
-
     public Set<Movie> getActedInMovies() {
         return Optional.ofNullable(actedInMovies).orElseGet(HashSet::new);
-    }
-
-    public void setActedInMovies(Set<Movie> actedInMovies) {
-        this.actedInMovies = actedInMovies;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof final Person person)) return false;
-
-        return getName().equals(person.getName()) &&
-                Objects.equals(getBirth(), person.getBirth()) &&
-                Objects.equals(getAbout(), person.getAbout()) &&
-                Objects.equals(getPicture(), person.getPicture());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getName(), getBirth(), getAbout(), getPicture());
     }
 }

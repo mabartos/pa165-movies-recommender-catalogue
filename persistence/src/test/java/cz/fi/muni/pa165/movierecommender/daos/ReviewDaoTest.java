@@ -55,11 +55,18 @@ public class ReviewDaoTest extends AbstractTestNGSpringContextTests {
     @BeforeMethod
     public void setup() {
         user = new User("email", "name", "hash",
-                UserType.BASIC_USER, "avatar", "about", LocalDateTime.now());
+                UserType.BASIC_USER, "avatar", "about");
         movie = new Movie();
         movie.setName("Name");
-        review = new Review(user, movie, "Desc", 10, 10,
-                10, 10, 10, 10.0);
+        review = new Review();
+        review.setAuthor(user);
+        review.setMovie(movie);
+        review.setText("Desc");
+        review.setActingRating(10);
+        review.setIdeaRating(10);
+        review.setMusicRating(10);
+        review.setScriptRating(10);
+        review.setVisualsEditRating(10);
 
         userDao.create(user);
         movieDao.create(movie);
@@ -92,8 +99,16 @@ public class ReviewDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void delete() {
-        Review review2 = new Review(user, movie, "Desc", 10, 10,
-                10, 10, 10, 10.0);
+        Review review2 = new Review();
+        review.setAuthor(user);
+        review.setMovie(movie);
+        review.setText("Desc");
+        review.setActingRating(10);
+        review.setIdeaRating(10);
+        review.setMusicRating(10);
+        review.setScriptRating(10);
+        review.setVisualsEditRating(10);
+
         reviewDao.create(review2);
         Assert.assertEquals(reviewDao.findAll().size(), 2);
 

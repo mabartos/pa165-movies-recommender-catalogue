@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.movierecommender.persistence.mapper;
+package cz.fi.muni.pa165.movierecommender.service.mapper;
 
 import cz.fi.muni.pa165.movierecommender.api.dto.PersonDto;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Person;

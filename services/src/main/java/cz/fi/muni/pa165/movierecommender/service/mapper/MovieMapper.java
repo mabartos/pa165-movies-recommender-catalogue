@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.movierecommender.persistence.mapper;
+package cz.fi.muni.pa165.movierecommender.service.mapper;
 
 import cz.fi.muni.pa165.movierecommender.api.dto.MovieDto;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Movie;
@@ -9,4 +9,5 @@ public interface MovieMapper {
     Movie toModel(MovieDto dto);
 
     MovieDto toDto(Movie value);
+
 }

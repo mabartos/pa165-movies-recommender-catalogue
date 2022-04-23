@@ -1,8 +1,6 @@
-package cz.fi.muni.pa165.movierecommender.service;
+package cz.fi.muni.pa165.movierecommender.service.service;
 
 import cz.fi.muni.pa165.movierecommender.persistence.entity.User;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Daniel Puchala

@@ -1,5 +1,7 @@
 package cz.fi.muni.pa165.movierecommender.persistence.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.GeneratedValue;
@@ -12,36 +14,21 @@ import java.time.LocalDateTime;
 /**
  * @author Daniel Puchala
  */
+@Getter
+@Setter
 @MappedSuperclass
-public class GenericEntity {
+public abstract class GenericEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+    protected Long id;
 
     @CreationTimestamp
-    private LocalDateTime createdAt;
+    protected LocalDateTime createdAt;
 
     @UpdateTimestamp
-    private LocalDateTime updatedAt;
+    protected LocalDateTime updatedAt;
 
     @Version
-    private int version;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
+    protected int version;
 }

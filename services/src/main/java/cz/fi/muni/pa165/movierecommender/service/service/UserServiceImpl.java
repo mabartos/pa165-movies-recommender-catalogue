@@ -1,11 +1,10 @@
-package cz.fi.muni.pa165.movierecommender.service;
+package cz.fi.muni.pa165.movierecommender.service.service;
 
 import cz.fi.muni.pa165.movierecommender.persistence.dao.EntityDao;
 import cz.fi.muni.pa165.movierecommender.persistence.dao.UserDao;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Daniel Puchala
@@ -15,6 +14,10 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
 
     @Autowired
     private UserDao userDao;
+
+    public UserServiceImpl(EntityDao<User> entityDao, Class<User> userClass) {
+        super(entityDao, userClass);
+    }
 
     @Override
     public User findByEmail(String email) {

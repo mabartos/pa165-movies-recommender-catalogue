@@ -1,6 +1,7 @@
 package cz.fi.muni.pa165.movierecommender.persistence.dao;
 
 import cz.fi.muni.pa165.movierecommender.persistence.entity.GenericEntity;
+import org.springframework.data.repository.NoRepositoryBean;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
@@ -14,6 +15,7 @@ import java.util.List;
 /**
  * @author Daniel Puchala
  */
+@NoRepositoryBean
 public abstract class EntityDaoImpl<Entity extends GenericEntity> implements EntityDao<Entity> {
 
     @PersistenceContext

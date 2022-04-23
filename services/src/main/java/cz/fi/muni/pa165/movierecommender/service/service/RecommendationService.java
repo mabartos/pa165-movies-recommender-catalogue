@@ -13,7 +13,6 @@ import java.util.List;
  * @author Petr Šlézar | xslezar@mail.muni.cz
  */
 @Service
-@Transactional
 public interface RecommendationService {
 
     /**

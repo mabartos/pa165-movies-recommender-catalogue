@@ -1,15 +1,14 @@
 package cz.fi.muni.pa165.movierecommender.service.service;
 
-import cz.fi.muni.pa165.movierecommender.api.dto.GenericEntityDto;
+
 import cz.fi.muni.pa165.movierecommender.persistence.dao.EntityDao;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.GenericEntity;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.BadArgumentException;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.MissingEntityException;
-import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.List;
 
-@Transactional
 public interface GenericService<Entity extends GenericEntity> {
 
     /**
@@ -61,8 +60,8 @@ public interface GenericService<Entity extends GenericEntity> {
     Long getCount();
 
     /**
-     *
      * @return dao object of given entity
      */
     EntityDao<Entity> getEntityDao();
+
 }

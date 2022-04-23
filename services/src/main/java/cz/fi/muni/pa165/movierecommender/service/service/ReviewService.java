@@ -17,7 +17,7 @@ public interface ReviewService extends GenericService<Review>{
     /**
      * Find all reviews created by a specific 'user'
      *
-     * @param user required movie which review is to be found
+     * @param user  whose reviews are to be found
      * @return list of reviews
      * @throws BadArgumentException when user parameter is null
      */
@@ -26,7 +26,7 @@ public interface ReviewService extends GenericService<Review>{
     /**
      * Find all reviews related to a given 'movie'
      *
-     * @param movie required movie which review is to be found
+     * @param movie movie which reviews are to be found
      * @return list of reviews
      * @throws BadArgumentException when movie parameter is null
      */

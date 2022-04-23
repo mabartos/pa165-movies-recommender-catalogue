@@ -6,8 +6,9 @@ import lombok.EqualsAndHashCode;
 
 import javax.validation.constraints.NotNull;
 
+@EqualsAndHashCode(callSuper = false)
 @Data
-public class ReviewUpdateDto extends ReviewCreateDto {
+public class ReviewUpdateDto extends ReviewCreateDto implements UpdateDto {
 
     @NotNull
     private Long id;

@@ -7,12 +7,14 @@ import cz.fi.muni.pa165.movierecommender.persistence.entity.Movie;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Person;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.BadArgumentException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@Service
 public class RecommendationServiceSimpleImpl implements RecommendationService{
 
     private final MovieDao movieDao;

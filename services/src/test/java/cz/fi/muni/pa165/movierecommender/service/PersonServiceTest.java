@@ -1,6 +1,6 @@
 package cz.fi.muni.pa165.movierecommender.service;
 
-import cz.fi.muni.pa165.movierecommender.api.enums.Genre;
+import cz.fi.muni.pa165.movierecommender.persistence.enums.Genre;
 import cz.fi.muni.pa165.movierecommender.persistence.dao.PersonDao;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Movie;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Person;

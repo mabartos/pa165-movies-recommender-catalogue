@@ -7,6 +7,16 @@ import cz.fi.muni.pa165.movierecommender.service.service.GenericService;
 import org.springframework.transaction.annotation.Transactional;
 
 
+/**
+ * @author Petr Šlézar
+ *
+ * General abstract facade class. Note: each facade must implement its own version of service(), mapToEntity()
+ * and merge with entity!
+ *
+ * @param <ENTITY> of type GenericEntity related to the facade
+ * @param <CREATE_DTO> of type CreateDTO used for creating new entities
+ * @param <UPDATE_DTO> of type UpdateDTO used for updating existing entities
+ */
 public abstract class GenericFacadeImpl
         <ENTITY extends GenericEntity,
         CREATE_DTO extends CreateDto,
@@ -43,9 +53,9 @@ public abstract class GenericFacadeImpl
     }
 
     /**
-     * Obtain service.
+     * Obtain the main service of the facade
      *
-     * @return Facade related repository.
+     * @return Facade related service.
      */
     protected abstract GenericService<ENTITY> service();
 

@@ -7,6 +7,12 @@ import cz.fi.muni.pa165.movierecommender.service.service.exception.BadArgumentEx
 
 import java.util.List;
 
+/**
+ * @author Petr Šlézar
+ *
+ * A facade used for operations for review.
+ *
+ */
 public interface ReviewFacade extends GenericFacade<ReviewCreateDto, ReviewUpdateDto>{
 
     /**

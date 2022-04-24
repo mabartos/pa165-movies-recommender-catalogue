@@ -3,6 +3,11 @@ package cz.fi.muni.pa165.movierecommender.api.dto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+/**
+ * @author Petr Šlézar
+ *
+ * A Review DTO for server's respose to GET
+ */
 @EqualsAndHashCode(callSuper = false)
 @Data
 public class ReviewDto extends GenericEntityDto {

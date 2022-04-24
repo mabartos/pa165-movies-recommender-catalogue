@@ -1,7 +1,7 @@
 package cz.fi.muni.pa165.movierecommender.daos;
 
 import cz.fi.muni.pa165.movierecommender.PersistenceTestApplicationContext;
-import cz.fi.muni.pa165.movierecommender.api.enums.Genre;
+import cz.fi.muni.pa165.movierecommender.persistence.enums.Genre;
 import cz.fi.muni.pa165.movierecommender.persistence.dao.PersonDao;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Movie;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Person;
@@ -40,7 +40,6 @@ public class PersonDaoTest extends AbstractTestNGSpringContextTests {
     private Person tim;
     private Person quentin;
     private Person michael;
-    private Movie reservoirdogs;
 
     @BeforeClass
     public void setup() {
@@ -48,7 +47,7 @@ public class PersonDaoTest extends AbstractTestNGSpringContextTests {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
 
-        reservoirdogs = new Movie();
+        Movie reservoirdogs = new Movie();
         reservoirdogs.setName("Reservoir Dogs");
         reservoirdogs.setDescription("Tarantino's first really successful film");
         reservoirdogs.setDuration(120);

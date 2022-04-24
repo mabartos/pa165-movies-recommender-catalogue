@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.movierecommender.api.enums;
+package cz.fi.muni.pa165.movierecommender.persistence.enums;
 
 /**
  * @author Maxim Svistunov

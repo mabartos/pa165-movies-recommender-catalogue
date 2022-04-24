@@ -1,5 +1,25 @@
 package cz.fi.muni.pa165.movierecommender.api.dto.account;
 
-// TODO
-public class UserCreateDto {
+import cz.fi.muni.pa165.movierecommender.api.dto.create.CreateDto;
+import lombok.Data;
+
+import javax.validation.constraints.NotNull;
+
+@Data
+public class UserCreateDto implements CreateDto {
+
+    @NotNull
+    private String email;
+
+    @NotNull
+    private String name;
+
+    @NotNull
+    private String passwordHash;
+
+    private String userType;
+
+    private String avatar;
+
+    private String about;
 }

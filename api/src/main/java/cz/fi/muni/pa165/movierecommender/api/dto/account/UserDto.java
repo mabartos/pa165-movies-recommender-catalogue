@@ -11,9 +11,6 @@ public class UserDto {
         private String email;
         private String name;
         private String passwordHash;
-        /**
-         *   BASIC_USER / ADMIN
-         */
         private String userType;
         private String avatar;
         private String about;

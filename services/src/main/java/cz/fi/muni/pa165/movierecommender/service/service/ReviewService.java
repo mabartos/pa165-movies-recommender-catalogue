@@ -8,11 +8,6 @@ import cz.fi.muni.pa165.movierecommender.service.service.exception.BadArgumentEx
 
 import java.util.List;
 
-/**
- * @author Petr Šlézar
- *
- * A service mainly used for finding reviews based on different criteriea. All other functionality in generic service.
- */
 @Service
 public interface ReviewService extends GenericService<Review>{
 

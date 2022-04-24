@@ -14,20 +14,14 @@ import cz.fi.muni.pa165.movierecommender.service.service.MovieService;
 import cz.fi.muni.pa165.movierecommender.service.service.ReviewService;
 import cz.fi.muni.pa165.movierecommender.service.service.UserService;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.BadArgumentException;
-import cz.fi.muni.pa165.movierecommender.service.service.exception.MissingEntityException;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * @author Petr Šlézar
- *
- */
 @Service
 public class ReviewFacadeImpl extends GenericFacadeImpl<Review, ReviewCreateDto, ReviewUpdateDto> implements ReviewFacade {
 

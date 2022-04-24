@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * @author Daniel Puchala
@@ -31,4 +32,17 @@ public abstract class GenericEntity {
 
     @Version
     protected int version;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof GenericEntity)) return false;
+        GenericEntity that = (GenericEntity) o;
+        return getId().equals(that.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
 }

@@ -10,6 +10,4 @@ public interface UserService extends GenericService<User> {
     User findByEmail(String email);
 
     User findByName(String name);
-
-    User findByReview(Long reviewId);
 }

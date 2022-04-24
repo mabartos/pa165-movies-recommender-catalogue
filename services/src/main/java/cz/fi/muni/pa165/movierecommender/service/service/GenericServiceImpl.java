@@ -26,6 +26,9 @@ public abstract  class GenericServiceImpl<Entity extends GenericEntity> implemen
     public void create(Entity entity) {
         if (entity == null) throw new BadArgumentException("Provided Entity is null");
 
+        Entity fromDb = entityDao.findById(entity.getId());
+        if (fromDb != null) throw new BadArgumentException("Provided Entity already exists");
+
         entityDao.create(entity);
     }
 

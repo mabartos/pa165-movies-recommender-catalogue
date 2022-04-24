@@ -1,130 +1,147 @@
 package cz.fi.muni.pa165.movierecommender.service;
 
-import cz.fi.muni.pa165.movierecommender.persistence.enums.UserType;
 import cz.fi.muni.pa165.movierecommender.persistence.dao.UserDao;
-import cz.fi.muni.pa165.movierecommender.persistence.entity.Movie;
-import cz.fi.muni.pa165.movierecommender.persistence.entity.Review;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.User;
-import cz.fi.muni.pa165.movierecommender.service.config.ServiceConfiguration;
 import cz.fi.muni.pa165.movierecommender.service.service.UserService;
+import cz.fi.muni.pa165.movierecommender.service.service.UserServiceImpl;
+import cz.fi.muni.pa165.movierecommender.service.service.exception.BadArgumentException;
+import cz.fi.muni.pa165.movierecommender.service.service.exception.MissingEntityException;
+import org.assertj.core.api.Assertions;
 import org.assertj.core.util.Arrays;
 
-import org.mockito.InjectMocks;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
-import static org.mockito.Mockito.when;
 import static org.testng.AssertJUnit.assertEquals;
 
 /**
  * @author Daniel Puchala
  */
-@ContextConfiguration(classes = ServiceConfiguration.class)
-public class UserServiceTest extends AbstractTestNGSpringContextTests {
+@ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
+public class UserServiceTest extends ServiceTestBase {
 
     @Mock
     private UserDao userDao;
 
-    @Autowired
-    @InjectMocks
-    private UserService userService;
+    UserService service;
 
-    private User user;
-    private Review review;
-
-    @BeforeMethod
-    public void setup() {
-        user = new User("email", "name", "hash",
-                UserType.BASIC_USER, "avatar", "about");
-
-        Movie movie = new Movie();
-        movie.setName("Movie");
-        movie.setDescription("Movie description");
-
-        review = new Review();
-        review.setUser(user);
-        review.setMovie(movie);
-        review.setText("Very good movie");
-        review.setId(1L);
-
-        MockitoAnnotations.openMocks(this);
-        when(userDao.findById(99L)).thenReturn(user);
-        when(userDao.findByEmail("email@mail.muni.cz")).thenReturn(user);
-        when(userDao.findByName("xpuchal1")).thenReturn(user);
-        when(userDao.findByReview(review.getId())).thenReturn(user);
-        when(userDao.findAll()).thenReturn(java.util.Arrays.stream(Arrays.array(user)).toList());
+    @Override
+    protected void assignService() {
+        service = new UserServiceImpl(userDao);
     }
 
-    @Test
-    public void findByEmailTest() {
-        assertEquals(user, userService.findByEmail("email@mail.muni.cz"));
-    }
-
-    @Test
-    public void findByNameTest() {
-        assertEquals(user, userService.findByName("xpuchal1"));
-    }
-
-    @Test
-    public void findByReviewTest() {
-        assertEquals(user, userService.findByReview(review.getId()));
+    @Override
+    protected void mockRepositoryMethods() {
+        Mockito.when(userDao.findByEmail("email@mail.muni.cz")).thenReturn(MockedEntities.HONZA);
+        Mockito.when(userDao.findByName("xpuchal1")).thenReturn(MockedEntities.KAREL);
+        Mockito.when(userDao.findByReview(MockedEntities.KAREL_PULP_REVIEW.getId())).thenReturn(MockedEntities.KAREL);
+        Mockito.when(userDao.findAll()).thenReturn(java.util.Arrays.stream(Arrays.array(MockedEntities.HONZA)).toList());
+        Mockito.when(userDao.findById(MockedEntities.PEPA.getId())).thenReturn(MockedEntities.PEPA);
     }
 
     @Test
     public void createTest() {
-        userService.create(user);
-        Mockito.verify(userDao, Mockito.times(1)).create(user);
+        service.create(MockedEntities.NON_EXISTENT_USER);
+        Mockito.verify(userDao, Mockito.times(1)).create(MockedEntities.NON_EXISTENT_USER);
     }
 
-    //TODO exception
     @Test
     public void createNull() {
-        assertThatExceptionOfType(IllegalArgumentException.class)
-                .isThrownBy(() -> userService.create(null))
+        assertThatExceptionOfType(BadArgumentException.class)
+                .isThrownBy(() -> service.create(null))
                 .withMessage("Provided Entity is null");
+    }
+
+    @Test
+    public void createExisting() {
+        Assertions.assertThatThrownBy(() -> service.create(MockedEntities.PEPA)).isInstanceOf(BadArgumentException.class);
     }
 
     @Test
     public void updateTest() {
-        user.setUserType(UserType.ADMIN);
-        userService.update(user);
-        Mockito.verify(userDao, Mockito.times(1)).update(user);
+        User entityToUpdate = new User(MockedEntities.PEPA.getEmail(), MockedEntities.PEPA.getName(),
+                MockedEntities.PEPA.getPasswordHash(), MockedEntities.PEPA.getUserType(),
+                MockedEntities.PEPA.getAvatar(), "Some other about");
+        entityToUpdate.setId(MockedEntities.PEPA.getId());
+        service.update(entityToUpdate);
+        Mockito.verify(userDao, Mockito.times(1)).update(entityToUpdate);
     }
 
-    //TODO exception
     @Test
     public void updateNull() {
-        assertThatExceptionOfType(IllegalArgumentException.class)
-                .isThrownBy(() -> userService.update(null))
+        assertThatExceptionOfType(BadArgumentException.class)
+                .isThrownBy(() -> service.update(null))
                 .withMessage("Provided Entity is null");
+    }
+
+    @Test
+    public void updateNonExistent() {
+        Assertions.assertThatThrownBy(() -> service.update(MockedEntities.NON_EXISTENT_USER)).isInstanceOf(MissingEntityException.class);
     }
 
     @Test
     public void deleteTest() {
-        userService.delete(user);
-        Mockito.verify(userDao, Mockito.times(1)).delete(user);
+        service.delete(MockedEntities.PEPA);
+        Mockito.verify(userDao, Mockito.times(1)).delete(MockedEntities.PEPA);
     }
 
-    //TODO exception
     @Test
     public void deleteNull() {
-        assertThatExceptionOfType(IllegalArgumentException.class)
-                .isThrownBy(() -> userService.delete(null))
+        assertThatExceptionOfType(BadArgumentException.class)
+                .isThrownBy(() -> service.delete(null))
                 .withMessage("Provided Entity is null");
     }
 
     @Test
+    public void deleteNonExistent() {
+        Assertions.assertThatThrownBy(() -> service.delete(MockedEntities.NON_EXISTENT_USER)).isInstanceOf(MissingEntityException.class);
+    }
+
+    @Test
+    public void findById() {
+        User fromRepository = service.findById(MockedEntities.PEPA.getId());
+        Assertions.assertThat(fromRepository).isNotNull();
+        Assertions.assertThat(fromRepository).usingRecursiveComparison().isEqualTo(MockedEntities.PEPA);
+    }
+
+    @Test
+    public void findByIdNull() {
+        Assertions.assertThatThrownBy(() -> service.findById(null)).isInstanceOf(BadArgumentException.class);
+    }
+
+    @Test
     public void findAllTest() {
-        List<User> userList = userService.findAll();
+        List<User> userList = service.findAll();
         assertEquals(1, userList.size());
+    }
+
+
+    @Test
+    public void findByEmailTest() {
+        assertEquals(MockedEntities.HONZA, service.findByEmail("email@mail.muni.cz"));
+    }
+
+    @Test
+    public void findByEmailNull() {
+        Assertions.assertThatThrownBy(() -> service.findByEmail(null)).isInstanceOf(BadArgumentException.class);
+    }
+
+    @Test
+    public void findByNameTest() {
+        assertEquals(MockedEntities.KAREL, service.findByName("xpuchal1"));
+    }
+
+    @Test
+    public void findByNameNull() {
+        Assertions.assertThatThrownBy(() -> service.findByName(null)).isInstanceOf(BadArgumentException.class);
     }
 }

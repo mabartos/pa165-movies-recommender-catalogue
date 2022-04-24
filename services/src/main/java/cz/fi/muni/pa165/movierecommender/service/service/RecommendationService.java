@@ -11,7 +11,6 @@ import java.util.List;
  *
  * @author Petr Šlézar
  */
-@Service
 public interface RecommendationService {
 
     /**

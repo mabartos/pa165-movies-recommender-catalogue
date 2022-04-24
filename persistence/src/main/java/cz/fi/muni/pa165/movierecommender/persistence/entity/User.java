@@ -17,6 +17,7 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -30,7 +31,6 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
 @ToString
 @Table(name = "USERS")
 public class User extends GenericEntity {
@@ -64,4 +64,17 @@ public class User extends GenericEntity {
         reviews.remove(review);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        if (!super.equals(o)) return false;
+        User user = (User) o;
+        return Objects.equals(email, user.email) && Objects.equals(name, user.name) && Objects.equals(passwordHash, user.passwordHash) && userType == user.userType && Objects.equals(avatar, user.avatar) && Objects.equals(about, user.about);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), email, name, passwordHash, userType, avatar, about);
+    }
 }

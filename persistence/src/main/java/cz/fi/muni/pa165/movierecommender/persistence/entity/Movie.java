@@ -24,6 +24,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -32,7 +33,6 @@ import java.util.Set;
  */
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper = false)
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -87,4 +87,17 @@ public class Movie extends GenericEntity {
         return Optional.ofNullable(actors).orElseGet(HashSet::new);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Movie)) return false;
+        if (!super.equals(o)) return false;
+        Movie movie = (Movie) o;
+        return Objects.equals(name, movie.name) && Objects.equals(duration, movie.duration) && Objects.equals(poster, movie.poster) && Objects.equals(genres, movie.genres) && Objects.equals(description, movie.description) && Objects.equals(releaseYear, movie.releaseYear)  && Objects.equals(director, movie.director);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), name, duration, poster, genres, description, releaseYear, director);
+    }
 }

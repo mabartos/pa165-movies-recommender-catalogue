@@ -55,19 +55,26 @@ public abstract class ServiceTest {
         MockedEntities.QUENTIN.setId(1L);
         MockedEntities.TIM.setId(2L);
         MockedEntities.TERRY.setId(3L);
+        MockedEntities.NON_EXISTENT_PERSON.setId(Long.valueOf(MockedEntities.NON_EXISTENT_ID));
 
         MockedEntities.RESERVOIR_DOGS.setId(1L);
         MockedEntities.PULP_FICTION.setId(2L);
         MockedEntities.MONTY_PYTHON.setId(3L);
+        MockedEntities.NON_EXISTENT_MOVIE.setId(Long.valueOf(MockedEntities.NON_EXISTENT_ID));
+
 
         MockedEntities.PEPA.setId(1L);
         MockedEntities.HONZA.setId(2L);
         MockedEntities.KAREL.setId(3L);
+        MockedEntities.NON_EXISTENT_USER.setId(Long.valueOf(MockedEntities.NON_EXISTENT_ID));
+
 
         MockedEntities.PEPA_RESERVOIR_REVIEW.setId(1L);
         MockedEntities.HONZA_RESERVOIR_REVIEW.setId(2L);
         MockedEntities.KAREL_PULP_REVIEW.setId(3L);
         MockedEntities.PEPA_MONTY_REVIEW.setId(4L);
+        MockedEntities.NON_EXISTENT_REVIEW.setId(Long.valueOf(MockedEntities.NON_EXISTENT_ID));
+
 
         MockedEntities.QUENTIN.setActedInMovies(new HashSet<Movie>(List.of(MockedEntities.PULP_FICTION,MockedEntities.RESERVOIR_DOGS)));
         MockedEntities.TIM.setActedInMovies(new HashSet<Movie>(List.of(MockedEntities.PULP_FICTION,MockedEntities.RESERVOIR_DOGS)));
@@ -114,18 +121,21 @@ public abstract class ServiceTest {
         public static Movie PULP_FICTION = new Movie("Pulp fiction",120,"pulp fiction poster",
                 new HashSet<Genre>(List.of(new Genre[]{Genre.ACTION, Genre.CRIME, Genre.THRILLER, Genre.SLICE_OF_LIFE})),
                 "About Pulp Fiction",1994,Collections.emptySet(),QUENTIN,Collections.emptySet());
-        public static Movie NON_EXISTENT = new Movie(NON_EXISTENT_NAME,1,"Non existent poster",
+        public static Movie NON_EXISTENT_MOVIE = new Movie(NON_EXISTENT_NAME,1,"Non existent poster",
                 Collections.emptySet(),
                 "About non existent movie",2000, Collections.emptySet(),NON_EXISTENT_PERSON,Collections.emptySet());
 
         public static User PEPA = new User("pepa@email.com","Pepa","pepovoheslo", UserType.BASIC_USER,"avatar","o pepovi");
         public static User HONZA = new User("honza@email.com","Honza","honzovoheslo", UserType.BASIC_USER,"avatar","o honzovi");
         public static User KAREL = new User("karel@email.com","Karel","karlovoheslo", UserType.ADMIN,"avatar","o karlovi");
+        public static User NON_EXISTENT_USER = new User("nejsem@email.com","Nic","zadny", UserType.BASIC_USER,"zadny","nic");
+
 
         public static Review PEPA_RESERVOIR_REVIEW = new Review(PEPA,RESERVOIR_DOGS,"Fakt nuda, jsem tupa opice",1,2,3,4,5);
         public static Review HONZA_RESERVOIR_REVIEW = new Review(HONZA,RESERVOIR_DOGS,"Libily se mi tam ty zbraně lol",3,5,3,5,5);
         public static Review KAREL_PULP_REVIEW = new Review(KAREL,PULP_FICTION,"Jsem sofistikovany normie, takže nic pro me",1,1,6,9,1);
         public static Review PEPA_MONTY_REVIEW = new Review(PEPA,MONTY_PYTHON,"Fakt prdel, lol",10,10,10,10,10);
+        public static Review NON_EXISTENT_REVIEW = new Review(NON_EXISTENT_USER,NON_EXISTENT_MOVIE,"Nic",10,10,10,10,10);
 
     }
 

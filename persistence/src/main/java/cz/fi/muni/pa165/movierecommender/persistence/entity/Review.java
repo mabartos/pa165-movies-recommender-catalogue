@@ -11,6 +11,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 
 /**
@@ -22,7 +23,6 @@ import javax.validation.constraints.NotNull;
  */
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper = false)
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
@@ -75,4 +75,18 @@ public class Review extends GenericEntity {
     @Min(1)
     @Max(10)
     private Integer actingRating;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Review)) return false;
+        if (!super.equals(o)) return false;
+        Review review = (Review) o;
+        return Objects.equals(user, review.user) && Objects.equals(movie, review.movie) && Objects.equals(text, review.text) && Objects.equals(scriptRating, review.scriptRating) && Objects.equals(ideaRating, review.ideaRating) && Objects.equals(visualsEditRating, review.visualsEditRating) && Objects.equals(musicRating, review.musicRating) && Objects.equals(actingRating, review.actingRating);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), user, movie, text, scriptRating, ideaRating, visualsEditRating, musicRating, actingRating);
+    }
 }

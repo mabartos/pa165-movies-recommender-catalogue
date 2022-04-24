@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -24,7 +25,6 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @Table(name = "PERSONS")
 public class Person extends GenericEntity {
@@ -53,5 +53,19 @@ public class Person extends GenericEntity {
 
     public Set<Movie> getActedInMovies() {
         return Optional.ofNullable(actedInMovies).orElseGet(HashSet::new);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Person)) return false;
+        if (!super.equals(o)) return false;
+        Person person = (Person) o;
+        return Objects.equals(name, person.name) && Objects.equals(birth, person.birth) && Objects.equals(about, person.about) && Objects.equals(picture, person.picture);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), name, birth, about, picture);
     }
 }

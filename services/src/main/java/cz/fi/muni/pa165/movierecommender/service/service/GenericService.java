@@ -9,6 +9,12 @@ import cz.fi.muni.pa165.movierecommender.service.service.exception.MissingEntity
 
 import java.util.List;
 
+/**
+ * @author Daniel Puchala
+ *
+ * A common interface for all entity service
+ * @param <Entity> of type GenericEntity
+ */
 public interface GenericService<Entity extends GenericEntity> {
 
     /**
@@ -38,14 +44,14 @@ public interface GenericService<Entity extends GenericEntity> {
     void update(Entity entity);
 
     /**
-     * Finds all (non-deleted) entity instances.
+     * Finds all entity instances.
      *
      * @return all non-deleted entities
      */
     List<Entity> findAll();
 
     /**
-     * Finds (non-deleted) entity for given ID
+     * Finds  entity for given ID
      *
      * @param id of searched entity
      * @return entity for given ID, never null

@@ -7,6 +7,11 @@ import cz.fi.muni.pa165.movierecommender.service.service.exception.MissingEntity
 
 import java.util.List;
 
+/**
+ * @author Daniel Puchala
+ *
+ * @param <Entity> of type generic entity
+ */
 public abstract  class GenericServiceImpl<Entity extends GenericEntity> implements GenericService<Entity> {
 
     private final EntityDao<Entity> entityDao;

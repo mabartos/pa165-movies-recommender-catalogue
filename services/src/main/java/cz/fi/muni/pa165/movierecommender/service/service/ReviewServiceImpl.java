@@ -9,6 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
+/**
+ * @author Petr Šlézar
+ *
+ */
 public class ReviewServiceImpl extends GenericServiceImpl<Review> implements ReviewService{
 
     private final ReviewDao reviewDao;

@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Service interface for providing a movie recommendations. Now it is quite simple but can be further improved.
  *
- * @author Petr Šlézar | xslezar@mail.muni.cz
+ * @author Petr Šlézar
  */
 @Service
 public interface RecommendationService {

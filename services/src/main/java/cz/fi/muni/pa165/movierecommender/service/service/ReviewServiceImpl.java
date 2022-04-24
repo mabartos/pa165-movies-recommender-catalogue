@@ -5,6 +5,7 @@ import cz.fi.muni.pa165.movierecommender.persistence.entity.Movie;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Review;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.User;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.BadArgumentException;
+import cz.fi.muni.pa165.movierecommender.service.service.exception.MissingEntityException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,29 @@ public class ReviewServiceImpl extends GenericServiceImpl<Review> implements Rev
     public ReviewServiceImpl(ReviewDao reviewDao) {
         super(reviewDao, Review.class);
         this.reviewDao = reviewDao;
+    }
+
+    @Override
+    public void create(Review entity) {
+        if (entity == null) {
+            throw new BadArgumentException("Provided Entity is null");
+        }
+        Review existingReview= reviewDao.findByMovieAndUser(entity.getMovie(),entity.getUser());
+        if(existingReview != null)
+            throw new BadArgumentException("A user with id " + entity.getUser().getId() + "cannot have more reviews for movie " + entity.getMovie().getName() );
+
+        reviewDao.create(entity);
+    }
+
+    @Override
+    public void update(Review entity) {
+        if (entity == null) throw new BadArgumentException("Provided Entity is null");
+
+        Review existingReview= reviewDao.findByMovieAndUser(entity.getMovie(),entity.getUser());
+        if(existingReview == null)
+            throw new MissingEntityException(Review.class,entity.getId());
+
+        reviewDao.update(entity);
     }
 
     @Override

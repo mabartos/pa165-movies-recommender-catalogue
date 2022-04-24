@@ -25,7 +25,7 @@ import java.util.List;
  *
  * @author Petr Slezar
  */
-public abstract class ServiceTest {
+public abstract class ServiceTestBase {
 
     @BeforeEach
     public void setup() {

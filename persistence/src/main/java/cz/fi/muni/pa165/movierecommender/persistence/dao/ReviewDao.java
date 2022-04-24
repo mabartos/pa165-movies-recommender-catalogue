@@ -36,7 +36,7 @@ public interface ReviewDao extends EntityDao<Review>{
      *
      * @param movie required movie which review is to be found
      * @param user required user which review is to be found
-     * @return a single review
+     * @return a single review or null if does not exist
      * @throws IllegalArgumentException when either movie or user param is null
      */
     Review findByMovieAndUser(Movie movie, User user);

@@ -12,11 +12,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl extends GenericServiceImpl<User> implements UserService {
 
-    @Autowired
-    private UserDao userDao;
 
-    public UserServiceImpl(EntityDao<User> entityDao, Class<User> userClass) {
-        super(entityDao, userClass);
+    private final UserDao userDao;
+
+    @Autowired
+    public UserServiceImpl(UserDao userDao) {
+        super(userDao, User.class);
+        this.userDao = userDao;
     }
 
     @Override

@@ -34,6 +34,7 @@ public class ReviewFacadeImpl extends GenericFacadeImpl<Review, ReviewCreateDto,
     private final ReviewService reviewService;
     private final UserService userService;
     private final MovieService movieService;
+
     private final ReviewCreateMapper createMapper = Mappers.getMapper(ReviewCreateMapper.class);
     private final ReviewUpdateMapper updateMapper = Mappers.getMapper(ReviewUpdateMapper.class);
     private final ReviewMapper mapper = Mappers.getMapper(ReviewMapper.class);

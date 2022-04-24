@@ -98,22 +98,9 @@ public class ReviewDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void delete() {
-        Review review2 = new Review();
-        review.setUser(user);
-        review.setMovie(movie);
-        review.setText("Desc");
-        review.setActingRating(10);
-        review.setIdeaRating(10);
-        review.setMusicRating(10);
-        review.setScriptRating(10);
-        review.setVisualsEditRating(10);
-
-        reviewDao.create(review2);
-        Assert.assertEquals(reviewDao.findAll().size(), 2);
-
-        reviewDao.delete(review2);
-        Assert.assertNull(reviewDao.findById(review2.getId()));
-        Assert.assertEquals(reviewDao.findAll().size(), 1);
+        reviewDao.delete(review);
+        Assert.assertNull(reviewDao.findById(review.getId()));
+        Assert.assertEquals(reviewDao.findAll().size(), 0);
     }
 
     @Test

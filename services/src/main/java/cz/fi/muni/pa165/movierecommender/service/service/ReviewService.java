@@ -13,7 +13,6 @@ import java.util.List;
  *
  * A service mainly used for finding reviews based on different criteriea. All other functionality in generic service.
  */
-@Service
 public interface ReviewService extends GenericService<Review>{
 
     /**

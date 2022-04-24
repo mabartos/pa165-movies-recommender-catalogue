@@ -36,6 +36,7 @@
     </modules>
 
     <dependencies>
+        <!-- Spring -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -49,6 +50,7 @@
             <artifactId>spring-test</artifactId>
         </dependency>
 
+        <!-- Lombok -->
         <dependency>
             <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
             <groupId>org.projectlombok</groupId>
@@ -69,18 +71,36 @@
             <artifactId>logback-classic</artifactId>
         </dependency>
 
+        <!-- Testng -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>7.5</version>
             <scope>test</scope>
         </dependency>
+
+        <!--  Mockito -->
+        <dependency>
+            <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <!-- https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter -->
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- JavaX Validation -->
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
             <version>2.0.1.Final</version>
         </dependency>
 
+        <!-- AssertJ -->
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>

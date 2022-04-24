@@ -6,6 +6,7 @@ import cz.fi.muni.pa165.movierecommender.persistence.entity.Review;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.User;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.BadArgumentException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * @author Petr Šlézar
  *
  */
+@Service
 public class ReviewServiceImpl extends GenericServiceImpl<Review> implements ReviewService{
 
     private final ReviewDao reviewDao;

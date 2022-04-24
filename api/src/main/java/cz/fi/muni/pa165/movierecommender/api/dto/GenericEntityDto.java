@@ -1,9 +1,9 @@
 package cz.fi.muni.pa165.movierecommender.api.dto;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
  */
 @Getter
 @Setter
-public abstract class GenericEntityDto {
+public abstract class GenericEntityDto implements Serializable {
 
     protected Long id;
     protected LocalDateTime createdAt;

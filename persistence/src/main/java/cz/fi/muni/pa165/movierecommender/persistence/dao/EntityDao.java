@@ -49,7 +49,7 @@ public interface EntityDao<Entity extends GenericEntity> {
     /**
      * Finds entity for given ID
      *
-     * @param id Id of searched entity
+     * @param id of searched entity
      * @return Null if entity is not found, entity otherwise
      * @throws IllegalArgumentException if provided ID is null
      */

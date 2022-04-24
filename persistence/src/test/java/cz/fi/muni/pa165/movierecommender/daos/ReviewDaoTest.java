@@ -23,7 +23,6 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOf
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceUnit;
-import java.time.LocalDateTime;
 
 /**
  * Tests for {@link ReviewDao}
@@ -59,7 +58,7 @@ public class ReviewDaoTest extends AbstractTestNGSpringContextTests {
         movie = new Movie();
         movie.setName("Name");
         review = new Review();
-        review.setAuthor(user);
+        review.setUser(user);
         review.setMovie(movie);
         review.setText("Desc");
         review.setActingRating(10);
@@ -100,7 +99,7 @@ public class ReviewDaoTest extends AbstractTestNGSpringContextTests {
     @Test
     public void delete() {
         Review review2 = new Review();
-        review.setAuthor(user);
+        review.setUser(user);
         review.setMovie(movie);
         review.setText("Desc");
         review.setActingRating(10);

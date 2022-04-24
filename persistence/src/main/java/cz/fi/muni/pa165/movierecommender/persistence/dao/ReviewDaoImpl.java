@@ -24,7 +24,7 @@ public class ReviewDaoImpl extends EntityDaoImpl<Review> implements ReviewDao {
         if (user == null){
             throw new IllegalArgumentException("User is null");
         }
-        return em.createQuery("select entity from Review entity where entity.author=:user", Review.class)
+        return em.createQuery("select entity from Review entity where entity.user=:user", Review.class)
                 .setParameter("user", user)
                 .getResultList();
     }
@@ -43,7 +43,7 @@ public class ReviewDaoImpl extends EntityDaoImpl<Review> implements ReviewDao {
     public Review findByMovieAndUser(Movie movie, User user) throws IllegalArgumentException {
         if (movie == null || user == null) throw new IllegalArgumentException("At least on argument is null");
         List<Review> entity = em.createQuery("select entity from Review entity where entity.movie=:movie " +
-                        "and entity.author=:user ", Review.class)
+                        "and entity.user=:user ", Review.class)
                 .setParameter("movie", movie)
                 .setParameter("user", user)
                 .getResultList();

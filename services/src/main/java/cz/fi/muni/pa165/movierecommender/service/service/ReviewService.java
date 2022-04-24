@@ -4,15 +4,12 @@ import cz.fi.muni.pa165.movierecommender.persistence.entity.Movie;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Review;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.User;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.BadArgumentException;
 
 import java.util.List;
 
-@Transactional
 @Service
 public interface ReviewService extends GenericService<Review>{
-
 
     /**
      * Find all reviews created by a specific 'user'

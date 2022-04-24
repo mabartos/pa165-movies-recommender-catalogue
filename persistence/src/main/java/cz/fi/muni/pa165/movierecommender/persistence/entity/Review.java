@@ -1,6 +1,5 @@
 package cz.fi.muni.pa165.movierecommender.persistence.entity;
 
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -76,8 +75,4 @@ public class Review extends GenericEntity {
     @Min(1)
     @Max(10)
     private Integer actingRating;
-
-    @ManyToOne(optional=false)
-    @NotNull
-    private User author;
 }

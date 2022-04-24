@@ -27,7 +27,7 @@ public interface GenericFacade<
     /**
      * Soft-deletes entity with given id.
      *
-     * @param id Id of the entity for deletion, not null
+     * @param id of the entity for deletion, not null
      * @throws IllegalArgumentException if ID is null
      */
     void delete(Long id);

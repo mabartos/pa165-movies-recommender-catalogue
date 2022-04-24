@@ -2,7 +2,6 @@ package cz.fi.muni.pa165.movierecommender.service.service;
 
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Person;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

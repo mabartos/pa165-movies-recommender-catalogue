@@ -47,7 +47,7 @@ public interface GenericService<Entity extends GenericEntity> {
     /**
      * Finds (non-deleted) entity for given ID
      *
-     * @param id Id of searched entity
+     * @param id of searched entity
      * @return entity for given ID, never null
      * @throws BadArgumentException   if provided ID is null
      * @throws MissingEntityException if entity is not found

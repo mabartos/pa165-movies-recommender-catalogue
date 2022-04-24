@@ -3,7 +3,6 @@ package cz.fi.muni.pa165.movierecommender.service.service;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Movie;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.BadArgumentException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

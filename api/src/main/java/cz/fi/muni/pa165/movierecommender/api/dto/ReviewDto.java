@@ -1,12 +1,11 @@
 package cz.fi.muni.pa165.movierecommender.api.dto;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-
-import java.io.Serializable;
-
+@EqualsAndHashCode(callSuper = false)
 @Data
-public class ReviewDto extends GenericEntityDto implements Serializable {
+public class ReviewDto extends GenericEntityDto {
 
     private SimpleUserDto user;
     private SimpleMovieDto movie;

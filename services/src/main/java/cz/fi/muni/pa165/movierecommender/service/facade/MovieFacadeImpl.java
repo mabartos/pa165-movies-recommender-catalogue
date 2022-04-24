@@ -5,6 +5,8 @@ import cz.fi.muni.pa165.movierecommender.api.dto.create.MovieCreateDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.update.MovieUpdateDto;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Movie;
 import cz.fi.muni.pa165.movierecommender.service.mapper.MovieMapper;
+import cz.fi.muni.pa165.movierecommender.service.mapper.create.MovieCreateMapper;
+import cz.fi.muni.pa165.movierecommender.service.mapper.update.MovieUpdateMapper;
 import cz.fi.muni.pa165.movierecommender.service.service.GenericService;
 import cz.fi.muni.pa165.movierecommender.service.service.MovieService;
 import org.mapstruct.factory.Mappers;
@@ -21,6 +23,8 @@ public class MovieFacadeImpl extends GenericFacadeImpl<Movie, MovieCreateDto, Mo
 
     private final MovieMapper mapper = Mappers.getMapper(MovieMapper.class);
     private final MovieService movieService;
+    private final MovieCreateMapper createMapper = Mappers.getMapper(MovieCreateMapper.class);
+    private final MovieUpdateMapper updateMapper = Mappers.getMapper(MovieUpdateMapper.class);
 
     public MovieFacadeImpl(MovieService movieService) {
         this.movieService = movieService;
@@ -29,17 +33,17 @@ public class MovieFacadeImpl extends GenericFacadeImpl<Movie, MovieCreateDto, Mo
 
     @Override
     protected GenericService<Movie> service() {
-        return null;
+        return movieService;
     }
 
     @Override
     protected Movie mapToEntity(MovieCreateDto dto) {
-        return null;
+        return createMapper.toModel(dto);
     }
 
     @Override
     protected Movie mergeWithEntity(MovieUpdateDto dto, Movie oldEntity) {
-        return null;
+        return updateMapper.toModel(dto);
     }
 
     @Override

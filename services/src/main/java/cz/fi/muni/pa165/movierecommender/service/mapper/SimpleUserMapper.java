@@ -10,5 +10,6 @@ import org.mapstruct.Mapper;
 public interface SimpleUserMapper {
 
     User toModel(SimpleUserDto dto);
+
     SimpleUserDto toDto(User value);
 }

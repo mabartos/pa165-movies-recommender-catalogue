@@ -18,11 +18,10 @@ public class MovieDto implements Serializable {
     private String name;
     private Integer duration;
     private String poster;
-    private Set<Genre> genres = new HashSet<>();
+    private Set<String> genres = new HashSet<>();
     private String description;
     private Integer releaseYear;
     private Set<ReviewDto> reviews;
     private PersonDto director;
     private Set<PersonDto> actors;
-    private Set<SimpleUserDto> favorites;
 }

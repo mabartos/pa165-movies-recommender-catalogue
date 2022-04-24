@@ -1,6 +1,5 @@
 package cz.fi.muni.pa165.movierecommender.api.dto;
 
-// TODO
 /**
  * @author Petr Šlézar
  *
@@ -8,4 +7,9 @@ package cz.fi.muni.pa165.movierecommender.api.dto;
  * such level of detail when displaying review,etc.)
  */
 public class SimpleUserDto {
+
+    private String name;
+    private String userType;
+    private String avatar;
+
 }

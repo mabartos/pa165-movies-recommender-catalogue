@@ -1,6 +1,6 @@
 package cz.fi.muni.pa165.movierecommender.api.movierecommender.daos;
 
-import cz.fi.muni.pa165.movierecommender.PersistenceTestApplicationContext;
+import cz.fi.muni.pa165.movierecommender.api.movierecommender.PersistenceTestApplicationContext;
 import cz.fi.muni.pa165.movierecommender.persistence.enums.UserType;
 import cz.fi.muni.pa165.movierecommender.persistence.dao.MovieDao;
 import cz.fi.muni.pa165.movierecommender.persistence.dao.ReviewDao;

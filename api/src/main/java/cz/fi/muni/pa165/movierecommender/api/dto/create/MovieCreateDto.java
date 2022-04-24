@@ -24,7 +24,7 @@ public class MovieCreateDto implements CreateDto {
     @NotNull
     private Integer duration;
     private String poster;
-    private Set<Genre> genres = new HashSet<>();
+    private Set<String> genres = new HashSet<>();
     private String description;
     @Min(1)
     private Integer releaseYear;

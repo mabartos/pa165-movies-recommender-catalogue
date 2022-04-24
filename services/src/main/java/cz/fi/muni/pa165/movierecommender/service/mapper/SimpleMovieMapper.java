@@ -10,5 +10,6 @@ import org.mapstruct.Mapper;
 public interface SimpleMovieMapper {
 
     Movie toModel(SimpleMovieDto dto);
+
     SimpleMovieDto toDto(Movie value);
 }

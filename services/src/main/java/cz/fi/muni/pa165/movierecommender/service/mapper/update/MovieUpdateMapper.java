@@ -13,5 +13,5 @@ public interface MovieUpdateMapper {
 
     Movie toModel(MovieUpdateDto dto);
 
-    MovieUpdateMapper toDto(Movie value);
+    MovieUpdateDto toDto(Movie value);
 }

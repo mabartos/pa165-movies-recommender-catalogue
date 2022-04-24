@@ -6,6 +6,11 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+/**
+ * @author Petr Šlézar
+ *
+ * A class for creating a review - main difference is containing only author's and movie's Id
+ */
 @Data
 public class ReviewCreateDto implements CreateDto {
 

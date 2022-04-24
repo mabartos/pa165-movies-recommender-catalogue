@@ -7,6 +7,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
+ * @author Petr Šlézar
+ *
  * Common superclass DTO for all entity responses that should contain all entity's metadata.
  */
 @Getter

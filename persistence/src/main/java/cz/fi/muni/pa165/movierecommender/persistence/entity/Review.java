@@ -1,7 +1,6 @@
-package cz.fi.muni.pa165.movierecommender.api.movierecommender.persistence.entity;
+package cz.fi.muni.pa165.movierecommender.persistence.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

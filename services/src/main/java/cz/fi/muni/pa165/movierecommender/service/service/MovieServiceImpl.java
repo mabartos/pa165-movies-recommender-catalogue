@@ -10,9 +10,9 @@ import java.util.List;
 @Service
 public class MovieServiceImpl extends GenericServiceImpl<Movie> implements MovieService {
 
-    private MovieDao movieDao;
-
     @Autowired
+    private final MovieDao movieDao;
+
     public MovieServiceImpl(MovieDao movieDao) {
         super(movieDao,Movie.class);
         this.movieDao = movieDao;

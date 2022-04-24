@@ -1,7 +1,5 @@
 package cz.fi.muni.pa165.movierecommender.api.dto;
 
-// TODO
-
 /**
  * @author Petr Šlézar
  *
@@ -9,4 +7,10 @@ package cz.fi.muni.pa165.movierecommender.api.dto;
  * such level of detail when displaying review,etc.)
  */
 public class SimpleMovieDto {
+
+    private String name;
+    private Integer duration;
+    private String poster;
+    private Integer releaseYear;
+
 }

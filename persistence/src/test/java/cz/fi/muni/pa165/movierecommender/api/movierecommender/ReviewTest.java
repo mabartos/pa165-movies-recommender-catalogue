@@ -1,6 +1,6 @@
 package cz.fi.muni.pa165.movierecommender.api.movierecommender;
 
-import cz.fi.muni.pa165.movierecommender.api.movierecommender.persistence.entity.Review;
+import cz.fi.muni.pa165.movierecommender.persistence.entity.Review;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Ignore;

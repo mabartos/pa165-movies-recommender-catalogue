@@ -1,9 +1,8 @@
-package cz.fi.muni.pa165.movierecommender.api.movierecommender.persistence.entity;
+package cz.fi.muni.pa165.movierecommender.persistence.entity;
 
 import cz.fi.muni.pa165.movierecommender.persistence.enums.Genre;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

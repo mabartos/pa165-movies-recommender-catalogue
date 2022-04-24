@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.movierecommender.api.movierecommender.persistence.dao;
+package cz.fi.muni.pa165.movierecommender.persistence.dao;
 
 import cz.fi.muni.pa165.movierecommender.persistence.entity.GenericEntity;
 import org.springframework.data.repository.NoRepositoryBean;

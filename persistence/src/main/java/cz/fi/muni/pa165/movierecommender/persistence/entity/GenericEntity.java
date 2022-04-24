@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.movierecommender.api.movierecommender.persistence.entity;
+package cz.fi.muni.pa165.movierecommender.persistence.entity;
 
 import lombok.Getter;
 import lombok.Setter;

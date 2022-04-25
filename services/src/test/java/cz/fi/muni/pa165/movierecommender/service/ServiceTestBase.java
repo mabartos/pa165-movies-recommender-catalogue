@@ -116,13 +116,13 @@ public abstract class ServiceTestBase {
                 new HashSet<Genre>(List.of(new Genre[]{Genre.ACTION, Genre.CRIME, Genre.THRILLER})),
                 "About Reservoir Dogs",1992,Collections.emptySet(),QUENTIN,Collections.emptySet());
         public static Movie MONTY_PYTHON =new Movie("Monty Python and Holy Grail",120,"monty python poster",
-                new HashSet<Genre>(List.of(new Genre[]{Genre.COMEDY, Genre.ADVENTURE, Genre.ACTION, Genre.FANTASY, Genre.HISTORY})),
+                new HashSet<Genre>(List.of(new Genre[]{Genre.COMEDY, Genre.ADVENTURE, Genre.FANTASY, Genre.ACTION})),
                 "About Monty Python and Holy Grail",1982, Collections.emptySet(),TERRY,Collections.emptySet());
         public static Movie PULP_FICTION = new Movie("Pulp fiction",120,"pulp fiction poster",
-                new HashSet<Genre>(List.of(new Genre[]{Genre.ACTION, Genre.CRIME, Genre.THRILLER, Genre.SLICE_OF_LIFE})),
+                new HashSet<Genre>(List.of(new Genre[]{Genre.ACTION, Genre.CRIME, Genre.SLICE_OF_LIFE})),
                 "About Pulp Fiction",1994,Collections.emptySet(),QUENTIN,Collections.emptySet());
         public static Movie NON_EXISTENT_MOVIE = new Movie(NON_EXISTENT_NAME,1,"Non existent poster",
-                Collections.emptySet(),
+                new HashSet<Genre>(List.of(new Genre[]{Genre.MYSTERY})),
                 "About non existent movie",2000, Collections.emptySet(),NON_EXISTENT_PERSON,Collections.emptySet());
 
         public static User PEPA = new User("pepa@email.com","Pepa","pepovoheslo", UserType.BASIC_USER,"avatar","o pepovi");

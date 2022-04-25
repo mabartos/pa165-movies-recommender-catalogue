@@ -185,4 +185,12 @@ public class ReviewServiceTest extends ServiceTestBase {
         Assertions.assertThatThrownBy(() -> service.delete(MockedEntities.NON_EXISTENT_REVIEW)).isInstanceOf(MissingEntityException.class);
     }
 
+    @Test
+    public void calculateAverageRatings() {
+
+        Double rating = service.getAverageRating(MockedEntities.RESERVOIR_DOGS);
+        Mockito.verify(dao, Mockito.times(1)).findByMovie(MockedEntities.RESERVOIR_DOGS);
+        Assertions.assertThat(rating).isEqualTo(Double.valueOf(3.6));
+    }
+
 }

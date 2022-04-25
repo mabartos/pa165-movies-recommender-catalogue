@@ -42,4 +42,14 @@ public interface ReviewService extends GenericService<Review>{
      * @throws BadArgumentException when either user or movie parameter is null
      */
     Review findByMovieAndUser(Movie movie, User user);
+
+    /**
+     * Computes an average rating of a movie from its reviews
+     *
+     * @param movie required movie which average rating is to be computed
+     * @return a double number rounded to 2 decimal points
+     * @throws BadArgumentException when movie parameter is null
+     */
+    Double getAverageRating (Movie movie);
+
 }

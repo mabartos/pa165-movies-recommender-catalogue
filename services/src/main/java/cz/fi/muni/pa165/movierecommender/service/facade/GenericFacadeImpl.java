@@ -1,9 +1,12 @@
 package cz.fi.muni.pa165.movierecommender.service.facade;
 
+import cz.fi.muni.pa165.movierecommender.api.dto.ReviewDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.create.CreateDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.update.UpdateDto;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.GenericEntity;
+import cz.fi.muni.pa165.movierecommender.persistence.entity.Review;
 import cz.fi.muni.pa165.movierecommender.service.service.GenericService;
+import cz.fi.muni.pa165.movierecommender.service.service.exception.BadArgumentException;
 import org.springframework.transaction.annotation.Transactional;
 
 

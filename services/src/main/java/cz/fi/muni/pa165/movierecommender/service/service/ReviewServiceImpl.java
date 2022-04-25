@@ -8,6 +8,7 @@ import cz.fi.muni.pa165.movierecommender.service.service.exception.BadArgumentEx
 import cz.fi.muni.pa165.movierecommender.service.service.exception.MissingEntityException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.apache.commons.math3.util.Precision;
 
 import java.util.List;
 
@@ -70,5 +71,28 @@ public class ReviewServiceImpl extends GenericServiceImpl<Review> implements Rev
         if(movie == null || user == null) throw new BadArgumentException("Movie or user is null");
 
         return reviewDao.findByMovieAndUser(movie,user);
+    }
+
+    //can return null
+    @Override
+    public Double getAverageRating (Movie movie) {
+        if(movie == null) throw new BadArgumentException("Movie is null");
+
+        List<Review> allReviewsForMovie = findByMovie(movie);
+        Double totalScore = Double.valueOf(
+                allReviewsForMovie.stream().map( review -> review.getActingRating() +
+                review.getIdeaRating() +
+                review.getMusicRating() +
+                review.getScriptRating() +
+                review.getVisualsEditRating()).reduce(0, Integer::sum)
+        );
+        Double divisor = Double.valueOf(allReviewsForMovie.size() * 5);
+        Double averageRating = 0d;
+        if(totalScore != 0){
+            averageRating = totalScore / divisor;
+            averageRating = Precision.round(averageRating,2);
+        }
+
+        return averageRating;
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -29,13 +30,16 @@ public class RecommendationServiceSimpleImpl implements RecommendationService{
     @Override
     public List<Movie> getRecommendedByMovie(Movie movie) {
 
-        if(movie == null) throw new BadArgumentException("Movie is null");
+        if (movie == null) throw new BadArgumentException("Movie is null");
 
         //We use Set that is later converted to list to avoid duplicates
         Set<Movie> recommendedMovies = new HashSet<>();
-
-        List<Movie> byGenres = getRecommendedByGenres(movie.getGenres());
-        List<Movie> byDirector = getRecommendedByDirector(movie.getDirector().getName());
+        //We assume that we always obtain a set containing also the original movie (which shares same director and/or
+        //genres
+        Set<Movie> byGenres = getRecommendedByGenres(movie.getGenres());
+        byGenres.remove(movie);
+        Set<Movie> byDirector = getRecommendedByDirector(movie.getDirector().getName());
+        byDirector.remove(movie);
 
         recommendedMovies.addAll(byDirector);
         recommendedMovies.addAll(byGenres);
@@ -43,32 +47,29 @@ public class RecommendationServiceSimpleImpl implements RecommendationService{
         return new ArrayList<>(recommendedMovies);
     }
 
-    private List<Movie> getRecommendedByGenres(Set<Genre> genres){
+    private Set<Movie> getRecommendedByGenres(Set<Genre> genres){
 
         List<Movie> allFound = new ArrayList<>();
 
         for (Genre genre: genres) {
-
             allFound.addAll(movieDao.findByGenre(genre));
         }
 
-        return allFound;
+        return new HashSet<>(allFound);
     }
 
     /*
-     We are passing name as the Person object form movie might be incomplete (the movie detail caries simplified person
+     We are passing name as the Person object from movie might be incomplete (the movie detail caries simplified person
      info)
      */
-    private List<Movie> getRecommendedByDirector(String directorName){
-
-        List<Movie> recommendedByDirector = new ArrayList<>();
+    private Set<Movie> getRecommendedByDirector(String directorName){
 
         List<Person> directorList = personDao.findByName(directorName);
-        if(directorList.isEmpty()) return recommendedByDirector;
+        if(directorList.isEmpty()) return Collections.emptySet();
 
         //We assume passing full director name from film detail page, therefore exact match for first element
         Person director = directorList.get(0);
 
-        return movieDao.findByDirector(director);
+        return new HashSet<>(movieDao.findByDirector(director));
     }
 }

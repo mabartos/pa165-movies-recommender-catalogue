@@ -1,9 +1,5 @@
 package cz.fi.muni.pa165.movierecommender.api.dto.create;
 
-import cz.fi.muni.pa165.movierecommender.api.dto.PersonDto;
-import cz.fi.muni.pa165.movierecommender.api.dto.ReviewDto;
-import cz.fi.muni.pa165.movierecommender.api.dto.SimpleUserDto;
-import cz.fi.muni.pa165.movierecommender.api.dto.enums.Genre;
 import lombok.Data;
 
 import javax.validation.constraints.Min;

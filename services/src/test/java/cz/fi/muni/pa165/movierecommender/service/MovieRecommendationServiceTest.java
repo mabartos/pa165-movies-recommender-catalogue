@@ -149,7 +149,7 @@ public class MovieRecommendationServiceTest extends ServiceTestBase {
     @Test
     public void recommendedForNewSharingOnlyDirector() {
 
-        Movie newQuentinMovie = new Movie("New Historical Tarantino",120,"Poster",new HashSet<Genre>(List.of(Genre.HISTORY)),"desc",1234,null,MockedEntities.QUENTIN,null);
+        Movie newQuentinMovie = new Movie("New Historical Tarantino",120,"Poster",new HashSet<>(List.of(Genre.HISTORY)),"desc",1234,null,MockedEntities.QUENTIN,null);
         newQuentinMovie.setId(10L);
         Mockito.when(movieDao.findById(newQuentinMovie.getId())).thenReturn(newQuentinMovie);
         Mockito.when(movieDao.findByName(newQuentinMovie.getName())).thenReturn(List.of(newQuentinMovie));

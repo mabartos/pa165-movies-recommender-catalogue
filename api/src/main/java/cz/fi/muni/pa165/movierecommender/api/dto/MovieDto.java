@@ -1,6 +1,5 @@
 package cz.fi.muni.pa165.movierecommender.api.dto;
 
-import cz.fi.muni.pa165.movierecommender.api.dto.enums.Genre;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

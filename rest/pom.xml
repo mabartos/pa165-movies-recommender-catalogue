@@ -14,13 +14,13 @@
         <dependency>
             <groupId>cz.fi.muni.pa165.theta</groupId>
             <artifactId>api</artifactId>
-            <version>1.0</version>
+            <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>cz.fi.muni.pa165.theta</groupId>
             <artifactId>services</artifactId>
-            <version>1.0</version>
+            <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

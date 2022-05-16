@@ -2,6 +2,7 @@ package cz.fi.muni.pa165.theta.rest.api;
 
 import cz.fi.muni.pa165.movierecommender.api.dto.PersonDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.create.PersonCreateDto;
+import cz.fi.muni.pa165.movierecommender.api.dto.update.PersonUpdateDto;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -27,7 +28,7 @@ public interface PersonController {
 
     @GetMapping("/search")
     @ResponseBody
-    PersonDto findByName(@RequestParam String name);
+    List<PersonDto> findByName(@RequestParam String name);
 
     @GetMapping("/count")
     @ResponseBody
@@ -41,7 +42,7 @@ public interface PersonController {
     @ResponseBody
     void delete(@PathVariable Long id);
 
-    @PatchMapping("/{id}")
+    @PatchMapping
     @ResponseBody
-    PersonDto update(@PathVariable Long id, @RequestBody PersonDto person);
+    PersonDto update(@RequestBody PersonUpdateDto person);
 }

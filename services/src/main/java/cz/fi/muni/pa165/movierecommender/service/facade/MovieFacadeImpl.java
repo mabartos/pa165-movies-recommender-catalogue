@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * @author Maxim Svistunov
  */
 @Service
-public class MovieFacadeImpl extends GenericFacadeImpl<Movie, MovieCreateDto, MovieUpdateDto> implements MovieFacade {
+public class MovieFacadeImpl extends GenericFacadeImpl<Movie, MovieDto, MovieCreateDto, MovieUpdateDto> implements MovieFacade {
 
     private final MovieMapper mapper = Mappers.getMapper(MovieMapper.class);
     private final MovieService movieService;
@@ -30,7 +30,6 @@ public class MovieFacadeImpl extends GenericFacadeImpl<Movie, MovieCreateDto, Mo
         this.movieService = movieService;
     }
 
-
     @Override
     protected GenericService<Movie> service() {
         return movieService;
@@ -39,6 +38,11 @@ public class MovieFacadeImpl extends GenericFacadeImpl<Movie, MovieCreateDto, Mo
     @Override
     protected Movie mapToEntity(MovieCreateDto dto) {
         return createMapper.toModel(dto);
+    }
+
+    @Override
+    protected MovieDto mapToDto(Movie entity) {
+        return mapper.toDto(entity);
     }
 
     @Override

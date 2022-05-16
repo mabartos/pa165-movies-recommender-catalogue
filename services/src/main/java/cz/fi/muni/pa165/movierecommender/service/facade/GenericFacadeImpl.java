@@ -1,13 +1,13 @@
 package cz.fi.muni.pa165.movierecommender.service.facade;
 
-import cz.fi.muni.pa165.movierecommender.api.dto.ReviewDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.create.CreateDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.update.UpdateDto;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.GenericEntity;
-import cz.fi.muni.pa165.movierecommender.persistence.entity.Review;
 import cz.fi.muni.pa165.movierecommender.service.service.GenericService;
-import cz.fi.muni.pa165.movierecommender.service.service.exception.BadArgumentException;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -22,10 +22,34 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public abstract class GenericFacadeImpl
         <ENTITY extends GenericEntity,
-        CREATE_DTO extends CreateDto,
-        UPDATE_DTO extends UpdateDto
-        >
-        implements GenericFacade<CREATE_DTO, UPDATE_DTO> {
+                DTO,
+                CREATE_DTO extends CreateDto,
+                UPDATE_DTO extends UpdateDto
+                >
+        implements GenericFacade<DTO, CREATE_DTO, UPDATE_DTO> {
+
+    @Override
+    @Transactional
+    public DTO findById(Long id) {
+        if (id == null) throw new IllegalArgumentException("ID is invalid");
+
+        final ENTITY entity = service().findById(id);
+        return mapToDto(entity);
+    }
+
+    /**
+     * Find all entities
+     *
+     * @return list of entity representation
+     */
+    @Override
+    @Transactional
+    public List<DTO> findAll() {
+        return service().findAll()
+                .stream()
+                .map(this::mapToDto)
+                .collect(Collectors.toList());
+    }
 
     @Override
     @Transactional
@@ -69,6 +93,14 @@ public abstract class GenericFacadeImpl
      * @return entity for creation
      */
     protected abstract ENTITY mapToEntity(CREATE_DTO dto);
+
+    /**
+     * Map entity to DTO in subclass to allow using specific classes required by entity mapper.
+     *
+     * @param entity entity that should be transformed into DTO
+     * @return DTO
+     */
+    protected abstract DTO mapToDto(ENTITY entity);
 
     /**
      * Merge DTO with old entity in subclass to allow using specific classes required by DTO mapper.

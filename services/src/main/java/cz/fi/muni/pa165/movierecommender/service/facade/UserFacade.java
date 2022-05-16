@@ -8,7 +8,7 @@ import cz.fi.muni.pa165.movierecommender.service.service.exception.BadArgumentEx
 /**
  * @author Daniel Puchala
  */
-public interface UserFacade extends GenericFacade<UserCreateDto, UserUpdateDto> {
+public interface UserFacade extends GenericFacade<UserDto, UserCreateDto, UserUpdateDto> {
 
     /**
      * Finds a user with a given email

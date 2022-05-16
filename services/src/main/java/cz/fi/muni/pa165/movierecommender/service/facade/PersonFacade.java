@@ -6,7 +6,7 @@ import cz.fi.muni.pa165.movierecommender.api.dto.update.PersonUpdateDto;
 
 import java.util.List;
 
-public interface PersonFacade extends GenericFacade<PersonCreateDto, PersonUpdateDto> {
+public interface PersonFacade extends GenericFacade<PersonDto, PersonCreateDto, PersonUpdateDto> {
 
     List<PersonDto> findByName(String name);
 }

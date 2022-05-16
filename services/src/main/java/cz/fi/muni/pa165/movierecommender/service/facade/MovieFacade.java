@@ -8,10 +8,10 @@ import java.util.List;
 
 /**
  * @author Maxim Svistunov
- *
+ * <p>
  * A facade used for movie.
  */
-public interface MovieFacade extends GenericFacade<MovieCreateDto, MovieUpdateDto> {
+public interface MovieFacade extends GenericFacade<MovieDto, MovieCreateDto, MovieUpdateDto> {
 
     /**
      * Find movies that contains a substring in their names.

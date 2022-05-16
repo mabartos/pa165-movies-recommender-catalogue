@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class PersonFacadeImpl extends GenericFacadeImpl<Person, PersonCreateDto, PersonUpdateDto> implements PersonFacade {
+public class PersonFacadeImpl extends GenericFacadeImpl<Person, PersonDto, PersonCreateDto, PersonUpdateDto> implements PersonFacade {
     private final PersonService personService;
 
     private final PersonMapper personMapper = Mappers.getMapper(PersonMapper.class);
@@ -40,6 +40,11 @@ public class PersonFacadeImpl extends GenericFacadeImpl<Person, PersonCreateDto,
     @Override
     protected Person mapToEntity(PersonCreateDto dto) {
         return personCreateMapper.toModel(dto);
+    }
+
+    @Override
+    protected PersonDto mapToDto(Person entity) {
+        return personMapper.toDto(entity);
     }
 
     @Override

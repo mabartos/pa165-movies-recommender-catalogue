@@ -9,11 +9,10 @@ import java.util.List;
 
 /**
  * @author Petr Šlézar
- *
+ * <p>
  * A facade used for operations for review.
- *
  */
-public interface ReviewFacade extends GenericFacade<ReviewCreateDto, ReviewUpdateDto>{
+public interface ReviewFacade extends GenericFacade<ReviewDto, ReviewCreateDto, ReviewUpdateDto> {
 
     /**
      * Find all reviews created by a specific 'user'

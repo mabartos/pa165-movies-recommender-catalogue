@@ -26,10 +26,9 @@ import java.util.stream.Collectors;
 
 /**
  * @author Petr Šlézar
- *
  */
 @Service
-public class ReviewFacadeImpl extends GenericFacadeImpl<Review, ReviewCreateDto, ReviewUpdateDto> implements ReviewFacade {
+public class ReviewFacadeImpl extends GenericFacadeImpl<Review, ReviewDto, ReviewCreateDto, ReviewUpdateDto> implements ReviewFacade {
 
     private final ReviewService reviewService;
     private final UserService userService;
@@ -62,6 +61,11 @@ public class ReviewFacadeImpl extends GenericFacadeImpl<Review, ReviewCreateDto,
         createdReview.setMovie(movie);
 
         return createdReview;
+    }
+
+    @Override
+    protected ReviewDto mapToDto(Review entity) {
+        return mapper.toDto(entity);
     }
 
     @Override

@@ -18,7 +18,7 @@ public interface EntityDao<Entity extends GenericEntity> {
      * @throws IllegalArgumentException if provided entity is null
      * @throws javax.persistence.EntityExistsException if entity with same ID already exists
      */
-    void create(Entity entity);
+    Entity create(Entity entity);
 
     //Still needs to be improved (cascading delete etc.)
     /**
@@ -37,7 +37,7 @@ public interface EntityDao<Entity extends GenericEntity> {
      * @throws IllegalArgumentException if provided entity is null
      * @throws javax.persistence.EntityNotFoundException if there is no pre-existing entity that should be updated
      */
-    void update(Entity entity);
+    Entity update(Entity entity);
 
     /**
      * Finds all entity instances.

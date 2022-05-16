@@ -28,7 +28,7 @@ public abstract class EntityDaoImpl<Entity extends GenericEntity> implements Ent
     }
 
     @Override
-    public void create(Entity entity) {
+    public Entity create(Entity entity) {
 
         if (entity == null) throw new IllegalArgumentException("Cannot create null entity");
 
@@ -37,6 +37,7 @@ public abstract class EntityDaoImpl<Entity extends GenericEntity> implements Ent
                     " with id " + entity.getId() + " already exists");
 
         em.persist(entity);
+        return entity;
     }
 
     @Override
@@ -51,14 +52,14 @@ public abstract class EntityDaoImpl<Entity extends GenericEntity> implements Ent
     }
 
     @Override
-    public void update(Entity entity) {
+    public Entity update(Entity entity) {
 
         if(entity == null) throw new IllegalArgumentException("Entity to update is null");
 
         if(entity.getId() != null && findById(entity.getId()) == null)
             throw new EntityNotFoundException("Cannot update non-existent entity");
 
-        em.merge(entity);
+        return em.merge(entity);
     }
 
     @Override

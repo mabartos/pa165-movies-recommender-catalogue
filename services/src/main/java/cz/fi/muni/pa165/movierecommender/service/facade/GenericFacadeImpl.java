@@ -53,21 +53,21 @@ public abstract class GenericFacadeImpl
 
     @Override
     @Transactional
-    public void create(CREATE_DTO createDto) {
+    public DTO create(CREATE_DTO createDto) {
         if (createDto == null) throw new IllegalArgumentException("Create DTO is null");
 
         ENTITY entity = mapToEntity(createDto);
-        service().create(entity);
+        return mapToDto(service().create(entity));
     }
 
     @Override
     @Transactional
-    public void update(UPDATE_DTO updateDto) {
+    public DTO update(UPDATE_DTO updateDto) {
         if (updateDto == null) throw new IllegalArgumentException("Update DTO is null");
 
         ENTITY oldEntity = service().findById(updateDto.getId());
         ENTITY entityToUpdate = mergeWithEntity(updateDto, oldEntity);
-        service().update(entityToUpdate);
+        return mapToDto(service().update(entityToUpdate));
     }
 
     @Override

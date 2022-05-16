@@ -28,7 +28,7 @@ public class ReviewServiceImpl extends GenericServiceImpl<Review> implements Rev
     }
 
     @Override
-    public void create(Review entity) {
+    public Review create(Review entity) {
         if (entity == null) {
             throw new BadArgumentException("Provided Entity is null");
         }
@@ -36,18 +36,18 @@ public class ReviewServiceImpl extends GenericServiceImpl<Review> implements Rev
         if(existingReview != null)
             throw new BadArgumentException("A user with id " + entity.getUser().getId() + "cannot have more reviews for movie " + entity.getMovie().getName() );
 
-        reviewDao.create(entity);
+        return reviewDao.create(entity);
     }
 
     @Override
-    public void update(Review entity) {
+    public Review update(Review entity) {
         if (entity == null) throw new BadArgumentException("Provided Entity is null");
 
         Review existingReview= reviewDao.findByMovieAndUser(entity.getMovie(),entity.getUser());
         if(existingReview == null)
             throw new MissingEntityException(Review.class,entity.getId());
 
-        reviewDao.update(entity);
+        return reviewDao.update(entity);
     }
 
     @Override

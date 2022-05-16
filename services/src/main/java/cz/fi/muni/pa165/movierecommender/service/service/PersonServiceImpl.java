@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class PersonServiceImpl extends GenericServiceImpl<Person> implements PersonService {
 
-    private PersonDao personDao;
+    private final PersonDao personDao;
 
     @Autowired
     public PersonServiceImpl(PersonDao personDao) {

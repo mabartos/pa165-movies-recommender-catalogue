@@ -23,7 +23,7 @@ public interface GenericService<Entity extends GenericEntity> {
      * @param entity Entity to create
      * @throws BadArgumentException if provided entity is null
      */
-    void create(Entity entity);
+    Entity create(Entity entity);
 
     /**
      * Deletes an entity
@@ -41,7 +41,7 @@ public interface GenericService<Entity extends GenericEntity> {
      * @throws BadArgumentException   if provided entity is null
      * @throws MissingEntityException if entity is not found
      */
-    void update(Entity entity);
+    Entity update(Entity entity);
 
     /**
      * Finds all entity instances.

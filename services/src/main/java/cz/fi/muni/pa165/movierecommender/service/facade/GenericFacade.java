@@ -40,7 +40,7 @@ public interface GenericFacade<
      * @param createDto entity's create DTO, not null
      * @throws IllegalArgumentException if createDto is null
      */
-    void create(CREATE_DTO createDto);
+    DTO create(CREATE_DTO createDto);
 
     /**
      * Updates an entity.
@@ -48,7 +48,7 @@ public interface GenericFacade<
      * @param updateDto entity's update DTO, not null
      * @throws IllegalArgumentException if updateDto is null
      */
-    void update(UPDATE_DTO updateDto);
+    DTO update(UPDATE_DTO updateDto);
 
     /**
      * Deletes entity with given id.

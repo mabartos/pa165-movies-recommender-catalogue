@@ -23,13 +23,13 @@ public abstract  class GenericServiceImpl<Entity extends GenericEntity> implemen
     }
 
     @Override
-    public void create(Entity entity) {
+    public Entity create(Entity entity) {
         if (entity == null) throw new BadArgumentException("Provided Entity is null");
 
         Entity fromDb = entityDao.findById(entity.getId());
         if (fromDb != null) throw new BadArgumentException("Provided Entity already exists");
 
-        entityDao.create(entity);
+        return entityDao.create(entity);
     }
 
 
@@ -45,13 +45,13 @@ public abstract  class GenericServiceImpl<Entity extends GenericEntity> implemen
     }
 
     @Override
-    public void update(Entity entity) {
+    public Entity update(Entity entity) {
         if (entity == null) throw new BadArgumentException("Provided Entity is null");
 
         Entity fromDb = entityDao.findById(entity.getId());
         if (fromDb == null) throw new MissingEntityException(entityClass, entity.getId());
 
-        entityDao.update(entity);
+        return entityDao.update(entity);
     }
 
     @Override

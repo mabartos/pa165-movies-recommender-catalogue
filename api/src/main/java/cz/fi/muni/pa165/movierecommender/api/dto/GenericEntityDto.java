@@ -18,5 +18,4 @@ public abstract class GenericEntityDto implements Serializable {
     protected Long id;
     protected LocalDateTime createdAt;
     protected LocalDateTime updatedAt;
-    protected int version;
 }

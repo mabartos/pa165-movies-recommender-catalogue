@@ -14,13 +14,11 @@ import cz.fi.muni.pa165.movierecommender.service.service.MovieService;
 import cz.fi.muni.pa165.movierecommender.service.service.ReviewService;
 import cz.fi.muni.pa165.movierecommender.service.service.UserService;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.BadArgumentException;
-import cz.fi.muni.pa165.movierecommender.service.service.exception.MissingEntityException;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -119,13 +117,21 @@ public class ReviewFacadeImpl extends GenericFacadeImpl<Review, ReviewDto, Revie
 
     @Override
     public ReviewDto findByMovieAndUser(Long movieId, Long userId) {
-        if(userId == null) throw new BadArgumentException("User id is null!");
-        if(movieId == null) throw new BadArgumentException("Movie id is null!");
+        if (userId == null) throw new BadArgumentException("User id is null!");
+        if (movieId == null) throw new BadArgumentException("Movie id is null!");
 
         User user = userService.findById(userId);
         Movie movie = movieService.findById(movieId);
 
-        Review found = reviewService.findByMovieAndUser(movie,user);
+        Review found = reviewService.findByMovieAndUser(movie, user);
         return mapper.toDto(found);
+    }
+
+    @Override
+    public Double getAverageRating(Long movieId) {
+        if (movieId == null) throw new BadArgumentException("Movie id is null!");
+        final Movie movie = movieService.findById(movieId);
+
+        return reviewService.getAverageRating(movie);
     }
 }

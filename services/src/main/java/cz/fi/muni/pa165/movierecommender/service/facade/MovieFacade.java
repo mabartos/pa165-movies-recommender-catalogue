@@ -20,5 +20,7 @@ public interface MovieFacade extends GenericFacade<MovieDto, MovieCreateDto, Mov
      * @return list of movies
      */
     List<MovieDto> findByName(String name);
+
+    List<MovieDto> getRecommendedByMovie(Long movieId);
 }
 

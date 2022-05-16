@@ -38,7 +38,7 @@ public class MovieServiceTest extends ServiceTestBase {
 
     @Override
     protected void assignService() {
-        service = new MovieServiceImpl(dao);
+        service = new MovieServiceImpl(dao, null);
     }
 
     @Override

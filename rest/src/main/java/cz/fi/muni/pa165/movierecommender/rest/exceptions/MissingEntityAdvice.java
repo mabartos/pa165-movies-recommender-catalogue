@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.movierecommender.rest;
+package cz.fi.muni.pa165.movierecommender.rest.exceptions;
 
 import cz.fi.muni.pa165.movierecommender.service.service.exception.MissingEntityException;
 import org.springframework.http.HttpStatus;

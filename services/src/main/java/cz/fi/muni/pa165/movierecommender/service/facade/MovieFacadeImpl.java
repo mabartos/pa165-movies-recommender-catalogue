@@ -56,4 +56,9 @@ public class MovieFacadeImpl extends GenericFacadeImpl<Movie, MovieDto, MovieCre
         return found.stream().map(mapper::toDto).collect(Collectors.toList());
     }
 
+    @Override
+    public List<MovieDto> getRecommendedByMovie(Long movieId) {
+        return movieService.getRecommendedByMovie(movieId).stream().map(mapper::toDto).collect(Collectors.toList());
+    }
+
 }

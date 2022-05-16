@@ -56,4 +56,13 @@ public interface ReviewFacade extends GenericFacade<ReviewDto, ReviewCreateDto, 
      * @throws BadArgumentException when either user or movie parameter is null
      */
     ReviewDto findByMovieAndUser(Long movieId, Long userId);
+
+    /**
+     * Computes an average rating of a movie from its reviews
+     *
+     * @param movieId required movie ID which average rating is to be computed
+     * @return a double number rounded to 2 decimal points
+     * @throws BadArgumentException when movie parameter is null
+     */
+    Double getAverageRating(Long movieId);
 }

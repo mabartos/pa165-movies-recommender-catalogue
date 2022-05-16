@@ -17,7 +17,6 @@
     <version>1.0</version>
 
     <properties>
-        <start-class>cz.fi.muni.pa165.movierecommender.MovieRecommenderApplication</start-class>
         <java.version>17</java.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
@@ -35,6 +34,7 @@
         <module>services</module>
         <module>persistence</module>
         <module>rest</module>
+        <module>core</module>
     </modules>
 
     <dependencies>

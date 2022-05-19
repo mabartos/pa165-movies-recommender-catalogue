@@ -1,7 +1,8 @@
-version: "3.7"
+version: "3.8"
 
 services:
   backend:
+    container_name: PA165-Backend
     build:
       context: ./
       dockerfile: Dockerfile

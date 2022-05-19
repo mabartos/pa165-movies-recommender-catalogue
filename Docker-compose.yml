@@ -1,6 +1,14 @@
 version: "3.7"
 
 services:
+  backend:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    entrypoint: "mvn -f core/pom.xml spring-boot:run"
+    ports:
+      - "8080:8080"
+
   frontend:
     container_name: PA165-Frontend
     build:
@@ -8,3 +16,4 @@ services:
       dockerfile: Dockerfile
     ports:
       - '8081:8081'
+

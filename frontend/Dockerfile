@@ -2,10 +2,12 @@ FROM node:alpine3.14
 
 WORKDIR /app
 
-COPY package*.json /app
+COPY package*.json ./
 
-RUN npm ci
+RUN npm i
 
 COPY . .
+
+EXPOSE 8080
 
 CMD ["npm", "run", "dev"]

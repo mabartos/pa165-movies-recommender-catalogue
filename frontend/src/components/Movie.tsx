@@ -56,9 +56,9 @@ export const Movie = () => {
       <Header/>
       <div className="grid grid-cols-3 h-[90vh]">
         <div className="flex flex-col col-span-2 h-full">
-          <div className="flex flex-row p-4 border-solid border-r-4 border-slate-900 bg-slate-300 h-full">
-            <div className="p-4 flex-shrink-0 h-full">
-              <img className="h-full w-full" src={movie.poster} alt="Poster"/>
+          <div className="flex flex-row p-4 border-solid border-r-4 border-slate-900 bg-slate-300 h-full w-full">
+            <div className="p-4 flex-shrink-0 h-full w-2/5">
+              <img className="h-full w-full" src={movie.poster} alt="Poster" />
             </div>
             <div className="flex flex-col p-4">
               <p className="text-2xl font-bold">{movie.movie}</p>

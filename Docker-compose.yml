@@ -1,0 +1,10 @@
+version: "3.7"
+
+services:
+  frontend:
+    container_name: PA165-Frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - '8081:8081'

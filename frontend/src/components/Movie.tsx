@@ -1,5 +1,6 @@
 import Header from './Header';
 import MovieCard from './MovieCard';
+import { MovieCardMode } from '../models/types';
 
 export const Movie = () => {
   //TODO Tahanie informacii
@@ -24,7 +25,7 @@ export const Movie = () => {
       duration: 120
     },
     {
-      name: 'Movie', id: 3,
+      name: 'Some novie with absrudhlt long name that i just made up', id: 3,
       poster: 'https://cdn.shopify.com/s/files/1/0057/3728/3618/products/0ef9608d2219e0695a1b79af254f6e44_480x.progressive.jpg?v=1573572669',
       duration: 120
     },
@@ -45,27 +46,37 @@ export const Movie = () => {
     }
   ];
 
+  function formatDuration(num: number) {
+    const hours = Math.floor(num / 60)
+    return hours ? (`${hours} hours ${num % 60} minutes`) : (`${num % 60} minutes`)
+  }
 
   return (
-    <div className="h-screen">
+    <div>
       <Header/>
-      <div className="grid grid-cols-3 h-[90%]">
+      <div className="grid grid-cols-3 h-[90vh]">
         <div className="flex flex-col col-span-2 h-full">
-          <div className="flex flex-row p-4 border-solid border-b-4 border-r-4 border-slate-900 bg-slate-300">
-            <div className="max-h-96 max-w-[18rem] p-4 flex-shrink-0">
-              <img className="h-full" src={movie.poster} alt="Poster"/>
+          <div className="flex flex-row p-4 border-solid border-r-4 border-slate-900 bg-slate-300 h-full">
+            <div className="p-4 flex-shrink-0 h-full">
+              <img className="h-full w-full" src={movie.poster} alt="Poster"/>
             </div>
             <div className="flex flex-col p-4">
               <p className="text-2xl font-bold">{movie.movie}</p>
               <p>{movie.description}</p>
-              <p className="mt-auto text-xl"><b>Director:</b> {movie.director}</p>
+              <p className="mt-auto"><b>Duration:</b> {formatDuration(movie.duration)}</p>
+              <p className="text-xl"><b>Director:</b> {movie.director}</p>
               <p className="text-xl"><b>Actors:</b> {movie.actors.map((actor) => `${actor}, `)}</p>
             </div>
           </div>
-          <div className="h-full flex flex-row p-4 border-solid border-b-d border-r-4 h-full">
-            {recommendedMovies.map((movie) => <MovieCard key={movie.id} {...movie}/>)}
+
+        </div>
+        <div className="h-full">
+          <p className="text-2xl text-center font-bold">Recommended movies</p>
+          <div className="flex flex-row flex-wrap p-4 fle">
+            {recommendedMovies.map((movie) => <MovieCard key={movie.id} {...movie} mode={MovieCardMode.Recommend}/>)}
           </div>
         </div>
+
       </div>
     </div>
   );

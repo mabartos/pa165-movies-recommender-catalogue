@@ -2,13 +2,16 @@ import Header from './Header';
 import MovieCard from './MovieCard';
 import { MovieCardMode } from '../models/types';
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 export const Movie = () => {
   const [ showReviews, setShowReviews ] = useState<boolean>(false);
+  const { register, handleSubmit, getValues, watch } = useForm();
+  const watchAllFields = watch();
 
   const changeShowStatus = () => {
-    setShowReviews((prevState => !prevState))
-  }
+    setShowReviews((prevState => !prevState));
+  };
 
   //TODO Tahanie informacii
   const movie = {
@@ -73,24 +76,58 @@ export const Movie = () => {
               <p className="mt-auto"><b>Duration:</b> {formatDuration(movie.duration)}</p>
               <p className="text-xl"><b>Director:</b> {movie.director}</p>
               <p className="text-xl"><b>Actors:</b> {movie.actors.map((actor) => `${actor}, `)}</p>
-              <button className="w-max p-4 self-center bg-blue-600 border-2 rounded-3xl border-slate-900" onClick={changeShowStatus}>
-                {showReviews ? "Show recommended movies" : "Show reviews"}
+              <button className="w-max p-4 self-center bg-blue-600 border-2 rounded-3xl border-slate-900"
+                      onClick={changeShowStatus}>
+                {showReviews ? 'Show recommended movies' : 'Show reviews'}
               </button>
             </div>
           </div>
 
         </div>
-        <div className={`h-full ${showReviews && "hidden"}`}>
+        <div className={`h-full ${showReviews && 'hidden'}`}>
           <p className="text-2xl text-center font-bold">Recommended movies</p>
           <div className="flex flex-row flex-wrap p-4">
             {recommendedMovies.map((movie) => <MovieCard key={movie.id} {...movie} mode={MovieCardMode.Recommend}/>)}
           </div>
         </div>
-        <div className={`h-full ${showReviews || "hidden"}`}>
+        <div className={`h-full flex flex-col ${showReviews || 'hidden'}`}>
           <p className="text-2xl text-center font-bold">Reviews</p>
-          <div className="flex flex-row p-4">
+          <div className="">
             //TODO After get reviews
+
           </div>
+          <form className="flex flex-col p-2 m-2 mt-auto bg-slate-300 border-4 rounded-3xl border-slate-900">
+            <span className="text-2xl text-center font-bold">Write your review</span>
+            <label className="flex justify-between">
+              <span className="font-bold">Script: {getValues('script')}</span>
+              <input type="range" min={1} max={10} {...register('script', { required: true })}/>
+            </label>
+            <label className="flex justify-between">
+              <span className="font-bold">Idea: {getValues('idea')}</span>
+              <input type="range" min={1} max={10} {...register('idea', { required: true })}/>
+            </label>
+            <label className="flex justify-between">
+              <span className="font-bold">Visual edits: {getValues('visualsEdit')}</span>
+              <input type="range" min={1} max={10} {...register('visualsEdit', { required: true })}/>
+            </label>
+            <label className="flex justify-between">
+              <span className="font-bold">Music: {getValues('music')}</span>
+              <input type="range" min={1} max={10} {...register('music', { required: true })}/>
+            </label>
+            <label className="flex justify-between">
+              <span className="font-bold">Acting: {getValues('acting')}</span>
+              <input type="range" min={1} max={10} {...register('acting', { required: true })}/>
+            </label>
+            <label>
+              <textarea
+                className="w-full border-2 border-slate-900"
+                {...register('text', { required: true, minLength: 50 })}
+              />
+            </label>
+            <button className="w-max p-2 self-center bg-blue-600 border-2 rounded-3xl border-slate-900">
+              Send review
+            </button>
+          </form>
         </div>
 
       </div>

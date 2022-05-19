@@ -3,14 +3,31 @@ import MovieCard from './MovieCard';
 import { MovieCardMode } from '../models/types';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
+import instance from '../models/axios';
 
 export const Movie = () => {
   const [ showReviews, setShowReviews ] = useState<boolean>(false);
   const { register, handleSubmit, getValues, watch } = useForm();
   const watchAllFields = watch();
 
+  const { id } = useParams();
+
   const changeShowStatus = () => {
     setShowReviews((prevState => !prevState));
+  };
+
+  const sendReview = async (data: any) => {
+    const headers = {
+      'Content-Type': 'application/json'
+    };
+    const reviewData = {
+      ...data,
+      movieId: id
+    };
+    console.log(reviewData);
+    // await instance.post('/reviews', reviewData, { headers });
+    alert('Review created');
   };
 
   //TODO Tahanie informacii
@@ -96,7 +113,10 @@ export const Movie = () => {
             //TODO After get reviews
 
           </div>
-          <form className="flex flex-col p-2 m-2 mt-auto bg-slate-300 border-4 rounded-3xl border-slate-900">
+          <form
+            onSubmit={handleSubmit(sendReview)}
+            className="flex flex-col p-2 m-2 mt-auto bg-slate-300 border-4 rounded-3xl border-slate-900"
+          >
             <span className="text-2xl text-center font-bold">Write your review</span>
             <label className="flex justify-between">
               <span className="font-bold">Script: {getValues('script')}</span>
@@ -124,7 +144,7 @@ export const Movie = () => {
                 {...register('text', { required: true, minLength: 50 })}
               />
             </label>
-            <button className="w-max p-2 self-center bg-blue-600 border-2 rounded-3xl border-slate-900">
+            <button type="submit" className="w-max p-2 self-center bg-blue-600 border-2 rounded-3xl border-slate-900">
               Send review
             </button>
           </form>

@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.movierecommender.persistence.config;
+package cz.fi.muni.pa165.movierecommender.api.movierecommender;
 
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.context.annotation.Bean;
@@ -22,8 +22,8 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories
-@ComponentScan({"cz.fi.muni.pa165.movierecommender"})
-public class PersistenceConfig {
+@ComponentScan({"cz.fi.muni.pa165.movierecommender.persistence"})
+public class PersistenceTestConfig {
 
     @Bean
     public JpaTransactionManager transactionManager() {

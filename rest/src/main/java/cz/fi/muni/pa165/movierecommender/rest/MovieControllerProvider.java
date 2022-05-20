@@ -5,8 +5,9 @@ import cz.fi.muni.pa165.movierecommender.api.dto.ReviewDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.create.MovieCreateDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.update.MovieUpdateDto;
 import cz.fi.muni.pa165.movierecommender.rest.api.MovieController;
-import cz.fi.muni.pa165.movierecommender.service.facade.MovieFacade;
-import cz.fi.muni.pa165.movierecommender.service.facade.ReviewFacade;
+import cz.fi.muni.pa165.movierecommender.rest.core.RoutesHolder;
+import facade.MovieFacade;
+import facade.ReviewFacade;
 import cz.fi.muni.pa165.movierecommender.service.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/movies")
+@RequestMapping(RoutesHolder.MOVIE_ROUTE)
 public class MovieControllerProvider implements MovieController {
     private final MovieFacade movieFacade;
     private final MovieService movieService;

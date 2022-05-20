@@ -4,6 +4,7 @@ import cz.fi.muni.pa165.movierecommender.api.dto.create.CreateDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.update.UpdateDto;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.GenericEntity;
 import cz.fi.muni.pa165.movierecommender.service.service.GenericService;
+import facade.GenericFacade;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -31,7 +32,6 @@ public abstract class GenericFacadeImpl
     @Override
     @Transactional
     public DTO findById(Long id) {
-        if (id == null) throw new IllegalArgumentException("ID is invalid");
 
         final ENTITY entity = service().findById(id);
         return mapToDto(entity);
@@ -54,7 +54,6 @@ public abstract class GenericFacadeImpl
     @Override
     @Transactional
     public DTO create(CREATE_DTO createDto) {
-        if (createDto == null) throw new IllegalArgumentException("Create DTO is null");
 
         ENTITY entity = mapToEntity(createDto);
         return mapToDto(service().create(entity));
@@ -63,7 +62,6 @@ public abstract class GenericFacadeImpl
     @Override
     @Transactional
     public DTO update(UPDATE_DTO updateDto) {
-        if (updateDto == null) throw new IllegalArgumentException("Update DTO is null");
 
         ENTITY entityToUpdate = mapToUpdatedEntity(updateDto);
         return mapToDto(service().update(entityToUpdate));
@@ -72,7 +70,6 @@ public abstract class GenericFacadeImpl
     @Override
     @Transactional
     public void delete(Long id) {
-        if (id == null) throw new IllegalArgumentException("Id is null");
 
         ENTITY entity = service().findById(id);
         service().delete(entity);

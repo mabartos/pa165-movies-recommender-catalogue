@@ -8,6 +8,7 @@ import cz.fi.muni.pa165.movierecommender.persistence.entity.User;
 import cz.fi.muni.pa165.movierecommender.persistence.enums.UserType;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.BadArgumentException;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.ForbiddenOperationException;
+import cz.fi.muni.pa165.movierecommender.service.service.exception.LoginFailedException;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.MissingEntityException;
 import cz.fi.muni.pa165.movierecommender.service.service.security.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,7 +79,7 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
     }
 
     @Override
-    public Optional<String> login(String username, String password) {
+    public String login(String username, String password) {
         if (username == null) {
             throw new BadArgumentException("Username is null");
         }
@@ -88,7 +89,8 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
         return userDao
                 .findByName(username)
                 .filter(user -> encoder.matches(password, user.getPassword()))
-                .map(user -> tokens.expiring(ImmutableMap.of("name", username)));
+                .map(user -> tokens.expiring(ImmutableMap.of("name", username)))
+                .orElseThrow(() -> new LoginFailedException("Invalid user credentials"));
     }
 
     @Override

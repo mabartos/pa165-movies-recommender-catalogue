@@ -23,11 +23,42 @@
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
+        <dependency> <!-- An implementation of the JSP Standard Tag Library (JSTL) Specification API.-->
+            <groupId>org.apache.taglibs</groupId>
+            <artifactId>taglibs-standard-spec</artifactId>
+            <version>1.2.5</version>
+        </dependency>
+        <dependency> <!-- An implementation of the JSP Standard Tag Library (JSTL).-->
+            <groupId>org.apache.taglibs</groupId>
+            <artifactId>taglibs-standard-impl</artifactId>
+            <version>1.2.5</version>
+        </dependency>
+
+        <!-- must provide logging implementation, this is a runnable project -->
+        <!-- see viz http://docs.spring.io/platform/docs/current/reference/htmlsingle/#getting-started-logging -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-logging</artifactId>
+        </dependency>
     </dependencies>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
+
+    <build>
+        <!-- what to do when only "mvn" is run -->
+        <defaultGoal>cargo:run</defaultGoal>
+        <!-- name of the produced war and the context path in URL -->
+        <finalName>pa165</finalName>
+        <plugins>
+            <!--  embedded tomcat -->
+            <plugin>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven3-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

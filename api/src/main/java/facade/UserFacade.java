@@ -1,10 +1,8 @@
-package cz.fi.muni.pa165.movierecommender.service.facade;
+package facade;
 
-import cz.fi.muni.pa165.movierecommender.api.dto.account.LoginDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.account.UserCreateDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.account.UserDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.account.UserUpdateDto;
-import cz.fi.muni.pa165.movierecommender.service.service.exception.BadArgumentException;
 
 import java.util.Optional;
 
@@ -19,7 +17,7 @@ public interface UserFacade extends GenericFacade<UserDto, UserCreateDto, UserUp
      *
      * @param email user email
      * @return user with corresponding email
-     * @throws BadArgumentException when email parameter is null
+     * @throws IllegalArgumentException when email parameter is null
      */
     UserDto findByEmail(String email);
 
@@ -28,7 +26,6 @@ public interface UserFacade extends GenericFacade<UserDto, UserCreateDto, UserUp
      *
      * @param name user name
      * @return user with corresponding name
-     * @throws BadArgumentException when name parameter is null
      */
     UserDto findByName(String name);
 
@@ -37,7 +34,6 @@ public interface UserFacade extends GenericFacade<UserDto, UserCreateDto, UserUp
      *
      * @param user DTO of newly created user
      * @param unencryptedPassword chosen password
-     * @throws BadArgumentException if user or unencryptedPassword are null
      */
     void registerUser(UserCreateDto user, String unencryptedPassword);
 
@@ -46,7 +42,6 @@ public interface UserFacade extends GenericFacade<UserDto, UserCreateDto, UserUp
      *
      * @param user DTO of newly created user
      * @param newPassword newly chosen password
-     * @throws BadArgumentException if user are null (newPassword can be null -> no update needed)
      */
     void changeUser(UserUpdateDto user, String newPassword);
 
@@ -60,9 +55,9 @@ public interface UserFacade extends GenericFacade<UserDto, UserCreateDto, UserUp
     /**
      * Logs in with the given {@code username} and {@code password}.
      *
-     * @return an {@link Optional} of a user when login succeeds
+     * @return a token of a user when login succeeds
      */
-    Optional<String> login(String username, String password);
+    String login(String username, String password);
 
     /**
      * Finds a user by its dao-key.

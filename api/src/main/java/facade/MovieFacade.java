@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.movierecommender.service.facade;
+package facade;
 
 import cz.fi.muni.pa165.movierecommender.api.dto.MovieDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.create.MovieCreateDto;

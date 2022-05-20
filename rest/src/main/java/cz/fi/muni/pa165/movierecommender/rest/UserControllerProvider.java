@@ -5,8 +5,9 @@ import cz.fi.muni.pa165.movierecommender.api.dto.account.UserCreateDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.account.UserDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.account.UserUpdateDto;
 import cz.fi.muni.pa165.movierecommender.rest.api.UserController;
-import cz.fi.muni.pa165.movierecommender.service.facade.ReviewFacade;
-import cz.fi.muni.pa165.movierecommender.service.facade.UserFacade;
+import cz.fi.muni.pa165.movierecommender.rest.core.RoutesHolder;
+import facade.ReviewFacade;
+import facade.UserFacade;
 import cz.fi.muni.pa165.movierecommender.service.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping(RoutesHolder.USER_ROUTE)
 public class UserControllerProvider implements UserController {
     private final UserFacade userFacade;
     private final UserService userService;

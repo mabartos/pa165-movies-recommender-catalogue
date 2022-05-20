@@ -10,6 +10,7 @@ import cz.fi.muni.pa165.movierecommender.service.mapper.update.PersonUpdateMappe
 import cz.fi.muni.pa165.movierecommender.service.service.GenericService;
 import cz.fi.muni.pa165.movierecommender.service.service.PersonService;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.BadArgumentException;
+import facade.PersonFacade;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,7 +56,6 @@ public class PersonFacadeImpl extends GenericFacadeImpl<Person, PersonDto, Perso
     @Override
     @Transactional(readOnly = true)
     public List<PersonDto> findByName(String name) {
-        if (name == null) throw new BadArgumentException("Person name is null!");
         if (name.isEmpty()) return Collections.emptyList();
 
         List<Person> persons = personService.findByName(name);

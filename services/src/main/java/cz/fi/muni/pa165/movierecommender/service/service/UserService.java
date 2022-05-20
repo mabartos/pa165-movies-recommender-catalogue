@@ -4,7 +4,7 @@ import cz.fi.muni.pa165.movierecommender.api.dto.account.UserDto;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.User;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.BadArgumentException;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.ForbiddenOperationException;
-import cz.fi.muni.pa165.movierecommender.service.service.exception.MissingEntityException;
+import cz.fi.muni.pa165.movierecommender.service.service.exception.LoginFailedException;
 
 import java.util.Optional;
 
@@ -38,8 +38,10 @@ public interface UserService extends GenericService<User> {
      * Logs in with the given {@code username} and {@code password}.
      *
      * @return an {@link Optional} of a user when login succeeds - a token
+     * @throws BadArgumentException if username or login is null
+     * @throws LoginFailedException if login failed (due to credentials)
      */
-    Optional<String> login(String username, String password);
+    String login(String username, String password);
 
     /**
      * Extracts user's login from provided Bearer token.

@@ -6,7 +6,7 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-    entrypoint: "mvn -f core/pom.xml spring-boot:run"
+    entrypoint: "mvn -f core/pom.xml cargo:run"
     ports:
       - "8080:8080"
 

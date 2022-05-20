@@ -15,7 +15,7 @@ import javax.persistence.PersistenceUnit;
  *
  * @author Daniel Puchala
  */
-@ContextConfiguration(classes = PersistenceTestApplicationContext.class)
+@ContextConfiguration(classes = PersistenceTestConfig.class)
 @Ignore("Review must be properly set up")
 public class ReviewTest extends AbstractTestNGSpringContextTests {
 

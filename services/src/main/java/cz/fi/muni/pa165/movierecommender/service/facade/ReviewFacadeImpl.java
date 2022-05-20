@@ -14,6 +14,7 @@ import cz.fi.muni.pa165.movierecommender.service.service.MovieService;
 import cz.fi.muni.pa165.movierecommender.service.service.ReviewService;
 import cz.fi.muni.pa165.movierecommender.service.service.UserService;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.BadArgumentException;
+import facade.ReviewFacade;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

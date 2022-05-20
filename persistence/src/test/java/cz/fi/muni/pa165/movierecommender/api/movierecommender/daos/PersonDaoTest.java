@@ -1,6 +1,6 @@
 package cz.fi.muni.pa165.movierecommender.api.movierecommender.daos;
 
-import cz.fi.muni.pa165.movierecommender.api.movierecommender.PersistenceTestApplicationContext;
+import cz.fi.muni.pa165.movierecommender.api.movierecommender.PersistenceTestConfig;
 import cz.fi.muni.pa165.movierecommender.persistence.enums.Genre;
 import cz.fi.muni.pa165.movierecommender.persistence.dao.PersonDao;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Movie;
@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * @author Petr Slezar
  */
-@ContextConfiguration(classes = PersistenceTestApplicationContext.class)
+@ContextConfiguration(classes = PersistenceTestConfig.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
 public class PersonDaoTest extends AbstractTestNGSpringContextTests {

@@ -3,6 +3,7 @@ package cz.fi.muni.pa165.movierecommender.rest.api;
 import cz.fi.muni.pa165.movierecommender.api.dto.PersonDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.create.PersonCreateDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.update.PersonUpdateDto;
+import cz.fi.muni.pa165.movierecommender.rest.core.RoutesHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/persons")
+@RequestMapping(RoutesHolder.PERSON_ROUTE)
 public interface PersonController {
 
     @GetMapping

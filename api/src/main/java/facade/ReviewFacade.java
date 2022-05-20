@@ -1,9 +1,8 @@
-package cz.fi.muni.pa165.movierecommender.service.facade;
+package facade;
 
 import cz.fi.muni.pa165.movierecommender.api.dto.ReviewDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.create.ReviewCreateDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.update.ReviewUpdateDto;
-import cz.fi.muni.pa165.movierecommender.service.service.exception.BadArgumentException;
 
 import java.util.List;
 
@@ -19,7 +18,6 @@ public interface ReviewFacade extends GenericFacade<ReviewDto, ReviewCreateDto, 
      *
      * @param id of review to be found
      * @return list of reviews
-     * @throws BadArgumentException when id parameter is null
      */
     ReviewDto findById(Long id);
 
@@ -34,7 +32,6 @@ public interface ReviewFacade extends GenericFacade<ReviewDto, ReviewCreateDto, 
      *
      * @param userId of user which reviews are to be found
      * @return list of reviews
-     * @throws BadArgumentException when user parameter is null
      */
     List<ReviewDto> findByUser(Long userId);
 
@@ -43,7 +40,6 @@ public interface ReviewFacade extends GenericFacade<ReviewDto, ReviewCreateDto, 
      *
      * @param movieId of movie id which reviews are to be found
      * @return list of reviews
-     * @throws BadArgumentException when movie parameter is null
      */
     List<ReviewDto> findByMovie(Long movieId);
 
@@ -53,7 +49,6 @@ public interface ReviewFacade extends GenericFacade<ReviewDto, ReviewCreateDto, 
      * @param movieId required movie id which review is to be found
      * @param userId required user id which review is to be found
      * @return a single review
-     * @throws BadArgumentException when either user or movie parameter is null
      */
     ReviewDto findByMovieAndUser(Long movieId, Long userId);
 
@@ -62,7 +57,6 @@ public interface ReviewFacade extends GenericFacade<ReviewDto, ReviewCreateDto, 
      *
      * @param movieId required movie ID which average rating is to be computed
      * @return a double number rounded to 2 decimal points
-     * @throws BadArgumentException when movie parameter is null
      */
     Double getAverageRating(Long movieId);
 }

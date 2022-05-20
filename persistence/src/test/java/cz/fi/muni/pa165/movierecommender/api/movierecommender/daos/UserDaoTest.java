@@ -1,6 +1,6 @@
 package cz.fi.muni.pa165.movierecommender.api.movierecommender.daos;
 
-import cz.fi.muni.pa165.movierecommender.api.movierecommender.PersistenceTestApplicationContext;
+import cz.fi.muni.pa165.movierecommender.api.movierecommender.PersistenceTestConfig;
 import cz.fi.muni.pa165.movierecommender.persistence.dao.UserDao;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ import static org.testng.Assert.assertNull;
  *
  * @author Maxim Svistunov
  */
-@ContextConfiguration(classes = PersistenceTestApplicationContext.class)
+@ContextConfiguration(classes = PersistenceTestConfig.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
 public class UserDaoTest extends AbstractTestNGSpringContextTests {

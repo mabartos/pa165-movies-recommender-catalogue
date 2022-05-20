@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.movierecommender.service.facade;
+package facade;
 
 import cz.fi.muni.pa165.movierecommender.api.dto.create.CreateDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.update.UpdateDto;
@@ -38,7 +38,6 @@ public interface GenericFacade<
      * Creates an entity.
      *
      * @param createDto entity's create DTO, not null
-     * @throws IllegalArgumentException if createDto is null
      */
     DTO create(CREATE_DTO createDto);
 
@@ -46,7 +45,6 @@ public interface GenericFacade<
      * Updates an entity.
      *
      * @param updateDto entity's update DTO, not null
-     * @throws IllegalArgumentException if updateDto is null
      */
     DTO update(UPDATE_DTO updateDto);
 
@@ -54,7 +52,6 @@ public interface GenericFacade<
      * Deletes entity with given id.
      *
      * @param id of the entity for deletion, not null
-     * @throws IllegalArgumentException if ID is null
      */
     void delete(Long id);
 }

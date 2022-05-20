@@ -142,6 +142,7 @@ export const Movie = () => {
               <textarea
                 className="w-full border-2 border-slate-900"
                 {...register('text', { required: true, minLength: 50 })}
+                placeholder={"At least 50 characters."}
               />
             </label>
             <button type="submit" className="w-max p-2 self-center bg-blue-600 border-2 rounded-3xl border-slate-900">

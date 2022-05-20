@@ -43,7 +43,7 @@ public abstract class GenericFacadeImpl
      * @return list of entity representation
      */
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<DTO> findAll() {
         return service().findAll()
                 .stream()
@@ -65,8 +65,7 @@ public abstract class GenericFacadeImpl
     public DTO update(UPDATE_DTO updateDto) {
         if (updateDto == null) throw new IllegalArgumentException("Update DTO is null");
 
-        ENTITY oldEntity = service().findById(updateDto.getId());
-        ENTITY entityToUpdate = mergeWithEntity(updateDto, oldEntity);
+        ENTITY entityToUpdate = mapToUpdatedEntity(updateDto);
         return mapToDto(service().update(entityToUpdate));
     }
 
@@ -106,9 +105,8 @@ public abstract class GenericFacadeImpl
      * Merge DTO with old entity in subclass to allow using specific classes required by DTO mapper.
      *
      * @param dto       DTO that should be transformed into update-able entity
-     * @param oldEntity old version of entity that is being updated
      * @return entity for update
      */
-    protected abstract ENTITY mergeWithEntity(UPDATE_DTO dto, ENTITY oldEntity);
+    protected abstract ENTITY mapToUpdatedEntity(UPDATE_DTO dto);
 
 }

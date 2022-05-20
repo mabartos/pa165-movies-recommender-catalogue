@@ -14,9 +14,6 @@ public class UserCreateDto implements CreateDto {
     @NotNull
     private String name;
 
-    @NotNull
-    private String passwordHash;
-
     private String userType;
 
     private String avatar;

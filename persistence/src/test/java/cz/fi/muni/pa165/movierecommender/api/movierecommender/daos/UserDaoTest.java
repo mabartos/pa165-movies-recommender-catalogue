@@ -14,6 +14,7 @@ import org.testng.annotations.Test;
 import javax.transaction.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNull;
@@ -58,17 +59,17 @@ public class UserDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testFindByEmail() {
-        User user = userDao.findByEmail("user1@smth.com");
-        assertEquals(user1, user);
+        Optional<User> user = userDao.findByEmail("user1@smth.com");
+        assertEquals(user1, user.get());
 
         user = userDao.findByEmail("user3@smth.com");
-        assertNull(user);
+        assertEquals(user,Optional.empty());
     }
 
     @Test
     public void testFindByName() {
-        User user = userDao.findByName("user2");
-        assertEquals(user2, user);
+        Optional<User> user = userDao.findByName("user2");
+        assertEquals(user2, user.get());
     }
 
 }

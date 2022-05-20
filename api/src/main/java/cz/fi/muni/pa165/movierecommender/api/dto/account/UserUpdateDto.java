@@ -7,7 +7,8 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = false)
 @Data
-public class UserUpdateDto implements UpdateDto, CreateDto {
+public class UserUpdateDto extends UserCreateDto implements UpdateDto {
 
     private Long Id;
+
 }

@@ -12,4 +12,8 @@ public class MissingEntityException extends GeneralServiceException {
         super(String.format("{%s - %d} not found.", clazz.getSimpleName(), identifier));
     }
 
+    public MissingEntityException(Class<? extends GenericEntity> clazz, String name) {
+        super(String.format("{%s - name: %s} not found.", clazz.getSimpleName(), name));
+    }
+
 }

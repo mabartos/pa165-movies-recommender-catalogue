@@ -6,6 +6,7 @@ import cz.fi.muni.pa165.movierecommender.service.service.UserService;
 import cz.fi.muni.pa165.movierecommender.service.service.UserServiceImpl;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.BadArgumentException;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.MissingEntityException;
+import cz.fi.muni.pa165.movierecommender.service.service.security.TokenService;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.util.Arrays;
 
@@ -18,6 +19,7 @@ import org.mockito.quality.Strictness;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
 import static org.testng.AssertJUnit.assertEquals;
@@ -31,18 +33,20 @@ public class UserServiceTest extends ServiceTestBase {
 
     @Mock
     private UserDao userDao;
+    @Mock
+    private TokenService tokens;
 
     UserService service;
 
     @Override
     protected void assignService() {
-        service = new UserServiceImpl(userDao);
+        service = new UserServiceImpl(userDao, tokens);
     }
 
     @Override
     protected void mockRepositoryMethods() {
-        Mockito.when(userDao.findByEmail("email@mail.muni.cz")).thenReturn(MockedEntities.HONZA);
-        Mockito.when(userDao.findByName("xpuchal1")).thenReturn(MockedEntities.KAREL);
+        Mockito.when(userDao.findByEmail("email@mail.muni.cz")).thenReturn(Optional.ofNullable(MockedEntities.HONZA));
+        Mockito.when(userDao.findByName("xpuchal1")).thenReturn(Optional.ofNullable(MockedEntities.KAREL));
         Mockito.when(userDao.findByReview(MockedEntities.KAREL_PULP_REVIEW.getId())).thenReturn(MockedEntities.KAREL);
         Mockito.when(userDao.findAll()).thenReturn(java.util.Arrays.stream(Arrays.array(MockedEntities.HONZA)).toList());
         Mockito.when(userDao.findById(MockedEntities.PEPA.getId())).thenReturn(MockedEntities.PEPA);

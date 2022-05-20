@@ -11,6 +11,7 @@ import cz.fi.muni.pa165.movierecommender.service.service.GenericService;
 import cz.fi.muni.pa165.movierecommender.service.service.MovieService;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -46,17 +47,19 @@ public class MovieFacadeImpl extends GenericFacadeImpl<Movie, MovieDto, MovieCre
     }
 
     @Override
-    protected Movie mergeWithEntity(MovieUpdateDto dto, Movie oldEntity) {
+    protected Movie mapToUpdatedEntity(MovieUpdateDto dto) {
         return updateMapper.toModel(dto);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<MovieDto> findByName(String name) {
         List<Movie> found = movieService.findByName(name);
         return found.stream().map(mapper::toDto).collect(Collectors.toList());
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<MovieDto> getRecommendedByMovie(Long movieId) {
         return movieService.getRecommendedByMovie(movieId).stream().map(mapper::toDto).collect(Collectors.toList());
     }

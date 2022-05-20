@@ -67,7 +67,7 @@ public class ReviewFacadeImpl extends GenericFacadeImpl<Review, ReviewDto, Revie
     }
 
     @Override
-    protected Review mergeWithEntity(ReviewUpdateDto dto, Review oldEntity) {
+    protected Review mapToUpdatedEntity(ReviewUpdateDto dto) {
 
         User author = userService.findById(dto.getUserId());
         Movie movie = movieService.findById(dto.getMovieId());
@@ -96,6 +96,7 @@ public class ReviewFacadeImpl extends GenericFacadeImpl<Review, ReviewDto, Revie
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<ReviewDto> findByUser(Long userId) {
         if(userId == null) throw new BadArgumentException("User id is null!");
 
@@ -106,6 +107,7 @@ public class ReviewFacadeImpl extends GenericFacadeImpl<Review, ReviewDto, Revie
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<ReviewDto> findByMovie(Long movieId) {
         if(movieId == null) throw new BadArgumentException("Movie id is null!");
 
@@ -116,6 +118,7 @@ public class ReviewFacadeImpl extends GenericFacadeImpl<Review, ReviewDto, Revie
     }
 
     @Override
+    @Transactional(readOnly = true)
     public ReviewDto findByMovieAndUser(Long movieId, Long userId) {
         if (userId == null) throw new BadArgumentException("User id is null!");
         if (movieId == null) throw new BadArgumentException("Movie id is null!");
@@ -128,6 +131,7 @@ public class ReviewFacadeImpl extends GenericFacadeImpl<Review, ReviewDto, Revie
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Double getAverageRating(Long movieId) {
         if (movieId == null) throw new BadArgumentException("Movie id is null!");
         final Movie movie = movieService.findById(movieId);

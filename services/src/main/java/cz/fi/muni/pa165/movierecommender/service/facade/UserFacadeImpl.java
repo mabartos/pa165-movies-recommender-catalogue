@@ -1,12 +1,13 @@
 package cz.fi.muni.pa165.movierecommender.service.facade;
 
+import cz.fi.muni.pa165.movierecommender.api.dto.account.LoginDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.account.UserCreateDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.account.UserDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.account.UserUpdateDto;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.User;
-import cz.fi.muni.pa165.movierecommender.service.mapper.UserMapper;
-import cz.fi.muni.pa165.movierecommender.service.mapper.update.UserCreateMapper;
-import cz.fi.muni.pa165.movierecommender.service.mapper.update.UserUpdateMapper;
+import cz.fi.muni.pa165.movierecommender.service.mapper.account.UserMapper;
+import cz.fi.muni.pa165.movierecommender.service.mapper.account.UserCreateMapper;
+import cz.fi.muni.pa165.movierecommender.service.mapper.account.UserUpdateMapper;
 import cz.fi.muni.pa165.movierecommender.service.service.GenericService;
 import cz.fi.muni.pa165.movierecommender.service.service.UserService;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.BadArgumentException;
@@ -15,8 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 /**
  * @author Daniel Puchala
+ * @author Petr Šlézar
  */
 @Service
 public class UserFacadeImpl extends GenericFacadeImpl<User, UserDto, UserCreateDto, UserUpdateDto> implements UserFacade {
@@ -41,13 +45,17 @@ public class UserFacadeImpl extends GenericFacadeImpl<User, UserDto, UserCreateD
         return createMapper.toModel(dto);
     }
 
+    protected User mapToEntity(UserDto dto) {
+        return mapper.toModel(dto);
+    }
+
     @Override
     protected UserDto mapToDto(User entity) {
         return mapper.toDto(entity);
     }
 
     @Override
-    protected User mergeWithEntity(UserUpdateDto dto, User oldEntity) {
+    protected User mapToUpdatedEntity(UserUpdateDto dto) {
         return updateMapper.toModel(dto);
     }
 
@@ -67,6 +75,52 @@ public class UserFacadeImpl extends GenericFacadeImpl<User, UserDto, UserCreateD
 
         User entity = userService.findByEmail(name);
         return mapper.toDto(entity);
+    }
+
+    @Override
+    @Transactional
+    public void registerUser(UserCreateDto user, String unencryptedPassword) {
+        User userEntity = mapToEntity(user);
+        userService.registerUser(userEntity,unencryptedPassword);
+    }
+
+    @Override
+    @Transactional
+    public void changeUser(UserUpdateDto user, String newPassword) {
+        User userEntity = mapToEntity(user);
+        userService.updateUser(userEntity, newPassword);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public UserDto getLoggedInInfo() {
+        User authenticatedUser = userService.getAuthenticatedUser();
+        return mapper.toDto(userService.findById(authenticatedUser.getId()));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<String> login(String username, String password) {
+        if (username == null) throw new IllegalArgumentException("User's username is null");
+        if (password == null) throw new IllegalArgumentException("User's password is null");
+        return userService.login(username, password);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<UserDto> findByToken(String token) {
+        if (token == null) throw new IllegalArgumentException("User's token is null");
+        return userService.extractUserFromToken(token);
+    }
+
+    @Override
+    @Transactional
+    public void logout(UserDto user) {}
+
+    @Override
+    @Transactional(readOnly = true)
+    public boolean isAdmin(UserDto user) {
+        return userService.isAdmin(mapToEntity(user));
     }
 
 }

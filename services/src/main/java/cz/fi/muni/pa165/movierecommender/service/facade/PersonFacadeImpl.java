@@ -48,7 +48,7 @@ public class PersonFacadeImpl extends GenericFacadeImpl<Person, PersonDto, Perso
     }
 
     @Override
-    protected Person mergeWithEntity(PersonUpdateDto dto, Person oldEntity) {
+    protected Person mapToUpdatedEntity(PersonUpdateDto dto) {
         return personUpdateMapper.toModel(dto);
     }
 

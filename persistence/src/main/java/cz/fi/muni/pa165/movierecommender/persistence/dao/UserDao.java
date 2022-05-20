@@ -4,6 +4,8 @@ import cz.fi.muni.pa165.movierecommender.persistence.entity.User;
 import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 
 /**
  * DAO interface for user {@link User}
@@ -20,7 +22,7 @@ public interface UserDao extends EntityDao<User> {
      * @return User with given email
      * @throws IllegalArgumentException when email is null
      */
-    User findByEmail(String email);
+    Optional<User> findByEmail(String email);
 
     /**
      * Finds a user with corresponding name.
@@ -29,7 +31,7 @@ public interface UserDao extends EntityDao<User> {
      * @return User with given name
      * @throws IllegalArgumentException when name is null
      */
-    User findByName(String name);
+    Optional<User> findByName(String name);
 
     /**
      * Finds a user who created given review

@@ -9,7 +9,6 @@ package cz.fi.muni.pa165.movierecommender.api.dto;
 public class SimpleUserDto {
 
     private String name;
-    private String userType;
     private String avatar;
-
+    private Long Id;
 }

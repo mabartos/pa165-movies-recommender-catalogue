@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.movierecommender.service.mapper.update;
+package cz.fi.muni.pa165.movierecommender.service.mapper.account;
 
 import cz.fi.muni.pa165.movierecommender.api.dto.account.UserUpdateDto;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.User;

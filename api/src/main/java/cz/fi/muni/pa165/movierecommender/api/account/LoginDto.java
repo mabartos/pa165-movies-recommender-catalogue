@@ -11,5 +11,7 @@ public class LoginDto {
     @NotNull
     private Long id;
     @NotNull
+    private String name;
+    @NotNull
     private String password;
 }

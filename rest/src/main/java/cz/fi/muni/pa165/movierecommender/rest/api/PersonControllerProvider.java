@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.movierecommender.rest;
+package cz.fi.muni.pa165.movierecommender.rest.api;
 
 import cz.fi.muni.pa165.movierecommender.api.PersonDto;
 import cz.fi.muni.pa165.movierecommender.api.create.PersonCreateDto;
@@ -57,21 +57,4 @@ public class PersonControllerProvider implements PersonController {
         return personService.getCount();
     }
 
-    @PostMapping
-    @ResponseBody
-    public PersonDto create(@RequestBody PersonCreateDto createDto) {
-        return personFacade.create(createDto);
-    }
-
-    @DeleteMapping("{id}")
-    @ResponseBody
-    public void delete(@PathVariable Long id) {
-        personFacade.delete(id);
-    }
-
-    @PatchMapping
-    @ResponseBody
-    public PersonDto update(@RequestBody PersonUpdateDto person) {
-        return personFacade.update(person);
-    }
 }

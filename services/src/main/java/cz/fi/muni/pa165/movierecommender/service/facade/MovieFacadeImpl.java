@@ -11,6 +11,7 @@ import cz.fi.muni.pa165.movierecommender.service.mapper.update.MovieUpdateMapper
 import cz.fi.muni.pa165.movierecommender.service.service.GenericService;
 import cz.fi.muni.pa165.movierecommender.service.service.MovieService;
 import cz.fi.muni.pa165.movierecommender.api.facade.MovieFacade;
+import cz.fi.muni.pa165.movierecommender.service.service.PersonService;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.movierecommender.rest;
+package cz.fi.muni.pa165.movierecommender.rest.api;
 
 import cz.fi.muni.pa165.movierecommender.api.MovieDto;
 import cz.fi.muni.pa165.movierecommender.api.ReviewDto;
@@ -61,24 +61,6 @@ public class MovieControllerProvider implements MovieController {
     @ResponseBody
     public Long getCount() {
         return movieService.getCount();
-    }
-
-    @PostMapping
-    @ResponseBody
-    public MovieDto create(@RequestBody MovieCreateDto createDto) {
-        return movieFacade.create(createDto);
-    }
-
-    @DeleteMapping("{id}")
-    @ResponseBody
-    public void delete(@PathVariable Long id) {
-        movieFacade.delete(id);
-    }
-
-    @PatchMapping
-    @ResponseBody
-    public MovieDto update(@RequestBody MovieUpdateDto movie) {
-        return movieFacade.update(movie);
     }
 
     @GetMapping("{id}/recommended")

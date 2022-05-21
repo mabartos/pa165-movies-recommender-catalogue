@@ -11,7 +11,7 @@
 
     <artifactId>core</artifactId>
     <packaging>jar</packaging>
-    <name>initiation</name>
+    <name>core</name>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -22,13 +22,8 @@
     <dependencies>
         <dependency>
             <groupId>cz.fi.muni.pa165.theta</groupId>
-            <artifactId>rest</artifactId>
+            <artifactId>services</artifactId>
             <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
-            <version>${openapi.version}</version>
         </dependency>
 
     </dependencies>

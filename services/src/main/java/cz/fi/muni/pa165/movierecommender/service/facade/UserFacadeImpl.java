@@ -1,15 +1,15 @@
 package cz.fi.muni.pa165.movierecommender.service.facade;
 
-import cz.fi.muni.pa165.movierecommender.api.dto.account.UserCreateDto;
-import cz.fi.muni.pa165.movierecommender.api.dto.account.UserDto;
-import cz.fi.muni.pa165.movierecommender.api.dto.account.UserUpdateDto;
+import cz.fi.muni.pa165.movierecommender.api.account.UserCreateDto;
+import cz.fi.muni.pa165.movierecommender.api.account.UserDto;
+import cz.fi.muni.pa165.movierecommender.api.account.UserUpdateDto;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.User;
 import cz.fi.muni.pa165.movierecommender.service.mapper.account.UserMapper;
 import cz.fi.muni.pa165.movierecommender.service.mapper.account.UserCreateMapper;
 import cz.fi.muni.pa165.movierecommender.service.mapper.account.UserUpdateMapper;
 import cz.fi.muni.pa165.movierecommender.service.service.GenericService;
 import cz.fi.muni.pa165.movierecommender.service.service.UserService;
-import facade.UserFacade;
+import cz.fi.muni.pa165.movierecommender.api.facade.UserFacade;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,9 +1,9 @@
 package cz.fi.muni.pa165.movierecommender.rest.api;
 
-import cz.fi.muni.pa165.movierecommender.api.dto.MovieDto;
-import cz.fi.muni.pa165.movierecommender.api.dto.ReviewDto;
-import cz.fi.muni.pa165.movierecommender.api.dto.create.MovieCreateDto;
-import cz.fi.muni.pa165.movierecommender.api.dto.update.MovieUpdateDto;
+import cz.fi.muni.pa165.movierecommender.api.MovieDto;
+import cz.fi.muni.pa165.movierecommender.api.ReviewDto;
+import cz.fi.muni.pa165.movierecommender.api.create.MovieCreateDto;
+import cz.fi.muni.pa165.movierecommender.api.update.MovieUpdateDto;
 import cz.fi.muni.pa165.movierecommender.rest.core.RoutesHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

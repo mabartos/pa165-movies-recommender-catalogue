@@ -1,0 +1,20 @@
+package cz.fi.muni.pa165.movierecommender.api.update;
+
+import cz.fi.muni.pa165.movierecommender.api.create.MovieCreateDto;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import javax.validation.constraints.NotNull;
+
+/**
+ * @author Maxim Svistunov
+ *
+ * Movie DTO for update
+ */
+@EqualsAndHashCode(callSuper = false)
+@Data
+public class MovieUpdateDto extends MovieCreateDto implements UpdateDto {
+
+    @NotNull
+    private Long id;
+}

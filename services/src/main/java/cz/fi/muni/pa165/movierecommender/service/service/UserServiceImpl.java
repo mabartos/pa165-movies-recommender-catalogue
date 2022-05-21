@@ -1,7 +1,7 @@
 package cz.fi.muni.pa165.movierecommender.service.service;
 
 import com.google.common.collect.ImmutableMap;
-import cz.fi.muni.pa165.movierecommender.api.dto.account.UserDto;
+import cz.fi.muni.pa165.movierecommender.api.account.UserDto;
 import cz.fi.muni.pa165.movierecommender.persistence.dao.EntityDao;
 import cz.fi.muni.pa165.movierecommender.persistence.dao.UserDao;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.User;

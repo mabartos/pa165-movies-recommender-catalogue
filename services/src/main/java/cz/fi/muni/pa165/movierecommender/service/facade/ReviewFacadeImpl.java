@@ -1,8 +1,8 @@
 package cz.fi.muni.pa165.movierecommender.service.facade;
 
-import cz.fi.muni.pa165.movierecommender.api.dto.ReviewDto;
-import cz.fi.muni.pa165.movierecommender.api.dto.create.ReviewCreateDto;
-import cz.fi.muni.pa165.movierecommender.api.dto.update.ReviewUpdateDto;
+import cz.fi.muni.pa165.movierecommender.api.ReviewDto;
+import cz.fi.muni.pa165.movierecommender.api.create.ReviewCreateDto;
+import cz.fi.muni.pa165.movierecommender.api.update.ReviewUpdateDto;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Movie;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Review;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.User;
@@ -14,7 +14,7 @@ import cz.fi.muni.pa165.movierecommender.service.service.MovieService;
 import cz.fi.muni.pa165.movierecommender.service.service.ReviewService;
 import cz.fi.muni.pa165.movierecommender.service.service.UserService;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.BadArgumentException;
-import facade.ReviewFacade;
+import cz.fi.muni.pa165.movierecommender.api.facade.ReviewFacade;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

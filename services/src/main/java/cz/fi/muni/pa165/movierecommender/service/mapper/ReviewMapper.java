@@ -1,6 +1,6 @@
 package cz.fi.muni.pa165.movierecommender.service.mapper;
 
-import cz.fi.muni.pa165.movierecommender.api.dto.ReviewDto;
+import cz.fi.muni.pa165.movierecommender.api.ReviewDto;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Review;
 import org.mapstruct.Mapper;
 

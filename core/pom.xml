@@ -16,7 +16,6 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <openapi.version>1.6.8</openapi.version>
     </properties>
 
     <dependencies>

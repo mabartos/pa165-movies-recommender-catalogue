@@ -63,7 +63,7 @@ public interface UserService extends GenericService<User> {
     /**
      * Logs in with the given {@code username} and {@code password}.
      *
-     * @return an {@link Optional} of a user when login succeeds - a token
+     * @return a user token if login succeeded
      * @throws BadArgumentException if username or login is null
      * @throws LoginFailedException if login failed (due to credentials)
      */

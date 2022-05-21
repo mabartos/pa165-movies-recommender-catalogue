@@ -27,7 +27,7 @@ public class RestStartInitializer extends AbstractAnnotationConfigDispatcherServ
     // basic route for rest
     @Override
     protected String[] getServletMappings() {
-        return new String[]{"/api"};
+        return new String[]{"/"};
     }
 
     @Override

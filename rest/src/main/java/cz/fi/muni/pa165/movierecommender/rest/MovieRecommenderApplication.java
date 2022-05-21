@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.movierecommender.core;
+package cz.fi.muni.pa165.movierecommender.rest;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;

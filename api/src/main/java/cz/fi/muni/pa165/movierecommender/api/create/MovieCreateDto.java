@@ -24,7 +24,6 @@ public class MovieCreateDto implements CreateDto {
     private String description;
     @Min(1)
     private Integer releaseYear;
-    private Set<Long> reviewsIds;
     private Long directorId;
     private Set<Long> actorsIds;
 

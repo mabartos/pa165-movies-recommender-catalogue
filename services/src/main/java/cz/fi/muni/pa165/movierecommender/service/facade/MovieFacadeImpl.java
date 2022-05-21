@@ -4,6 +4,7 @@ import cz.fi.muni.pa165.movierecommender.api.MovieDto;
 import cz.fi.muni.pa165.movierecommender.api.create.MovieCreateDto;
 import cz.fi.muni.pa165.movierecommender.api.update.MovieUpdateDto;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Movie;
+import cz.fi.muni.pa165.movierecommender.persistence.enums.Genre;
 import cz.fi.muni.pa165.movierecommender.service.mapper.MovieMapper;
 import cz.fi.muni.pa165.movierecommender.service.mapper.create.MovieCreateMapper;
 import cz.fi.muni.pa165.movierecommender.service.mapper.update.MovieUpdateMapper;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 
 /**
  * @author Maxim Svistunov
+ * @author Petr Šlézar - many-to-many
  */
 @Service
 public class MovieFacadeImpl extends GenericFacadeImpl<Movie, MovieDto, MovieCreateDto, MovieUpdateDto> implements MovieFacade {
@@ -63,6 +65,16 @@ public class MovieFacadeImpl extends GenericFacadeImpl<Movie, MovieDto, MovieCre
     @Transactional(readOnly = true)
     public List<MovieDto> getRecommendedByMovie(Long movieId) {
         return movieService.getRecommendedByMovie(movieId).stream().map(mapper::toDto).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public MovieDto create(MovieCreateDto createDto) {
+        Movie entity = mapToEntity(createDto);
+
+        entity.setGenres(createDto.getGenres().stream().map(genreName -> Genre.valueOf(genreName)).collect(Collectors.toSet()));
+
+
+        return mapToDto(service().create(entity));
     }
 
 }

@@ -1,6 +1,8 @@
 package cz.fi.muni.pa165.movierecommender.core.config;
 
 import org.hibernate.jpa.HibernatePersistenceProvider;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
+import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -88,6 +90,11 @@ public class ApplicationConfig {
                 .securityContexts(Collections.singletonList(securityContext()))
                 .apiInfo(apiInfo());
 
+    }
+
+    @Bean
+    WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> enableDefaultServlet() {
+        return (factory) -> factory.setRegisterDefaultServlet(true);
     }
 
     private ApiInfo apiInfo() {

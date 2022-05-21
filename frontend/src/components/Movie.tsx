@@ -5,6 +5,8 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import instance from '../models/axios';
+import useSWR from 'swr';
+import fetcher from '../models/fetcher';
 
 export const Movie = () => {
   const [ showReviews, setShowReviews ] = useState<boolean>(false);
@@ -30,15 +32,10 @@ export const Movie = () => {
     alert('Review created');
   };
 
-  //TODO Tahanie informacii
-  const movie = {
-    movie: 'Doctor Strange in the Multiverse of Madness',
-    poster: 'https://m.media-amazon.com/images/M/MV5BNWM0ZGJlMzMtZmYwMi00NzI3LTgzMzMtNjMzNjliNDRmZmFlXkEyXkFqcGdeQXVyMTM1MTE1NDMx._V1_.jpg',
-    duration: 126,
-    description: 'Doctor Strange teams up with a mysterious teenage girl from his dreams who can travel across multiverses, to battle multiple threats, including other-universe versions of himself, which threaten to wipe out millions across the multiverse. They seek help from Wanda the Scarlet Witch, Wong and others.',
-    director: 'Sam Raimi',
-    actors: [ 'Benedict Cumberbatch', 'Elizabeth Olsen', 'Chitewel Ejiofor' ]
-  };
+  const { data, error } = useSWR(`movies/${id}`, fetcher)
+
+  if (error) return <div>failed to load</div>;
+  if (!data) return <div>loading...</div>;
 
   const recommendedMovies = [
     {
@@ -85,14 +82,14 @@ export const Movie = () => {
         <div className="flex flex-col col-span-2 h-full">
           <div className="flex flex-row p-4 border-solid border-r-4 border-slate-900 bg-slate-300 h-full w-full">
             <div className="p-4 flex-shrink-0 h-full w-2/5">
-              <img className="h-full w-full" src={movie.poster} alt="Poster"/>
+              <img className="h-full w-full" src={data.poster} alt="Poster"/>
             </div>
             <div className="flex flex-col p-4">
-              <p className="text-2xl font-bold">{movie.movie}</p>
-              <p>{movie.description}</p>
-              <p className="mt-auto"><b>Duration:</b> {formatDuration(movie.duration)}</p>
-              <p className="text-xl"><b>Director:</b> {movie.director}</p>
-              <p className="text-xl"><b>Actors:</b> {movie.actors.map((actor) => `${actor}, `)}</p>
+              <p className="text-2xl font-bold">{data.name}</p>
+              <p>{data.description}</p>
+              <p className="mt-auto"><b>Duration:</b> {formatDuration(data.duration)}</p>
+              <p className="text-xl"><b>Director:</b> {data.director.name}</p>
+              {/*<p className="text-xl"><b>Actors:</b> {movie.actors.map((actor) => `${actor}, `)}</p>*/}
               <button className="w-max p-4 self-center bg-blue-600 border-2 rounded-3xl border-slate-900"
                       onClick={changeShowStatus}>
                 {showReviews ? 'Show recommended movies' : 'Show reviews'}

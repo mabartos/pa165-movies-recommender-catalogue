@@ -11,7 +11,7 @@ export interface MovieCardProps {
 
 export const MovieCard = ({ id, name, poster, duration, mode }: MovieCardProps) => {
   return (
-    <Link to={`/pa165/movie/${id}`} className={`rounded-lg my-4 ${ mode === MovieCardMode.LandingPage ? "basis-1/5 h-96" : "basis-1/3 h-64"}`}>
+    <Link to={`/pa165/movie/${id}`} className={`rounded-lg my-4 ${ mode === MovieCardMode.LandingPage ? "basis-1/5 h-96 p-8" : "basis-1/3 h-64"}`}>
       <div className="w-full h-5/6">
         <img className="w-full h-full rounded-t-lg" src={poster} alt="Poster"/>
       </div>

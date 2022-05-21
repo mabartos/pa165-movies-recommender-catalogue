@@ -1,5 +1,6 @@
-package cz.fi.muni.pa165.movierecommender.api;
+package cz.fi.muni.pa165.movierecommender.api.dto;
 
+import cz.fi.muni.pa165.movierecommender.api.dto.account.UserDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -12,7 +13,7 @@ import lombok.EqualsAndHashCode;
 @Data
 public class ReviewDto extends GenericEntityDto {
 
-    private SimpleUserDto user;
+    private UserDto user;
     private SimpleMovieDto movie;
     private String text;
     private Integer scriptRating;

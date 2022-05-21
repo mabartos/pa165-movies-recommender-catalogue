@@ -1,7 +1,7 @@
 package cz.fi.muni.pa165.movierecommender.service.facade;
 
-import cz.fi.muni.pa165.movierecommender.api.create.CreateDto;
-import cz.fi.muni.pa165.movierecommender.api.update.UpdateDto;
+import cz.fi.muni.pa165.movierecommender.api.dto.create.CreateDto;
+import cz.fi.muni.pa165.movierecommender.api.dto.update.UpdateDto;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.GenericEntity;
 import cz.fi.muni.pa165.movierecommender.service.service.GenericService;
 import cz.fi.muni.pa165.movierecommender.api.facade.GenericFacade;

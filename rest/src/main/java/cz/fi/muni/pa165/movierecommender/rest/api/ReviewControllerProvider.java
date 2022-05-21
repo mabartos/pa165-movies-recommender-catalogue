@@ -1,8 +1,7 @@
 package cz.fi.muni.pa165.movierecommender.rest.api;
 
-import cz.fi.muni.pa165.movierecommender.api.ReviewDto;
-import cz.fi.muni.pa165.movierecommender.api.create.ReviewCreateDto;
-import cz.fi.muni.pa165.movierecommender.rest.api.ReviewController;
+import cz.fi.muni.pa165.movierecommender.api.dto.ReviewDto;
+import cz.fi.muni.pa165.movierecommender.api.dto.create.ReviewCreateDto;
 import cz.fi.muni.pa165.movierecommender.rest.core.RoutesHolder;
 import cz.fi.muni.pa165.movierecommender.api.facade.ReviewFacade;
 import org.springframework.beans.factory.annotation.Autowired;

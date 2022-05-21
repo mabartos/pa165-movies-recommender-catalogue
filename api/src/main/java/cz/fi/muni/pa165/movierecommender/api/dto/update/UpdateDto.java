@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.movierecommender.api.update;
+package cz.fi.muni.pa165.movierecommender.api.dto.update;
 
 import java.io.Serializable;
 

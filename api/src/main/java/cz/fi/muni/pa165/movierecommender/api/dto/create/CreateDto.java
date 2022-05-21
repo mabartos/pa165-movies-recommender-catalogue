@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.movierecommender.api.create;
+package cz.fi.muni.pa165.movierecommender.api.dto.create;
 
 import java.io.Serializable;
 

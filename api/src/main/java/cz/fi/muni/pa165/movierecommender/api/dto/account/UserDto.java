@@ -1,5 +1,6 @@
-package cz.fi.muni.pa165.movierecommender.api.account;
+package cz.fi.muni.pa165.movierecommender.api.dto.account;
 
+import cz.fi.muni.pa165.movierecommender.api.dto.GenericEntityDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,9 +9,8 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public class UserDto {
+public class UserDto extends GenericEntityDto {
 
-        private Long id;
         private String tokenIdentifier;
         private String email;
         private String name;

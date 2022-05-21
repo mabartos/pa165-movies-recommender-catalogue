@@ -1,9 +1,8 @@
-package cz.fi.muni.pa165.movierecommender.api;
+package cz.fi.muni.pa165.movierecommender.api.dto;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,7 +11,7 @@ import java.util.Set;
  */
 @EqualsAndHashCode(callSuper = false)
 @Data
-public class MovieDto implements Serializable {
+public class MovieDto extends GenericEntityDto {
 
     private String name;
     private Integer duration;
@@ -20,7 +19,7 @@ public class MovieDto implements Serializable {
     private Set<String> genres = new HashSet<>();
     private String description;
     private Integer releaseYear;
-    private Set<ReviewDto> reviews;
+    private Set<SimpleReviewDto> reviews;
     private PersonDto director;
-    private Set<PersonDto> actors;
+    private Set<SimpleMovieDto> actors;
 }

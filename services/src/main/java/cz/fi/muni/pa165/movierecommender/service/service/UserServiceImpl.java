@@ -1,7 +1,7 @@
 package cz.fi.muni.pa165.movierecommender.service.service;
 
 import com.google.common.collect.ImmutableMap;
-import cz.fi.muni.pa165.movierecommender.api.account.UserDto;
+import cz.fi.muni.pa165.movierecommender.api.dto.account.UserDto;
 import cz.fi.muni.pa165.movierecommender.persistence.dao.EntityDao;
 import cz.fi.muni.pa165.movierecommender.persistence.dao.UserDao;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.User;
@@ -9,7 +9,6 @@ import cz.fi.muni.pa165.movierecommender.persistence.enums.UserType;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.BadArgumentException;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.ForbiddenOperationException;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.LoginFailedException;
-import cz.fi.muni.pa165.movierecommender.service.service.exception.MissingEntityException;
 import cz.fi.muni.pa165.movierecommender.service.service.security.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

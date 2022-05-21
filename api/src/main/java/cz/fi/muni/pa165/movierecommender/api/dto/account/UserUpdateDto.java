@@ -1,6 +1,6 @@
-package cz.fi.muni.pa165.movierecommender.api.account;
+package cz.fi.muni.pa165.movierecommender.api.dto.account;
 
-import cz.fi.muni.pa165.movierecommender.api.update.UpdateDto;
+import cz.fi.muni.pa165.movierecommender.api.dto.update.UpdateDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

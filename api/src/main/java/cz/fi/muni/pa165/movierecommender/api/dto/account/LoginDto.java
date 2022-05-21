@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.movierecommender.api.account;
+package cz.fi.muni.pa165.movierecommender.api.dto.account;
 
 import lombok.Data;
 

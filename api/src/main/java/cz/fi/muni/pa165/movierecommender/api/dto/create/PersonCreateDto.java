@@ -1,20 +1,19 @@
-package cz.fi.muni.pa165.movierecommender.api;
+package cz.fi.muni.pa165.movierecommender.api.dto.create;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.Set;
 
 @EqualsAndHashCode(callSuper = false)
 @Data
-public class PersonDto extends GenericEntityDto{
+public class PersonCreateDto implements CreateDto {
 
+    @NotNull
     private String name;
+
     private LocalDate birth;
     private String about;
     private String picture;
-    private Set<SimpleMovieDto> directedMovies;
-    private Set<SimpleMovieDto> actedInMovies;
-
 }

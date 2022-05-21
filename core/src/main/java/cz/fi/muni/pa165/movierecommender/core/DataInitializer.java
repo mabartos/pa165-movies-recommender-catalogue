@@ -301,6 +301,37 @@ public class DataInitializer {
         pulpFiction.setDirector(quentin);
         marecek.setActors(new HashSet<>(List.of(quentin,tim)));
         movieDao.update(pulpFiction);
+
+        frankDarabont.setDirectedMovies(new HashSet<>(List.of(shawsankRedemption,greenMile)));
+        timRobbins.setActedInMovies(new HashSet<>(List.of(shawsankRedemption)));
+        morganFreeman.setActedInMovies(new HashSet<>(List.of(shawsankRedemption)));
+        tomHanks.setActedInMovies(new HashSet<>(List.of(greenMile)));
+        michaelDuncan.setActedInMovies(new HashSet<>(List.of(greenMile)));
+        johnSturges.setDirectedMovies(new HashSet<>(List.of(magnificentSeven)));
+        yulBrynner.setActedInMovies(new HashSet<>(List.of(magnificentSeven)));
+        milosForman.setDirectedMovies(new HashSet<>(List.of(cuckoosNest)));
+        jackNickolson.setActedInMovies(new HashSet<>(List.of(cuckoosNest)));
+        oldrichLipsky.setDirectedMovies(new HashSet<>(List.of(marecek)));
+        jiriSovak.setActedInMovies(new HashSet<>(List.of(marecek)));
+        quentin.setDirectedMovies(new HashSet<>(List.of(pulpFiction,dogs)));
+        quentin.setActedInMovies(new HashSet<>(List.of(pulpFiction,dogs)));
+        tim.setActedInMovies(new HashSet<>(List.of(pulpFiction,dogs)));
+        terry.setDirectedMovies(new HashSet<>(List.of(monty)));
+        terry.setActedInMovies(new HashSet<>(List.of(monty)));
+        personDao.update(frankDarabont);
+        personDao.update(timRobbins);
+        personDao.update(morganFreeman);
+        personDao.update(tomHanks);
+        personDao.update(michaelDuncan);
+        personDao.update(johnSturges);
+        personDao.update(yulBrynner);
+        personDao.update(milosForman);
+        personDao.update(jackNickolson);
+        personDao.update(oldrichLipsky);
+        personDao.update(jiriSovak);
+        personDao.update(quentin);
+        personDao.update(tim);
+        personDao.update(terry);
     }
 
 }

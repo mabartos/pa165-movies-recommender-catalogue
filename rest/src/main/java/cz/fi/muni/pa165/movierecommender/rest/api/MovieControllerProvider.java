@@ -1,21 +1,14 @@
 package cz.fi.muni.pa165.movierecommender.rest.api;
 
-import cz.fi.muni.pa165.movierecommender.api.MovieDto;
-import cz.fi.muni.pa165.movierecommender.api.ReviewDto;
-import cz.fi.muni.pa165.movierecommender.api.create.MovieCreateDto;
-import cz.fi.muni.pa165.movierecommender.api.update.MovieUpdateDto;
-import cz.fi.muni.pa165.movierecommender.rest.api.MovieController;
+import cz.fi.muni.pa165.movierecommender.api.dto.MovieDto;
+import cz.fi.muni.pa165.movierecommender.api.dto.ReviewDto;
 import cz.fi.muni.pa165.movierecommender.rest.core.RoutesHolder;
 import cz.fi.muni.pa165.movierecommender.api.facade.MovieFacade;
 import cz.fi.muni.pa165.movierecommender.api.facade.ReviewFacade;
 import cz.fi.muni.pa165.movierecommender.service.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;

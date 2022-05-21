@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.movierecommender.api;
+package cz.fi.muni.pa165.movierecommender.api.dto;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,6 +1,6 @@
 package cz.fi.muni.pa165.movierecommender.service.service;
 
-import cz.fi.muni.pa165.movierecommender.api.account.UserDto;
+import cz.fi.muni.pa165.movierecommender.api.dto.account.UserDto;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.User;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.BadArgumentException;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.ForbiddenOperationException;

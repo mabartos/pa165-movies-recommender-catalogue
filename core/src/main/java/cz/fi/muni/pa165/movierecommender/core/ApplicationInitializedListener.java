@@ -24,7 +24,7 @@ public class ApplicationInitializedListener implements ApplicationListener<Conte
             initializer.createUsers();
             log.info("------ Application Data Init Finished. ------");
 
-            log.info("Swagger: http://localhost:8080/api/swagger-ui.html");
+            log.info("Swagger: http://localhost:8080/pa165/rest/swagger-ui.html");
         }
 
     }

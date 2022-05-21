@@ -299,7 +299,7 @@ public class DataInitializer {
         movieDao.update(monty);
 
         pulpFiction.setDirector(quentin);
-        marecek.setActors(new HashSet<>(List.of(quentin,tim)));
+        pulpFiction.setActors(new HashSet<>(List.of(quentin,tim)));
         movieDao.update(pulpFiction);
 
         frankDarabont.setDirectedMovies(new HashSet<>(List.of(shawsankRedemption,greenMile)));

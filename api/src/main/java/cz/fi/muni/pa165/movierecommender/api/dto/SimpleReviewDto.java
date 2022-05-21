@@ -1,6 +1,11 @@
 package cz.fi.muni.pa165.movierecommender.api.dto;
 
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class SimpleReviewDto extends GenericEntityDto{
 
     private SimpleUserDto user;

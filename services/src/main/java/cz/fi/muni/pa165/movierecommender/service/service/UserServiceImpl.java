@@ -18,11 +18,12 @@ import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityExistsException;
 import java.util.Optional;
 
 /**
  * @author Daniel Puchala
- * @author Petr Šlézar - security
+ * @author Petr Šlézar - security and error handling
  */
 @Service
 public class UserServiceImpl extends GenericServiceImpl<User> implements UserService {
@@ -43,7 +44,7 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
         if (email == null) throw new BadArgumentException("Email is null");
 
         Optional<User> entity = userDao.findByEmail(email);
-        if(entity.isEmpty()) throw new MissingEntityException(entityClass,email);
+        if(entity.isEmpty()) return null;
         return entity.get();
     }
 
@@ -52,19 +53,29 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
         if (name == null) throw new BadArgumentException("Name is null");
 
         Optional<User> entity = userDao.findByName(name);
-        if(entity.isEmpty()) throw new MissingEntityException(entityClass,name);
+        if(entity.isEmpty()) return null;
         return entity.get();
     }
 
     @Override
     public void registerUser(User user, String unencryptedPassword) {
+        if(user == null || unencryptedPassword.isBlank() )
+            throw new BadArgumentException("User or their password is null or empty");
+        if(userDao.findByEmail(user.getEmail()).isPresent())
+            throw new EntityExistsException(String.format("User with email %s already exists", user.getEmail()));
+        if(userDao.findByName(user.getName()).isPresent())
+            throw new EntityExistsException(String.format("User with name %s already exists",user.getName()));
+
         user.setPasswordHash(encoder.encode(unencryptedPassword));
         userDao.create(user);
     }
 
     @Override
     public void updateUser(User user, String unencryptedNewPassword) {
-        user.setPasswordHash(encoder.encode(unencryptedNewPassword));
+        if(user == null) throw new BadArgumentException("User to be updated is null");
+        if(!unencryptedNewPassword.isBlank() && !unencryptedNewPassword.isEmpty())
+            user.setPasswordHash(encoder.encode(unencryptedNewPassword));
+
         userDao.update(user);
     }
 
@@ -98,6 +109,7 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
         if (token == null) {
             throw new BadArgumentException("Token is null");
         }
+
         return Optional.of(tokens.verify(token))
                 .map(map -> map.get("name"))
                 .map(userName -> new UserDto(token, userName));

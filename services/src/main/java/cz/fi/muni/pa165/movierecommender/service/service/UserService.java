@@ -5,32 +5,58 @@ import cz.fi.muni.pa165.movierecommender.persistence.entity.User;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.BadArgumentException;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.ForbiddenOperationException;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.LoginFailedException;
+import javax.persistence.EntityExistsException;
 
 import java.util.Optional;
 
 /**
  * @author Daniel Puchala
+ * @author Petr Šlézar
  */
 public interface UserService extends GenericService<User> {
 
-
+    /**
+     * Finds a user with given email
+     *
+     * @param email email address of searched user
+     * @return a User entity if found, null if not
+     * @throws BadArgumentException if email is null
+     */
     User findByEmail(String email);
 
+    /**
+     * Finds a user with given email
+     *
+     * @param name name of searched user
+     * @return a User entity if found, null if not
+     * @throws BadArgumentException if name
+     */
     User findByName(String name);
 
     /**
      * Register the given user with the given unencrypted password.
+     *
+     * @param user created user entity (some fields may be uninitialized)
+     * @param unencryptedNewPassword a raw password yet to be encrypted
+     * @throws BadArgumentException if user or unencryptedPassword params are null
+     * @throws EntityExistsException if user with given mail or name already exists
      */
     void registerUser(User user, String unencryptedNewPassword);
 
     /**
      * Update a given user.
+     *
+     * @param user modified user to be updated
+     * @param newPassword new modified password (maybe blank or null) - then no change to it
+     * @throws BadArgumentException if user is null
      */
     void updateUser(User user, String newPassword);
 
 
     /**
      * Check if the given user is admin.
+     *
+     * @param user to be checked for admin privileges
      */
     boolean isAdmin(User user);
 

@@ -1,6 +1,7 @@
 package cz.fi.muni.pa165.movierecommender.core;
 
 import cz.fi.muni.pa165.movierecommender.persistence.dao.UserDao;
+import cz.fi.muni.pa165.movierecommender.persistence.entity.Movie;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.User;
 import cz.fi.muni.pa165.movierecommender.persistence.enums.UserType;
 import lombok.extern.slf4j.Slf4j;
@@ -25,9 +26,10 @@ public class DataInitializer {
     }
 
     @Transactional
-    public void createSystemUsers() {
+    public void createUsers() {
 
-        User systemUser1 = new User("admin",passwordEncoder.encode("admin"),"petr.slezar@centrum.cz", UserType.ADMIN);
-        systemUserDao.create(systemUser1);
+        User admin = new User("admin",passwordEncoder.encode("admin"),"admin@gmail.com", UserType.ADMIN);
+        systemUserDao.create(admin);
     }
+
 }

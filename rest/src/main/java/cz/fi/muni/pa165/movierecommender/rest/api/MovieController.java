@@ -38,18 +38,6 @@ public interface MovieController {
     @ResponseBody
     Long getCount();
 
-    @PostMapping
-    @ResponseBody
-    MovieDto create(@RequestBody MovieCreateDto createDto);
-
-    @DeleteMapping("{id}")
-    @ResponseBody
-    void delete(@PathVariable Long id);
-
-    @PatchMapping
-    @ResponseBody
-    MovieDto update(@RequestBody MovieUpdateDto movie);
-
     @GetMapping("{id}/recommended")
     @ResponseBody
     List<MovieDto> getRecommendedMovies(@PathVariable Long id);

@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.movierecommender.rest;
+package cz.fi.muni.pa165.movierecommender.rest.api;
 
 import cz.fi.muni.pa165.movierecommender.api.ReviewDto;
 import cz.fi.muni.pa165.movierecommender.api.account.UserCreateDto;

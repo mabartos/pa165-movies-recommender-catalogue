@@ -1,11 +1,14 @@
 package cz.fi.muni.pa165.movierecommender.service.facade;
 
+import cz.fi.muni.pa165.movierecommender.api.MovieDto;
 import cz.fi.muni.pa165.movierecommender.api.ReviewDto;
+import cz.fi.muni.pa165.movierecommender.api.create.MovieCreateDto;
 import cz.fi.muni.pa165.movierecommender.api.create.ReviewCreateDto;
 import cz.fi.muni.pa165.movierecommender.api.update.ReviewUpdateDto;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Movie;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Review;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.User;
+import cz.fi.muni.pa165.movierecommender.persistence.enums.Genre;
 import cz.fi.muni.pa165.movierecommender.service.mapper.ReviewMapper;
 import cz.fi.muni.pa165.movierecommender.service.mapper.create.ReviewCreateMapper;
 import cz.fi.muni.pa165.movierecommender.service.mapper.update.ReviewUpdateMapper;
@@ -138,5 +141,16 @@ public class ReviewFacadeImpl extends GenericFacadeImpl<Review, ReviewDto, Revie
         final Movie movie = movieService.findById(movieId);
 
         return reviewService.getAverageRating(movie);
+    }
+
+    @Override
+    @Transactional
+    public ReviewDto create(ReviewCreateDto createDto) {
+        Review entity = mapToEntity(createDto);
+
+        entity.setUser(userService.findById(createDto.getUserId()));
+        entity.setMovie(movieService.findById(createDto.getMovieId()));
+
+        return mapToDto(service().create(entity));
     }
 }

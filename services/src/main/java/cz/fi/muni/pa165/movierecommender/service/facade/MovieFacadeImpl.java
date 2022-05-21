@@ -11,6 +11,7 @@ import cz.fi.muni.pa165.movierecommender.service.mapper.update.MovieUpdateMapper
 import cz.fi.muni.pa165.movierecommender.service.service.GenericService;
 import cz.fi.muni.pa165.movierecommender.service.service.MovieService;
 import cz.fi.muni.pa165.movierecommender.api.facade.MovieFacade;
+import cz.fi.muni.pa165.movierecommender.service.service.PersonService;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,11 +28,13 @@ public class MovieFacadeImpl extends GenericFacadeImpl<Movie, MovieDto, MovieCre
 
     private final MovieMapper mapper = Mappers.getMapper(MovieMapper.class);
     private final MovieService movieService;
+    private final PersonService personService;
     private final MovieCreateMapper createMapper = Mappers.getMapper(MovieCreateMapper.class);
     private final MovieUpdateMapper updateMapper = Mappers.getMapper(MovieUpdateMapper.class);
 
-    public MovieFacadeImpl(MovieService movieService) {
+    public MovieFacadeImpl(MovieService movieService, PersonService personService) {
         this.movieService = movieService;
+        this.personService = personService;
     }
 
     @Override
@@ -67,12 +70,14 @@ public class MovieFacadeImpl extends GenericFacadeImpl<Movie, MovieDto, MovieCre
         return movieService.getRecommendedByMovie(movieId).stream().map(mapper::toDto).collect(Collectors.toList());
     }
 
+    @Override
     @Transactional
     public MovieDto create(MovieCreateDto createDto) {
         Movie entity = mapToEntity(createDto);
 
-        entity.setGenres(createDto.getGenres().stream().map(genreName -> Genre.valueOf(genreName)).collect(Collectors.toSet()));
-
+        entity.setGenres(createDto.getGenres().stream().map(Genre::valueOf).collect(Collectors.toSet()));
+        entity.setDirector(personService.findById(createDto.getDirectorId()));
+        entity.setActors(createDto.getActorsIds().stream().map(personService::findById).collect(Collectors.toSet()));
 
         return mapToDto(service().create(entity));
     }

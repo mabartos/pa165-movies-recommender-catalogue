@@ -22,6 +22,9 @@ public class ApplicationInitializedListener implements ApplicationListener<Conte
         if (event.getApplicationContext().getParent() == null) {
             log.info("------ Application Data Init Begins ... ------");
             initializer.createUsers();
+            initializer.createPersons();
+            initializer.createMovies();
+            initializer.connectFilmsAndPersons();
             log.info("------ Application Data Init Finished. ------");
 
             log.info("Swagger: http://localhost:8080/pa165/rest/swagger-ui.html");

@@ -3,6 +3,7 @@ package cz.fi.muni.pa165.movierecommender.service.facade;
 import cz.fi.muni.pa165.movierecommender.api.dto.PersonDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.create.PersonCreateDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.update.PersonUpdateDto;
+import cz.fi.muni.pa165.movierecommender.api.facade.PersonFacade;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Movie;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Person;
 import cz.fi.muni.pa165.movierecommender.service.mapper.PersonMapper;
@@ -11,7 +12,6 @@ import cz.fi.muni.pa165.movierecommender.service.mapper.update.PersonUpdateMappe
 import cz.fi.muni.pa165.movierecommender.service.service.GenericService;
 import cz.fi.muni.pa165.movierecommender.service.service.MovieService;
 import cz.fi.muni.pa165.movierecommender.service.service.PersonService;
-import cz.fi.muni.pa165.movierecommender.api.facade.PersonFacade;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +22,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * @author Martin Bartoš
+ * @author Petr Šlézar - delete update create
+ */
 @Service
 public class PersonFacadeImpl extends GenericFacadeImpl<Person, PersonDto, PersonCreateDto, PersonUpdateDto> implements PersonFacade {
     private final PersonService personService;
@@ -91,7 +95,7 @@ public class PersonFacadeImpl extends GenericFacadeImpl<Person, PersonDto, Perso
         Set<Movie> actedInMovies = toBeDeleted.getActedInMovies();
         Set<Movie> directedMovies = toBeDeleted.getDirectedMovies();
 
-        for (Movie actedInMovie : actedInMovies){
+        for (Movie actedInMovie : actedInMovies) {
             Set<Person> currentMovieActedIn = actedInMovie.getActors();
             currentMovieActedIn.remove(toBeDeleted);
             actedInMovie.setActors(currentMovieActedIn);
@@ -99,7 +103,7 @@ public class PersonFacadeImpl extends GenericFacadeImpl<Person, PersonDto, Perso
             movieService.update(actedInMovie);
         }
 
-        for (Movie directedMovie : directedMovies){
+        for (Movie directedMovie : directedMovies) {
             directedMovie.setDirector(null);
 
             movieService.update(directedMovie);

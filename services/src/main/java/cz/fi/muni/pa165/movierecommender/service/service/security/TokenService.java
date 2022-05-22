@@ -9,6 +9,7 @@ public interface TokenService {
 
     /**
      * Checks validity of attributes, if are between permanent credentials
+     *
      * @param attributes to be checked
      * @return jwt token
      */
@@ -16,6 +17,7 @@ public interface TokenService {
 
     /**
      * Checks validity of attributes, if are still up to date
+     *
      * @param attributes to be checked
      * @return jwt token
      */

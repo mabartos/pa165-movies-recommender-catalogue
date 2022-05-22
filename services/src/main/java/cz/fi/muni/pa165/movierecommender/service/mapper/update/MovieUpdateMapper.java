@@ -6,7 +6,6 @@ import org.mapstruct.Mapper;
 
 /**
  * @author Maxim Svistunov
- *
  */
 @Mapper
 public interface MovieUpdateMapper {

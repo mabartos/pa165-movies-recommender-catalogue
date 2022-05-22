@@ -4,7 +4,6 @@ import cz.fi.muni.pa165.movierecommender.persistence.dao.ReviewDao;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Review;
 import cz.fi.muni.pa165.movierecommender.service.service.ReviewService;
 import cz.fi.muni.pa165.movierecommender.service.service.ReviewServiceImpl;
-
 import cz.fi.muni.pa165.movierecommender.service.service.exception.BadArgumentException;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.MissingEntityException;
 import org.assertj.core.api.Assertions;
@@ -25,10 +24,9 @@ import java.util.List;
 @MockitoSettings(strictness = Strictness.LENIENT)
 public class ReviewServiceTest extends ServiceTestBase {
 
+    ReviewService service;
     @Mock
     private ReviewDao dao;
-
-    ReviewService service;
 
     @Override
     protected void assignService() {
@@ -37,7 +35,7 @@ public class ReviewServiceTest extends ServiceTestBase {
 
     @Override
     protected void mockRepositoryMethods() {
-        Mockito.when(dao.findAll()).thenReturn(List.of(MockedEntities.PEPA_MONTY_REVIEW, MockedEntities.KAREL_PULP_REVIEW,MockedEntities.HONZA_RESERVOIR_REVIEW,MockedEntities.PEPA_RESERVOIR_REVIEW));
+        Mockito.when(dao.findAll()).thenReturn(List.of(MockedEntities.PEPA_MONTY_REVIEW, MockedEntities.KAREL_PULP_REVIEW, MockedEntities.HONZA_RESERVOIR_REVIEW, MockedEntities.PEPA_RESERVOIR_REVIEW));
 
         Mockito.when(dao.findById(MockedEntities.PEPA_RESERVOIR_REVIEW.getId())).thenReturn(MockedEntities.PEPA_RESERVOIR_REVIEW);
         Mockito.when(dao.findById(MockedEntities.HONZA_RESERVOIR_REVIEW.getId())).thenReturn(MockedEntities.HONZA_RESERVOIR_REVIEW);
@@ -46,16 +44,16 @@ public class ReviewServiceTest extends ServiceTestBase {
 
         Mockito.when(dao.findByMovie(MockedEntities.PULP_FICTION)).thenReturn(List.of(MockedEntities.KAREL_PULP_REVIEW));
         Mockito.when(dao.findByMovie(MockedEntities.MONTY_PYTHON)).thenReturn(List.of(MockedEntities.PEPA_MONTY_REVIEW));
-        Mockito.when(dao.findByMovie(MockedEntities.RESERVOIR_DOGS)).thenReturn(List.of(MockedEntities.PEPA_RESERVOIR_REVIEW,MockedEntities.HONZA_RESERVOIR_REVIEW));
+        Mockito.when(dao.findByMovie(MockedEntities.RESERVOIR_DOGS)).thenReturn(List.of(MockedEntities.PEPA_RESERVOIR_REVIEW, MockedEntities.HONZA_RESERVOIR_REVIEW));
 
         Mockito.when(dao.findByUser(MockedEntities.HONZA)).thenReturn(List.of(MockedEntities.HONZA_RESERVOIR_REVIEW));
-        Mockito.when(dao.findByUser(MockedEntities.PEPA)).thenReturn(List.of(MockedEntities.PEPA_RESERVOIR_REVIEW,MockedEntities.PEPA_MONTY_REVIEW));
+        Mockito.when(dao.findByUser(MockedEntities.PEPA)).thenReturn(List.of(MockedEntities.PEPA_RESERVOIR_REVIEW, MockedEntities.PEPA_MONTY_REVIEW));
         Mockito.when(dao.findByUser(MockedEntities.KAREL)).thenReturn(List.of(MockedEntities.KAREL_PULP_REVIEW));
 
-        Mockito.when(dao.findByMovieAndUser(MockedEntities.RESERVOIR_DOGS,MockedEntities.PEPA)).thenReturn(MockedEntities.PEPA_RESERVOIR_REVIEW);
-        Mockito.when(dao.findByMovieAndUser(MockedEntities.RESERVOIR_DOGS,MockedEntities.HONZA)).thenReturn(MockedEntities.HONZA_RESERVOIR_REVIEW);
-        Mockito.when(dao.findByMovieAndUser(MockedEntities.PULP_FICTION,MockedEntities.KAREL)).thenReturn(MockedEntities.KAREL_PULP_REVIEW);
-        Mockito.when(dao.findByMovieAndUser(MockedEntities.MONTY_PYTHON,MockedEntities.PEPA)).thenReturn(MockedEntities.PEPA_MONTY_REVIEW);
+        Mockito.when(dao.findByMovieAndUser(MockedEntities.RESERVOIR_DOGS, MockedEntities.PEPA)).thenReturn(MockedEntities.PEPA_RESERVOIR_REVIEW);
+        Mockito.when(dao.findByMovieAndUser(MockedEntities.RESERVOIR_DOGS, MockedEntities.HONZA)).thenReturn(MockedEntities.HONZA_RESERVOIR_REVIEW);
+        Mockito.when(dao.findByMovieAndUser(MockedEntities.PULP_FICTION, MockedEntities.KAREL)).thenReturn(MockedEntities.KAREL_PULP_REVIEW);
+        Mockito.when(dao.findByMovieAndUser(MockedEntities.MONTY_PYTHON, MockedEntities.PEPA)).thenReturn(MockedEntities.PEPA_MONTY_REVIEW);
 
     }
 
@@ -78,7 +76,7 @@ public class ReviewServiceTest extends ServiceTestBase {
 
     @Test
     public void update() {
-        Review entityToUpdate = new Review(MockedEntities.KAREL_PULP_REVIEW.getUser(),MockedEntities.KAREL_PULP_REVIEW.getMovie(),"I changed my mind",10,10,10,10,10);
+        Review entityToUpdate = new Review(MockedEntities.KAREL_PULP_REVIEW.getUser(), MockedEntities.KAREL_PULP_REVIEW.getMovie(), "I changed my mind", 10, 10, 10, 10, 10);
         entityToUpdate.setId(MockedEntities.KAREL_PULP_REVIEW.getId());
         service.update(entityToUpdate);
         Mockito.verify(dao, Mockito.times(1)).update(entityToUpdate);
@@ -117,7 +115,7 @@ public class ReviewServiceTest extends ServiceTestBase {
         List<Review> fromRepository = service.findByUser(MockedEntities.PEPA);
         Assertions.assertThat(fromRepository).isNotNull();
         Assertions.assertThat(fromRepository).hasSize(2);
-        Assertions.assertThat(fromRepository).containsExactlyInAnyOrder(MockedEntities.PEPA_MONTY_REVIEW,MockedEntities.PEPA_RESERVOIR_REVIEW);
+        Assertions.assertThat(fromRepository).containsExactlyInAnyOrder(MockedEntities.PEPA_MONTY_REVIEW, MockedEntities.PEPA_RESERVOIR_REVIEW);
     }
 
     @Test
@@ -140,7 +138,7 @@ public class ReviewServiceTest extends ServiceTestBase {
 
     @Test
     public void findByMovieAndUser() {
-        Review fromRepository = service.findByMovieAndUser(MockedEntities.RESERVOIR_DOGS,MockedEntities.PEPA);
+        Review fromRepository = service.findByMovieAndUser(MockedEntities.RESERVOIR_DOGS, MockedEntities.PEPA);
         Assertions.assertThat(fromRepository).isNotNull();
         Assertions.assertThat(fromRepository).usingRecursiveComparison().isEqualTo(MockedEntities.PEPA_RESERVOIR_REVIEW);
     }
@@ -166,7 +164,7 @@ public class ReviewServiceTest extends ServiceTestBase {
 
         Assertions.assertThat(fromRepository).isNotNull();
         Assertions.assertThat(fromRepository).containsExactlyInAnyOrder(MockedEntities.HONZA_RESERVOIR_REVIEW,
-                MockedEntities.PEPA_RESERVOIR_REVIEW,MockedEntities.PEPA_MONTY_REVIEW,MockedEntities.KAREL_PULP_REVIEW);
+                MockedEntities.PEPA_RESERVOIR_REVIEW, MockedEntities.PEPA_MONTY_REVIEW, MockedEntities.KAREL_PULP_REVIEW);
     }
 
     @Test

@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * @author Maxim Svistunov
- *
+ * <p>
  * Movie DTO for update
  */
 @EqualsAndHashCode(callSuper = false)

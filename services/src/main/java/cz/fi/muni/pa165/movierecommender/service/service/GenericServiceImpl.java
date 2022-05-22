@@ -8,14 +8,13 @@ import cz.fi.muni.pa165.movierecommender.service.service.exception.MissingEntity
 import java.util.List;
 
 /**
- * @author Daniel Puchala
- *
  * @param <Entity> of type generic entity
+ * @author Daniel Puchala
  */
-public abstract  class GenericServiceImpl<Entity extends GenericEntity> implements GenericService<Entity> {
+public abstract class GenericServiceImpl<Entity extends GenericEntity> implements GenericService<Entity> {
 
-    private final EntityDao<Entity> entityDao;
     protected final Class<Entity> entityClass;
+    private final EntityDao<Entity> entityDao;
 
     public GenericServiceImpl(EntityDao<Entity> entityDao, Class<Entity> entityClass) {
         this.entityDao = entityDao;
@@ -65,7 +64,7 @@ public abstract  class GenericServiceImpl<Entity extends GenericEntity> implemen
         if (id == null) throw new BadArgumentException("Provided Id is null");
 
         Entity fromDb = entityDao.findById(id);
-        if (fromDb == null) throw new MissingEntityException(entityClass,id);
+        if (fromDb == null) throw new MissingEntityException(entityClass, id);
 
         return entityDao.findById(id);
     }
@@ -76,7 +75,7 @@ public abstract  class GenericServiceImpl<Entity extends GenericEntity> implemen
     }
 
     @Override
-    public EntityDao<Entity> getEntityDao(){
+    public EntityDao<Entity> getEntityDao() {
         return entityDao;
     }
 }

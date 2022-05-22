@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * @author Petr Šlézar
- *
+ * <p>
  * A class for creating a review - main difference is containing only author's and movie's id
  */
 @Data

@@ -8,7 +8,7 @@ import java.util.Set;
 
 @EqualsAndHashCode(callSuper = false)
 @Data
-public class PersonDto extends GenericEntityDto{
+public class PersonDto extends GenericEntityDto {
 
     private String name;
     private LocalDate birth;

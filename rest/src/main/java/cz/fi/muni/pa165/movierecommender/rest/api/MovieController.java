@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * @author Martin Bartoš
+ */
 @RestController
 @RequestMapping(RoutesHolder.MOVIE_ROUTE)
 public interface MovieController {

@@ -1,4 +1,4 @@
-package cz.fi.muni.pa165.movierecommender.core.config;
+package cz.fi.muni.pa165.movierecommender.core;
 
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
@@ -33,6 +33,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Collections;
 
+/**
+ * @author Petr Šlézar
+ */
 @EnableSwagger2
 @Configuration
 @EnableTransactionManagement

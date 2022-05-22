@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * @author Maxim Svistunov
+ */
 @RestController
 @RequestMapping(RoutesHolder.REVIEW_ROUTE)
 public interface ReviewController {

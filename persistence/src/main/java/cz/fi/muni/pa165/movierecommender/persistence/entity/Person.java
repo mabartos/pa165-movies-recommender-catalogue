@@ -1,11 +1,7 @@
 package cz.fi.muni.pa165.movierecommender.persistence.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -48,11 +44,11 @@ public class Person extends GenericEntity {
 
     @JsonManagedReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "director", targetEntity = Movie.class)
-    @JsonIgnoreProperties(value = {"director","actors","reviews"},allowSetters = true)
+    @JsonIgnoreProperties(value = {"director", "actors", "reviews"}, allowSetters = true)
     private Set<Movie> directedMovies;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "actors", targetEntity = Movie.class)
-    @JsonIgnoreProperties(value = {"director","actors","reviews"},allowSetters = true)
+    @JsonIgnoreProperties(value = {"director", "actors", "reviews"}, allowSetters = true)
     private Set<Movie> actedInMovies;
 
     public Set<Movie> getDirectedMovies() {

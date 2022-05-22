@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 
 /**
  * @author Petr Šlézar
- *
+ * <p>
  * This class is intended to be used for simplifying the info about movie that is carried by other DTO (we don't need
  * such level of detail when displaying review,etc.)
  */

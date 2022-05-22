@@ -24,10 +24,9 @@ import java.util.List;
 @MockitoSettings(strictness = Strictness.LENIENT)
 public class PersonServiceTest extends ServiceTestBase {
 
+    PersonService service;
     @Mock
     private PersonDao dao;
-
-    PersonService service;
 
     @Override
     protected void assignService() {

@@ -1,13 +1,13 @@
 package cz.fi.muni.pa165.movierecommender.api.movierecommender.daos;
 
 import cz.fi.muni.pa165.movierecommender.api.movierecommender.PersistenceTestConfig;
-import cz.fi.muni.pa165.movierecommender.persistence.enums.UserType;
 import cz.fi.muni.pa165.movierecommender.persistence.dao.MovieDao;
 import cz.fi.muni.pa165.movierecommender.persistence.dao.ReviewDao;
 import cz.fi.muni.pa165.movierecommender.persistence.dao.UserDao;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Movie;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Review;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.User;
+import cz.fi.muni.pa165.movierecommender.persistence.enums.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -18,11 +18,11 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
-
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceUnit;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
 
 /**
  * Tests for {@link ReviewDao}
@@ -34,22 +34,17 @@ import javax.persistence.PersistenceUnit;
 @Transactional
 public class ReviewDaoTest extends AbstractTestNGSpringContextTests {
 
-    @PersistenceUnit
-    private EntityManagerFactory emf;
-
-    @Autowired
-    private ReviewDao reviewDao;
-
-    @Autowired
-    private UserDao userDao;
-
-    @Autowired
-    private MovieDao movieDao;
-
     Review review;
     Movie movie;
     User user;
-
+    @PersistenceUnit
+    private EntityManagerFactory emf;
+    @Autowired
+    private ReviewDao reviewDao;
+    @Autowired
+    private UserDao userDao;
+    @Autowired
+    private MovieDao movieDao;
 
     @BeforeMethod
     public void setup() {
@@ -145,7 +140,7 @@ public class ReviewDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findByUser() {
-        assert(reviewDao.findByUser(user).contains(review));
+        assert (reviewDao.findByUser(user).contains(review));
     }
 
     @Test
@@ -157,7 +152,7 @@ public class ReviewDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void findByMovie() {
-        assert(reviewDao.findByMovie(movie).contains(review));
+        assert (reviewDao.findByMovie(movie).contains(review));
     }
 
     @Test

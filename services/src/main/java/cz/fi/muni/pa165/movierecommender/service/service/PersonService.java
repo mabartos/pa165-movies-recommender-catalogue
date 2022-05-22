@@ -2,7 +2,6 @@ package cz.fi.muni.pa165.movierecommender.service.service;
 
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Person;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.BadArgumentException;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

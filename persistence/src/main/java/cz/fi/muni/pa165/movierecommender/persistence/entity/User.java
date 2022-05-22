@@ -2,22 +2,19 @@ package cz.fi.muni.pa165.movierecommender.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import cz.fi.muni.pa165.movierecommender.persistence.enums.UserType;
 import jakarta.validation.constraints.NotBlank;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,7 +39,6 @@ import static java.util.Objects.requireNonNull;
  * @author Daniel Puchala
  * @author Petr Šlézar - authentication
  */
-
 
 
 @Entity
@@ -75,7 +71,7 @@ public class User extends GenericEntity implements UserDetails {
 
     @JsonBackReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", targetEntity = Review.class)
-    @JsonIgnoreProperties(value = "user",allowSetters = true)
+    @JsonIgnoreProperties(value = "user", allowSetters = true)
     private Set<Review> reviews = new HashSet<>();
 
     @JsonCreator
@@ -94,15 +90,15 @@ public class User extends GenericEntity implements UserDetails {
         this.avatar = avatar;
     }
 
-    public User(@NotBlank String username, @NotBlank String password, @NotBlank String email, @NotNull UserType userType){
+    public User(@NotBlank String username, @NotBlank String password, @NotBlank String email, @NotNull UserType userType) {
         this.name = username;
         this.passwordHash = password;
         this.userType = userType;
         this.email = email;
     }
 
-    public User(@NotBlank String username, @NotBlank String password, @NotBlank String email, @NotNull UserType userType, String about, String avatar){
-        this(username,password,email,userType);
+    public User(@NotBlank String username, @NotBlank String password, @NotBlank String email, @NotNull UserType userType, String about, String avatar) {
+        this(username, password, email, userType);
         this.about = about;
         this.avatar = avatar;
     }

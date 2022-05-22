@@ -3,15 +3,15 @@ package cz.fi.muni.pa165.movierecommender.service.facade;
 import cz.fi.muni.pa165.movierecommender.api.dto.account.UserCreateDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.account.UserDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.account.UserUpdateDto;
+import cz.fi.muni.pa165.movierecommender.api.facade.UserFacade;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Review;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.User;
-import cz.fi.muni.pa165.movierecommender.service.mapper.account.UserMapper;
 import cz.fi.muni.pa165.movierecommender.service.mapper.account.UserCreateMapper;
+import cz.fi.muni.pa165.movierecommender.service.mapper.account.UserMapper;
 import cz.fi.muni.pa165.movierecommender.service.mapper.account.UserUpdateMapper;
 import cz.fi.muni.pa165.movierecommender.service.service.GenericService;
 import cz.fi.muni.pa165.movierecommender.service.service.ReviewService;
 import cz.fi.muni.pa165.movierecommender.service.service.UserService;
-import cz.fi.muni.pa165.movierecommender.api.facade.UserFacade;
 import org.apache.commons.lang3.NotImplementedException;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +59,7 @@ public class UserFacadeImpl extends GenericFacadeImpl<User, UserDto, UserCreateD
     public void delete(Long id) {
         User entity = userService.findById(id);
 
-        for(Review review : entity.getReviews()){
+        for (Review review : entity.getReviews()) {
             reviewService.delete(review);
         }
 
@@ -102,7 +102,7 @@ public class UserFacadeImpl extends GenericFacadeImpl<User, UserDto, UserCreateD
     @Override
     @Transactional(readOnly = true)
     public UserDto findByName(String name) {
-        if(name == null) throw new IllegalArgumentException("Email is null!");
+        if (name == null) throw new IllegalArgumentException("Email is null!");
 
         User entity = userService.findByEmail(name);
         return mapper.toDto(entity);
@@ -112,7 +112,7 @@ public class UserFacadeImpl extends GenericFacadeImpl<User, UserDto, UserCreateD
     @Transactional
     public void registerUser(UserCreateDto user, String unencryptedPassword) {
         User userEntity = mapToCreatedEntity(user);
-        userService.registerUser(userEntity,unencryptedPassword);
+        userService.registerUser(userEntity, unencryptedPassword);
     }
 
     @Override
@@ -146,7 +146,8 @@ public class UserFacadeImpl extends GenericFacadeImpl<User, UserDto, UserCreateD
 
     @Override
     @Transactional
-    public void logout(UserDto user) {}
+    public void logout(UserDto user) {
+    }
 
     @Override
     @Transactional(readOnly = true)

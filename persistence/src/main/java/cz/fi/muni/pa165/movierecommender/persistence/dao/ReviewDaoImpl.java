@@ -21,7 +21,7 @@ public class ReviewDaoImpl extends EntityDaoImpl<Review> implements ReviewDao {
 
     @Override
     public List<Review> findByUser(User user) throws IllegalArgumentException {
-        if (user == null){
+        if (user == null) {
             throw new IllegalArgumentException("User is null");
         }
         return em.createQuery("select entity from Review entity where entity.user=:user", Review.class)
@@ -31,7 +31,7 @@ public class ReviewDaoImpl extends EntityDaoImpl<Review> implements ReviewDao {
 
     @Override
     public List<Review> findByMovie(Movie movie) throws IllegalArgumentException {
-        if (movie == null){
+        if (movie == null) {
             throw new IllegalArgumentException("Movie is null");
         }
         return em.createQuery("select entity from Review entity where entity.movie=:movie", Review.class)

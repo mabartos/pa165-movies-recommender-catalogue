@@ -18,10 +18,9 @@ import java.util.List;
 @NoRepositoryBean
 public abstract class EntityDaoImpl<Entity extends GenericEntity> implements EntityDao<Entity> {
 
+    protected final Class<Entity> entityClass;
     @PersistenceContext
     protected EntityManager em;
-
-    protected final Class<Entity> entityClass;
 
     public EntityDaoImpl(Class<Entity> entityClass) {
         this.entityClass = entityClass;
@@ -32,7 +31,7 @@ public abstract class EntityDaoImpl<Entity extends GenericEntity> implements Ent
 
         if (entity == null) throw new IllegalArgumentException("Cannot create null entity");
 
-        if(entity.getId() != null && findById(entity.getId()) != null)
+        if (entity.getId() != null && findById(entity.getId()) != null)
             throw new EntityExistsException("Entity of type " + entityClass.getName() +
                     " with id " + entity.getId() + " already exists");
 
@@ -43,9 +42,9 @@ public abstract class EntityDaoImpl<Entity extends GenericEntity> implements Ent
     @Override
     public void delete(Entity entity) {
 
-        if(entity == null) throw new IllegalArgumentException("Entity to delete is null");
+        if (entity == null) throw new IllegalArgumentException("Entity to delete is null");
 
-        if(entity.getId() != null && findById(entity.getId()) == null)
+        if (entity.getId() != null && findById(entity.getId()) == null)
             throw new EntityNotFoundException("Cannot delete non-existent entity");
 
         em.remove(em.contains(entity) ? entity : em.merge(entity));
@@ -54,9 +53,9 @@ public abstract class EntityDaoImpl<Entity extends GenericEntity> implements Ent
     @Override
     public Entity update(Entity entity) {
 
-        if(entity == null) throw new IllegalArgumentException("Entity to update is null");
+        if (entity == null) throw new IllegalArgumentException("Entity to update is null");
 
-        if(entity.getId() != null && findById(entity.getId()) == null)
+        if (entity.getId() != null && findById(entity.getId()) == null)
             throw new EntityNotFoundException("Cannot update non-existent entity");
 
         return em.merge(entity);

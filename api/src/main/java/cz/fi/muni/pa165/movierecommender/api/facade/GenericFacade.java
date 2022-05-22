@@ -6,12 +6,11 @@ import cz.fi.muni.pa165.movierecommender.api.dto.update.UpdateDto;
 import java.util.List;
 
 /**
- * @author Petr Šlézar
- *
- * A generic interface for facade common to all facades
- *
  * @param <CREATE_DTO> which extends class implementing CreateDTO
  * @param <UPDATE_DTO> which extends class implementing UpdateDTO
+ * @author Petr Šlézar
+ * <p>
+ * A generic interface for facade common to all facades
  */
 public interface GenericFacade<
         DTO,

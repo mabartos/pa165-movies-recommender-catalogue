@@ -1,10 +1,7 @@
 package cz.fi.muni.pa165.movierecommender.api.facade;
 
-import cz.fi.muni.pa165.movierecommender.api.dto.MovieDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.PersonDto;
-import cz.fi.muni.pa165.movierecommender.api.dto.create.MovieCreateDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.create.PersonCreateDto;
-import cz.fi.muni.pa165.movierecommender.api.dto.update.MovieUpdateDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.update.PersonUpdateDto;
 
 import java.util.List;

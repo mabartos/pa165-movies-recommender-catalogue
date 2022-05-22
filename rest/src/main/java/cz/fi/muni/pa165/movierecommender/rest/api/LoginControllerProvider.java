@@ -18,7 +18,7 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 @Slf4j
 @RestController
 @RequestMapping(RoutesHolder.LOGIN_ROUTE)
-public class LoginControllerProvider implements LoginController{
+public class LoginControllerProvider implements LoginController {
 
     private final UserFacade accountFacade;
 

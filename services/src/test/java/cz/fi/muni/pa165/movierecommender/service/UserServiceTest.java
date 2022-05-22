@@ -9,14 +9,13 @@ import cz.fi.muni.pa165.movierecommender.service.service.exception.MissingEntity
 import cz.fi.muni.pa165.movierecommender.service.service.security.TokenService;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.util.Arrays;
-
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
-import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,12 +30,11 @@ import static org.testng.AssertJUnit.assertEquals;
 @MockitoSettings(strictness = Strictness.LENIENT)
 public class UserServiceTest extends ServiceTestBase {
 
+    UserService service;
     @Mock
     private UserDao userDao;
     @Mock
     private TokenService tokens;
-
-    UserService service;
 
     @Override
     protected void assignService() {

@@ -2,7 +2,6 @@ package cz.fi.muni.pa165.movierecommender.service.service;
 
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Movie;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.BadArgumentException;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -15,6 +14,7 @@ public interface RecommendationService {
 
     /**
      * Recommends movies based on similarity of director and genre
+     *
      * @param movie for which to find similar movies for recommendation
      * @return a list of similar movies that are recommended
      * @throws BadArgumentException if movie is null

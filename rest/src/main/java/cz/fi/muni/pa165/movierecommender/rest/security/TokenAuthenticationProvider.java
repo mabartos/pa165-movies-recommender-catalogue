@@ -10,13 +10,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-
 import java.util.Optional;
 
 /**
- * @author Jakub Petras | xpetras@mail.muni.cz
- *         5/9/21
- * Inspired by https://octoperf.com/blog/2018/03/08/securing-rest-api-spring-security/#jwt-example-1
+ * Inspired by https://octoperf.com/blog/2018/03/08/securing-rest-api-spring-security/
+ * @author Petr Šlézar
  */
 @Component
 public class TokenAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {

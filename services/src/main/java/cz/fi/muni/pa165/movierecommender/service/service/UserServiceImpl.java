@@ -43,7 +43,7 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
         if (email == null) throw new BadArgumentException("Email is null");
 
         Optional<User> entity = userDao.findByEmail(email);
-        if(entity.isEmpty()) return null;
+        if (entity.isEmpty()) return null;
         return entity.get();
     }
 
@@ -52,18 +52,18 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
         if (name == null) throw new BadArgumentException("Name is null");
 
         Optional<User> entity = userDao.findByName(name);
-        if(entity.isEmpty()) return null;
+        if (entity.isEmpty()) return null;
         return entity.get();
     }
 
     @Override
     public void registerUser(User user, String unencryptedPassword) {
-        if(user == null || unencryptedPassword.isBlank() )
+        if (user == null || unencryptedPassword.isBlank())
             throw new BadArgumentException("User or their password is null or empty");
-        if(userDao.findByEmail(user.getEmail()).isPresent())
+        if (userDao.findByEmail(user.getEmail()).isPresent())
             throw new EntityExistsException(String.format("User with email %s already exists", user.getEmail()));
-        if(userDao.findByName(user.getName()).isPresent())
-            throw new EntityExistsException(String.format("User with name %s already exists",user.getName()));
+        if (userDao.findByName(user.getName()).isPresent())
+            throw new EntityExistsException(String.format("User with name %s already exists", user.getName()));
 
         user.setPasswordHash(encoder.encode(unencryptedPassword));
         userDao.create(user);
@@ -71,8 +71,8 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
 
     @Override
     public void updateUser(User user, String unencryptedNewPassword) {
-        if(user == null) throw new BadArgumentException("User to be updated is null");
-        if(!unencryptedNewPassword.isBlank() && !unencryptedNewPassword.isEmpty())
+        if (user == null) throw new BadArgumentException("User to be updated is null");
+        if (!unencryptedNewPassword.isBlank() && !unencryptedNewPassword.isEmpty())
             user.setPasswordHash(encoder.encode(unencryptedNewPassword));
 
         userDao.update(user);
@@ -127,5 +127,6 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
     }
 
     @Override
-    public void logout(User user) {}
+    public void logout(User user) {
+    }
 }

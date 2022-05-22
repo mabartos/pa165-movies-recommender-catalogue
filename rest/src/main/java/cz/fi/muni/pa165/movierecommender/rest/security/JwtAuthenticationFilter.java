@@ -22,6 +22,10 @@ import static com.google.common.net.HttpHeaders.AUTHORIZATION;
 import static java.util.Optional.ofNullable;
 import static org.apache.commons.lang3.StringUtils.removeStart;
 
+/**
+ * Inspired by https://octoperf.com/blog/2018/03/08/securing-rest-api-spring-security/
+ * @author Petr Šlézar
+ */
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 

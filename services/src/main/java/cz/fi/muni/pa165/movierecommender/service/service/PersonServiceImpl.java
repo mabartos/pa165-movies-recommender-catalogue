@@ -6,7 +6,6 @@ import cz.fi.muni.pa165.movierecommender.service.service.exception.BadArgumentEx
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import java.util.List;
 
 @Service
@@ -16,13 +15,13 @@ public class PersonServiceImpl extends GenericServiceImpl<Person> implements Per
 
     @Autowired
     public PersonServiceImpl(PersonDao personDao) {
-        super(personDao,Person.class);
+        super(personDao, Person.class);
         this.personDao = personDao;
     }
 
     @Override
     public List<Person> findByName(String name) {
-        if(name == null) throw new BadArgumentException("Person name is null");
+        if (name == null) throw new BadArgumentException("Person name is null");
 
         return personDao.findByName(name);
     }

@@ -23,7 +23,6 @@ import static org.apache.commons.lang3.StringUtils.substringBeforeLast;
 
 /**
  * @author Petr Slezar
- *
  */
 @Service
 public class JWTTokenService implements Clock, TokenService {
@@ -45,6 +44,19 @@ public class JWTTokenService implements Clock, TokenService {
         this.expirationSec = expirationSec;
         this.clockSkewSec = clockSkewSec;
         this.secretKey = BASE64.encode(requireNonNull(secret));
+    }
+
+    private static Map<String, String> parseClaims(final Supplier<Claims> toClaims) {
+        try {
+            final Claims claims = toClaims.get();
+            final ImmutableMap.Builder<String, String> builder = ImmutableMap.builder();
+            for (final Map.Entry<String, Object> e : claims.entrySet()) {
+                builder.put(e.getKey(), String.valueOf(e.getValue()));
+            }
+            return builder.build();
+        } catch (final IllegalArgumentException | JwtException e) {
+            return ImmutableMap.of();
+        }
     }
 
     @Override
@@ -103,19 +115,6 @@ public class JWTTokenService implements Clock, TokenService {
         // See: https://github.com/jwtk/jjwt/issues/135
         final String withoutSignature = substringBeforeLast(token, DOT) + DOT;
         return parseClaims(() -> parser.parseClaimsJwt(withoutSignature).getBody());
-    }
-
-    private static Map<String, String> parseClaims(final Supplier<Claims> toClaims) {
-        try {
-            final Claims claims = toClaims.get();
-            final ImmutableMap.Builder<String, String> builder = ImmutableMap.builder();
-            for (final Map.Entry<String, Object> e : claims.entrySet()) {
-                builder.put(e.getKey(), String.valueOf(e.getValue()));
-            }
-            return builder.build();
-        } catch (final IllegalArgumentException | JwtException e) {
-            return ImmutableMap.of();
-        }
     }
 
     @Override

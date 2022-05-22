@@ -1,7 +1,6 @@
 package cz.fi.muni.pa165.movierecommender.persistence.dao;
 
 import cz.fi.muni.pa165.movierecommender.persistence.entity.User;
-
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

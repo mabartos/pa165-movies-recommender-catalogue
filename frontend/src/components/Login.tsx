@@ -8,10 +8,10 @@ export const Login = () => {
   const [ name, setName ] = useState<string>('');
   const [ password, setPassword ] = useState<string>('');
 
-  function handleSubmit(event: any) {
+  async function handleSubmit(event: any) {
     event.preventDefault();
-    login(name, password);
-    navigate('/pa165', { replace: true });
+    const response: any = await login(name, password);
+    response.status === 200 ? navigate('/pa165/', { replace: true }) : alert('Invalid credentials');
   }
 
   return (

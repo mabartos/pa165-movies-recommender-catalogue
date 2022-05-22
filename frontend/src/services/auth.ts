@@ -8,8 +8,9 @@ export const login = async (name: string, password: string) => {
       name, password
     });
     localStorage.setItem('user', JSON.stringify(jwtDecode(response.data)));
+    return response;
   } catch (error) {
-    console.log(error)
+    return error;
   }
 }
 

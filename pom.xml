@@ -28,7 +28,11 @@
         <mockito.version>4.4.0</mockito.version>
         <lombok.version>1.18.24</lombok.version>
         <jwt.version>0.9.1</jwt.version>
-        <guava.version>29.0-jre</guava.version>
+        <testng.version>7.5</testng.version>
+        <swagger.version>3.0.0</swagger.version>
+        <bouncy.castle.version>1.71</bouncy.castle.version>
+        <javax.activation.version>1.2.0</javax.activation.version>
+        <javax.validation.version>2.0.1.Final</javax.validation.version>
     </properties>
 
     <modules>
@@ -69,13 +73,6 @@
             <artifactId>spring-web</artifactId>
         </dependency>
 
-        <!-- Google Common Library -->
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>${guava.version}</version>
-        </dependency>
-
         <!-- Lombok -->
         <dependency>
             <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
@@ -84,25 +81,11 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- SLF4J Logging -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jul-to-slf4j</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>log4j-over-slf4j</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-        </dependency>
-
         <!-- Testng -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>7.5</version>
+            <version>${testng.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -124,14 +107,14 @@
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
-            <version>2.0.1.Final</version>
+            <version>${javax.validation.version}</version>
         </dependency>
 
         <!-- AssertJ -->
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.22.0</version>
+            <version>${assertj.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -168,12 +151,10 @@
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
-            <version>2.11.4</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-hibernate5</artifactId>
-            <version>2.12.5</version>
         </dependency>
 
         <!-- TOMCAT -->
@@ -188,12 +169,12 @@
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
-            <version>2.9.2</version>
+            <version>${swagger.version}</version>
         </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.9.2</version>
+            <version>${swagger.version}</version>
         </dependency>
 
         <!-- Apache -->
@@ -205,12 +186,12 @@
         <dependency>
             <groupId>com.sun.activation</groupId>
             <artifactId>javax.activation</artifactId>
-            <version>1.2.0</version>
+            <version>${javax.activation.version}</version>
         </dependency>
         <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcpkix-jdk15to18</artifactId>
-            <version>1.68</version>
+            <version>${bouncy.castle.version}</version>
         </dependency>
 
     </dependencies>

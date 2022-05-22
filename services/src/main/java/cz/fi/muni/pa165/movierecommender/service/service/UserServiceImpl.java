@@ -1,11 +1,9 @@
 package cz.fi.muni.pa165.movierecommender.service.service;
 
-import com.google.common.collect.ImmutableMap;
 import cz.fi.muni.pa165.movierecommender.api.dto.account.UserDto;
 import cz.fi.muni.pa165.movierecommender.persistence.dao.EntityDao;
 import cz.fi.muni.pa165.movierecommender.persistence.dao.UserDao;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.User;
-import cz.fi.muni.pa165.movierecommender.persistence.enums.UserType;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.BadArgumentException;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.LoginFailedException;
 import cz.fi.muni.pa165.movierecommender.service.service.security.TokenService;
@@ -17,6 +15,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityExistsException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -93,7 +93,14 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
         return userDao
                 .findByName(username)
                 .filter(user -> encoder.matches(password, user.getPassword()))
-                .map(user -> tokens.expiring(ImmutableMap.of("name", username, "role", user.getUserType().toString(), "sub", user.getId().toString())))
+                .map(user -> {
+                    final Map<String, String> map = new HashMap<>();
+                    map.put("name", username);
+                    map.put("role", user.getUserType().toString());
+                    map.put("sub", user.getId().toString());
+
+                    return tokens.expiring(map);
+                })
                 .orElseThrow(() -> new LoginFailedException("Invalid user credentials"));
     }
 

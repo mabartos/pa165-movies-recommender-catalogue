@@ -1,7 +1,5 @@
 package cz.fi.muni.pa165.movierecommender.service.service.security;
 
-import com.google.common.base.Supplier;
-import com.google.common.collect.ImmutableMap;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Clock;
 import io.jsonwebtoken.JwtException;
@@ -12,8 +10,11 @@ import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Supplier;
 
 import static io.jsonwebtoken.SignatureAlgorithm.HS256;
 import static io.jsonwebtoken.impl.TextCodec.BASE64;
@@ -49,13 +50,13 @@ public class JWTTokenService implements Clock, TokenService {
     private static Map<String, String> parseClaims(final Supplier<Claims> toClaims) {
         try {
             final Claims claims = toClaims.get();
-            final ImmutableMap.Builder<String, String> builder = ImmutableMap.builder();
+            final Map<String, String> map = new HashMap<>();
             for (final Map.Entry<String, Object> e : claims.entrySet()) {
-                builder.put(e.getKey(), String.valueOf(e.getValue()));
+                map.put(e.getKey(), String.valueOf(e.getValue()));
             }
-            return builder.build();
+            return map;
         } catch (final IllegalArgumentException | JwtException e) {
-            return ImmutableMap.of();
+            return Collections.emptyMap();
         }
     }
 

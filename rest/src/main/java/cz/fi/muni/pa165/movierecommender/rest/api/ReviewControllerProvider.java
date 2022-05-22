@@ -34,14 +34,14 @@ public class ReviewControllerProvider implements ReviewController {
         return reviewFacade.findAll();
     }
 
-    @GetMapping("/search/{movieId}")
+    @GetMapping("/{id}")
     @ResponseBody
-    public List<ReviewDto> findByMovie(@PathVariable Long movieId) {
-        if (movieId == null) {
-            throw new IllegalArgumentException("You need to specify movieId and userId parameters");
+    public List<ReviewDto> findByMovie(@PathVariable Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("You need to specify id and userId parameters");
         }
 
-        return reviewFacade.findByMovie(movieId);
+        return reviewFacade.findByMovie(id);
     }
 
     @PreAuthorize("isAuthenticated()")

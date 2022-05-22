@@ -2,9 +2,11 @@ package cz.fi.muni.pa165.movierecommender.core;
 
 import cz.fi.muni.pa165.movierecommender.persistence.dao.MovieDao;
 import cz.fi.muni.pa165.movierecommender.persistence.dao.PersonDao;
+import cz.fi.muni.pa165.movierecommender.persistence.dao.ReviewDao;
 import cz.fi.muni.pa165.movierecommender.persistence.dao.UserDao;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Movie;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Person;
+import cz.fi.muni.pa165.movierecommender.persistence.entity.Review;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.User;
 import cz.fi.muni.pa165.movierecommender.persistence.enums.Genre;
 import cz.fi.muni.pa165.movierecommender.persistence.enums.UserType;
@@ -31,9 +33,10 @@ import java.util.Map;
 @Transactional
 public class DataInitializer {
 
-    private final UserDao systemUserDao;
+    private final UserDao userDao;
     private final MovieDao movieDao;
     private final PersonDao personDao;
+    private final ReviewDao reviewDao;
     private final PasswordEncoder passwordEncoder = new Argon2PasswordEncoder();
 
     private Map<String, Long> movieIds = new HashMap<>();
@@ -41,10 +44,11 @@ public class DataInitializer {
     private Map<String, Long> userIds = new HashMap<>();
 
     @Autowired
-    public DataInitializer(UserDao systemUserDao, MovieDao movieDao, PersonDao personDao) {
+    public DataInitializer(UserDao userDao, MovieDao movieDao, PersonDao personDao, ReviewDao reviewDao) {
         this.movieDao = movieDao;
-        this.systemUserDao = systemUserDao;
+        this.userDao = userDao;
         this.personDao = personDao;
+        this.reviewDao = reviewDao;
 
     }
 
@@ -52,15 +56,15 @@ public class DataInitializer {
     public void createUsers() {
 
         User admin = new User("admin", passwordEncoder.encode("admin"), "admin@gmail.com", UserType.ADMIN);
-        User adminCreated = systemUserDao.create(admin);
+        User adminCreated = userDao.create(admin);
         userIds.put("admin", adminCreated.getId());
 
         User pepa = new User("pepa", passwordEncoder.encode("pepa"), "pepa@gmail.com", UserType.BASIC_USER);
-        User pepaCreated = systemUserDao.create(pepa);
+        User pepaCreated = userDao.create(pepa);
         userIds.put("pepa", pepaCreated.getId());
 
         User karel = new User("karel", passwordEncoder.encode("karel"), "karel@gmail.com", UserType.BASIC_USER);
-        User karelCreated = systemUserDao.create(karel);
+        User karelCreated = userDao.create(karel);
         userIds.put("karel", karelCreated.getId());
     }
 
@@ -334,6 +338,51 @@ public class DataInitializer {
         personDao.update(quentin);
         personDao.update(tim);
         personDao.update(terry);
+    }
+
+    @Transactional
+    public void createReviews(){
+
+        Movie shawsankRedemption = movieDao.findById(movieIds.get("shawsankRedemption"));
+        Movie greenMile = movieDao.findById(movieIds.get("greenMile"));
+        Movie magnificentSeven = movieDao.findById(movieIds.get("magnificentSeven"));
+        Movie cuckoosNest = movieDao.findById(movieIds.get("cuckoosNest"));
+        Movie marecek = movieDao.findById(movieIds.get("marecek"));
+        Movie dogs = movieDao.findById(movieIds.get("dogs"));
+        Movie monty = movieDao.findById(movieIds.get("monty"));
+        Movie pulpFiction = movieDao.findById(movieIds.get("pulpFiction"));
+
+        User admin = userDao.findById(userIds.get("admin"));
+        User karel = userDao.findById(userIds.get("karel"));
+        User pepa = userDao.findById(userIds.get("pepa"));
+
+        Review shawsankAdmin = new Review(admin,shawsankRedemption,"Really good",9,7,6,5,10);
+        Review shawsankPepa = new Review(pepa,shawsankRedemption,"Boring and long",5,5,7,6,8);
+        Review shawsankKarel = new Review(karel,shawsankRedemption,"Perfect",10,10,10,10,10);
+        Review greenMileAdmin = new Review(admin,greenMile,"Same",7,4,5,10,10);
+        Review greenMileKarel = new Review(karel,greenMile,"Good",8,9,7,5,10);
+        Review cuckooPepa = new Review(pepa,cuckoosNest,"Stunning and amazing",10,10,10,10,10);
+        Review cuckooKarel = new Review(karel,cuckoosNest,"Overhyped",7,7,5,5,7);
+        Review marecekKarel = new Review(karel,marecek,"A classic",10,10,10,10,10);
+        Review marecekAdmin = new Review(admin,marecek,"Quite good",7,7,7,7,7);
+        Review dogsKarel = new Review(karel,dogs,"Omg i love quentin so much <3",10,10,10,10,10);
+        Review dogsPepa = new Review(pepa,dogs,"I have a small brain",1,1,1,1,1);
+        Review montyAdmin = new Review(admin,monty,"Tis but a scratch",10,10,10,10,10);
+        Review pulpFictionAdmin = new Review(admin,pulpFiction,"The best of the best",10,10,10,10,10);
+
+        reviewDao.create(shawsankAdmin);
+        reviewDao.create(shawsankKarel);
+        reviewDao.create(shawsankPepa);
+        reviewDao.create(greenMileAdmin);
+        reviewDao.create(greenMileKarel);
+        reviewDao.create(cuckooPepa);
+        reviewDao.create(cuckooKarel);
+        reviewDao.create(marecekKarel);
+        reviewDao.create(marecekAdmin);
+        reviewDao.create(dogsKarel);
+        reviewDao.create(dogsPepa);
+        reviewDao.create(montyAdmin);
+        reviewDao.create(pulpFictionAdmin);
     }
 
 }

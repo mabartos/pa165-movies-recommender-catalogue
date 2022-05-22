@@ -28,6 +28,7 @@ public class ApplicationInitializedListener implements ApplicationListener<Conte
             initializer.createPersons();
             initializer.createMovies();
             initializer.connectFilmsAndPersons();
+            initializer.createReviews();
             log.info("------ Application Data Init Finished. ------");
 
             log.info("Swagger: http://localhost:8080/pa165/rest/swagger-ui.html");

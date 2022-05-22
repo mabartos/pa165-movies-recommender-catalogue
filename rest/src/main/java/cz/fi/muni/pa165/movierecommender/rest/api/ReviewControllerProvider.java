@@ -5,6 +5,7 @@ import cz.fi.muni.pa165.movierecommender.api.dto.create.ReviewCreateDto;
 import cz.fi.muni.pa165.movierecommender.rest.core.RoutesHolder;
 import cz.fi.muni.pa165.movierecommender.api.facade.ReviewFacade;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,7 +40,9 @@ public class ReviewControllerProvider implements ReviewController {
         return reviewFacade.findByMovieAndUser(movieId, userId);
     }
 
-    @Override
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/create")
+    @ResponseBody
     public ReviewDto createReview(ReviewCreateDto reviewCreateDto) {
         if(reviewCreateDto == null) throw new IllegalArgumentException("Create review body cannnot be null");
 

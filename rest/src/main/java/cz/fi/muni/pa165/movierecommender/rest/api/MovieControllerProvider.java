@@ -9,6 +9,7 @@ import cz.fi.muni.pa165.movierecommender.api.facade.MovieFacade;
 import cz.fi.muni.pa165.movierecommender.api.facade.ReviewFacade;
 import cz.fi.muni.pa165.movierecommender.service.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -62,18 +63,21 @@ public class MovieControllerProvider implements MovieController {
         return movieService.getCount();
     }
 
+    @PreAuthorize("hasAuthority('TYPE_ADMIN')")
     @PostMapping
     @ResponseBody
     public MovieDto create(@RequestBody MovieCreateDto createDto) {
         return movieFacade.create(createDto);
     }
 
+    @PreAuthorize("hasAuthority('TYPE_ADMIN')")
     @DeleteMapping("{id}")
     @ResponseBody
     public void delete(@PathVariable Long id) {
         movieFacade.delete(id);
     }
 
+    @PreAuthorize("hasAuthority('TYPE_ADMIN')")
     @PatchMapping
     @ResponseBody
     public MovieDto update(@RequestBody MovieUpdateDto movie) {

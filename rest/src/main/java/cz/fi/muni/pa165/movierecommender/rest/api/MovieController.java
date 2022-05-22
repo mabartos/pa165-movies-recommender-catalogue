@@ -5,6 +5,7 @@ import cz.fi.muni.pa165.movierecommender.api.dto.ReviewDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.create.MovieCreateDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.update.MovieUpdateDto;
 import cz.fi.muni.pa165.movierecommender.rest.core.RoutesHolder;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -38,14 +39,17 @@ public interface MovieController {
     @ResponseBody
     Long getCount();
 
+    @PreAuthorize("hasAuthority('TYPE_ADMIN')")
     @PostMapping
     @ResponseBody
     MovieDto create(@RequestBody MovieCreateDto createDto);
 
+    @PreAuthorize("hasAuthority('TYPE_ADMIN')")
     @DeleteMapping("{id}")
     @ResponseBody
     void delete(@PathVariable Long id);
 
+    @PreAuthorize("hasAuthority('TYPE_ADMIN')")
     @PatchMapping
     @ResponseBody
     MovieDto update(@RequestBody MovieUpdateDto movie);

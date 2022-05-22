@@ -2,7 +2,11 @@ package cz.fi.muni.pa165.movierecommender.service.service.security;
 
 import com.google.common.base.Supplier;
 import com.google.common.collect.ImmutableMap;
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Clock;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.JwtParser;
+import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.impl.compression.GzipCompressionCodec;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Value;
@@ -59,6 +63,10 @@ public class JWTTokenService implements Clock, TokenService {
                 .claims()
                 .setIssuer(issuer)
                 .setIssuedAt(now.toDate());
+
+        if (attributes.containsKey("sub")) {
+            claims.setSubject(attributes.get("sub"));
+        }
 
         if (expiresInSec > 0) {
             final DateTime expiresAt = now.plusSeconds(expiresInSec);

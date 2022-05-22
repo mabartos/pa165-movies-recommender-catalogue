@@ -9,6 +9,8 @@ import javax.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,22 +30,16 @@ public class ExceptionAdvisor {
     public ResponseEntity<?> handleException(Exception exception) {
         ExceptionResponse error = new ExceptionResponse(exception.getClass().getSimpleName(), exception.getMessage());
 
-        HttpStatus httpStatus;
-        if (exception instanceof BadArgumentException) {
-            httpStatus = HttpStatus.BAD_REQUEST;
-        } else if (exception instanceof ForbiddenOperationException) {
-            httpStatus = HttpStatus.FORBIDDEN;
-        } else if (exception instanceof LoginFailedException) {
-            httpStatus = HttpStatus.UNAUTHORIZED;
-        } else if (exception instanceof MissingEntityException) {
-            httpStatus = HttpStatus.NOT_FOUND;
-        } else if (exception instanceof EntityExistsException) {
-            httpStatus = HttpStatus.UNPROCESSABLE_ENTITY;
-        } else if (exception instanceof EntityNotFoundException) {
-            httpStatus = HttpStatus.NOT_FOUND;
-        } else {
-            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-        }
+        HttpStatus httpStatus = switch (exception) {
+            case BadArgumentException ignored -> HttpStatus.BAD_REQUEST;
+            case ForbiddenOperationException ignored -> HttpStatus.FORBIDDEN;
+            case LoginFailedException ignored -> HttpStatus.UNAUTHORIZED;
+            case MissingEntityException ignored -> HttpStatus.NOT_FOUND;
+            case EntityExistsException ignored -> HttpStatus.UNPROCESSABLE_ENTITY;
+            case EntityNotFoundException ignored -> HttpStatus.NOT_FOUND;
+            case AuthenticationException ignored -> HttpStatus.UNAUTHORIZED;
+            case default -> HttpStatus.INTERNAL_SERVER_ERROR;
+        };
 
         log.debug("[{}] {} - {}", httpStatus, error.getName(), error.getMessage());
 

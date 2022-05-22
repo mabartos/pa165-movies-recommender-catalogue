@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 
 /**
@@ -29,11 +28,9 @@ public class LoginControllerProvider implements LoginController{
     }
 
     @PostMapping(value = "/", produces = APPLICATION_JSON_VALUE)
-    public String login(
-            @RequestBody LoginDto dto) {
-        log.debug("Log in of user: " + dto.getId());
-        return accountFacade
-                .login(dto.getName(), dto.getPassword());
+    public String login(@RequestBody LoginDto dto) {
+        log.debug("Log in of user: " + dto.getName());
+        return accountFacade.login(dto.getName(), dto.getPassword());
     }
 
 }

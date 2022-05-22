@@ -7,6 +7,7 @@ import cz.fi.muni.pa165.movierecommender.rest.core.RoutesHolder;
 import cz.fi.muni.pa165.movierecommender.api.facade.PersonFacade;
 import cz.fi.muni.pa165.movierecommender.service.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -56,18 +57,21 @@ public class PersonControllerProvider implements PersonController {
         return personService.getCount();
     }
 
+    @PreAuthorize("hasAuthority('TYPE_ADMIN')")
     @PostMapping
     @ResponseBody
     public PersonDto create(@RequestBody PersonCreateDto createDto) {
         return personFacade.create(createDto);
     }
 
+    @PreAuthorize("hasAuthority('TYPE_ADMIN')")
     @DeleteMapping("{id}")
     @ResponseBody
     public void delete(@PathVariable Long id) {
         personFacade.delete(id);
     }
 
+    @PreAuthorize("hasAuthority('TYPE_ADMIN')")
     @PatchMapping
     @ResponseBody
     public PersonDto update(@RequestBody PersonUpdateDto person) {

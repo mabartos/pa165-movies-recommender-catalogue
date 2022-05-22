@@ -10,6 +10,7 @@ import cz.fi.muni.pa165.movierecommender.service.mapper.account.UserUpdateMapper
 import cz.fi.muni.pa165.movierecommender.service.service.GenericService;
 import cz.fi.muni.pa165.movierecommender.service.service.UserService;
 import cz.fi.muni.pa165.movierecommender.api.facade.UserFacade;
+import org.apache.commons.lang3.NotImplementedException;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,12 +36,26 @@ public class UserFacadeImpl extends GenericFacadeImpl<User, UserDto, UserCreateD
     }
 
     @Override
+    @Transactional
+    public UserDto create(UserCreateDto createDto) {
+        throw new NotImplementedException("This method is not implemented for User " +
+                "- use registerUser(UserCreateDTO, String) with specified password");
+    }
+
+    @Override
+    @Transactional
+    public UserDto update(UserUpdateDto updateDto) {
+        throw new NotImplementedException("This method is not implemented for User " +
+                "- use changeUser(UserCreateDTO, String) with specified new password (null if no change)");
+    }
+
+    @Override
     protected GenericService<User> service() {
         return userService;
     }
 
     @Override
-    protected User mapToEntity(UserCreateDto dto) {
+    protected User mapToCreatedEntity(UserCreateDto dto) {
         return createMapper.toModel(dto);
     }
 
@@ -79,15 +94,15 @@ public class UserFacadeImpl extends GenericFacadeImpl<User, UserDto, UserCreateD
     @Override
     @Transactional
     public void registerUser(UserCreateDto user, String unencryptedPassword) {
-        User userEntity = mapToEntity(user);
+        User userEntity = mapToCreatedEntity(user);
         userService.registerUser(userEntity,unencryptedPassword);
     }
 
     @Override
     @Transactional
-    public void changeUser(UserUpdateDto user, String newPassword) {
-        User userEntity = mapToEntity(user);
-        userService.updateUser(userEntity, newPassword);
+    public void changeUser(UserUpdateDto user, String newUnencryptedPassword) {
+        User userEntity = mapToUpdatedEntity(user);
+        userService.updateUser(userEntity, newUnencryptedPassword);
     }
 
     @Override

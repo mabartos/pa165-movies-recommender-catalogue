@@ -4,6 +4,7 @@ import cz.fi.muni.pa165.movierecommender.api.dto.ReviewDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.create.ReviewCreateDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.update.ReviewUpdateDto;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Movie;
+import cz.fi.muni.pa165.movierecommender.persistence.entity.Person;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Review;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.User;
 import cz.fi.muni.pa165.movierecommender.service.mapper.ReviewMapper;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -50,7 +52,7 @@ public class ReviewFacadeImpl extends GenericFacadeImpl<Review, ReviewDto, Revie
     }
 
     @Override
-    protected Review mapToEntity(ReviewCreateDto dto) {
+    protected Review mapToCreatedEntity(ReviewCreateDto dto) {
 
         User author = userService.findById(dto.getUserId());
         Movie movie = movieService.findById(dto.getMovieId());
@@ -143,10 +145,41 @@ public class ReviewFacadeImpl extends GenericFacadeImpl<Review, ReviewDto, Revie
     @Override
     @Transactional
     public ReviewDto create(ReviewCreateDto createDto) {
-        Review entity = mapToEntity(createDto);
+        Review entity = mapToCreatedEntity(createDto);
 
-        entity.setUser(userService.findById(createDto.getUserId()));
-        entity.setMovie(movieService.findById(createDto.getMovieId()));
+        User author = userService.findById(createDto.getUserId());
+        Set<Review> authorReviews = author.getReviews();
+        authorReviews.add(entity);
+        userService.update(author);
+
+        Movie movie = movieService.findById(createDto.getMovieId());
+        Set<Review> movieReviews = movie.getReviews();
+        movieReviews.add(entity);
+        movieService.update(movie);
+
+        entity.setUser(author);
+        entity.setMovie(movie);
+
+        return mapToDto(service().create(entity));
+    }
+
+    @Override
+    @Transactional
+    public ReviewDto update(ReviewUpdateDto updateDto) {
+        Review entity = mapToUpdatedEntity(updateDto);
+
+        User author = userService.findById(updateDto.getUserId());
+        Set<Review> authorReviews = author.getReviews();
+        authorReviews.add(entity);
+        userService.update(author);
+
+        Movie movie = movieService.findById(updateDto.getMovieId());
+        Set<Review> movieReviews = movie.getReviews();
+        movieReviews.add(entity);
+        movieService.update(movie);
+
+        entity.setUser(author);
+        entity.setMovie(movie);
 
         return mapToDto(service().create(entity));
     }

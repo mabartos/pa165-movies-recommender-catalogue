@@ -3,7 +3,6 @@ import Header from './Header';
 import MovieCard from './MovieCard';
 import fetcher from '../models/fetcher';
 import { MovieCardMode } from '../models/types';
-import { Link } from 'react-router-dom';
 
 export const LandingPage = () => {
   const { data, error } = useSWR('movies', fetcher);

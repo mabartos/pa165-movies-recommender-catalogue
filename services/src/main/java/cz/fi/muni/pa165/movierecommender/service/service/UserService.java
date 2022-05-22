@@ -52,14 +52,6 @@ public interface UserService extends GenericService<User> {
      */
     void updateUser(User user, String changedUnencryptedPassword);
 
-
-    /**
-     * Check if the given user is admin.
-     *
-     * @param user to be checked for admin privileges
-     */
-    boolean isAdmin(User user);
-
     /**
      * Logs in with the given {@code username} and {@code password}.
      *
@@ -81,10 +73,16 @@ public interface UserService extends GenericService<User> {
     /**
      * Retrieves currently authenticated user.
      *
-     * @return user from security context, never null.
-     * @throws ForbiddenOperationException if no authenticated user is found
+     * @return user from security context, null if the user is not authenticated
      */
     User getAuthenticatedUser();
+
+    /**
+     * Check whether the user is authenticated or not
+     *
+     * @return true if the user is authenticated
+     */
+    boolean isUserAuthenticated();
 
     /**
      * Logs out the given input {@code user}.

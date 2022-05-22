@@ -124,9 +124,9 @@ public class UserFacadeImpl extends GenericFacadeImpl<User, UserDto, UserCreateD
 
     @Override
     @Transactional(readOnly = true)
-    public UserDto getLoggedInInfo() {
+    public UserDto getAuthenticatedUser() {
         User authenticatedUser = userService.getAuthenticatedUser();
-        return mapper.toDto(userService.findById(authenticatedUser.getId()));
+        return mapper.toDto(authenticatedUser);
     }
 
     @Override
@@ -147,12 +147,6 @@ public class UserFacadeImpl extends GenericFacadeImpl<User, UserDto, UserCreateD
     @Override
     @Transactional
     public void logout(UserDto user) {
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public boolean isAdmin(UserDto user) {
-        return userService.isAdmin(mapToEntity(user));
     }
 
 }

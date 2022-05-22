@@ -5,6 +5,7 @@ import cz.fi.muni.pa165.movierecommender.api.dto.account.UserCreateDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.account.UserDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.account.UserUpdateDto;
 import cz.fi.muni.pa165.movierecommender.rest.core.RoutesHolder;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -45,10 +46,22 @@ public interface UserController {
     @ResponseBody
     UserDto create(@RequestBody UserCreateDto createDto);
 
+    @PreAuthorize("hasAuthority('TYPE_ADMIN')")
     @DeleteMapping("{id}")
     @ResponseBody
     void delete(@PathVariable Long id);
 
+    @PreAuthorize("isAuthenticated()")
+    @DeleteMapping("/me")
+    @ResponseBody
+    void deleteMe();
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/me")
+    @ResponseBody
+    UserDto getMyInfo();
+
+    @PreAuthorize("isAuthenticated()")
     @PatchMapping
     @ResponseBody
     UserDto update(@RequestBody UserUpdateDto user);

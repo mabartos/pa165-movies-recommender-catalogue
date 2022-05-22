@@ -165,4 +165,8 @@ public class User extends GenericEntity implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public boolean isAdmin() {
+        return userType.equals(UserType.ADMIN);
+    }
 }

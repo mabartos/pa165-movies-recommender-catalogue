@@ -7,7 +7,6 @@ import cz.fi.muni.pa165.movierecommender.persistence.dao.UserDao;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.User;
 import cz.fi.muni.pa165.movierecommender.persistence.enums.UserType;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.BadArgumentException;
-import cz.fi.muni.pa165.movierecommender.service.service.exception.ForbiddenOperationException;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.LoginFailedException;
 import cz.fi.muni.pa165.movierecommender.service.service.security.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,11 +78,6 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
     }
 
     @Override
-    public boolean isAdmin(User user) {
-        return findById(user.getId()).getUserType().equals(UserType.ADMIN);
-    }
-
-    @Override
     public EntityDao<User> getEntityDao() {
         return userDao;
     }
@@ -114,16 +108,15 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
                 .map(userName -> new UserDto(token, userName));
     }
 
-
     @Override
     public User getAuthenticatedUser() {
+        return isUserAuthenticated() ? (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal() : null;
+    }
+
+    @Override
+    public boolean isUserAuthenticated() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if (authentication != null && authentication.getPrincipal() instanceof User) {
-            return (User) authentication.getPrincipal();
-        }
-
-        throw new ForbiddenOperationException("No authenticated user is found.");
+        return authentication != null && authentication.getPrincipal() instanceof User;
     }
 
     @Override

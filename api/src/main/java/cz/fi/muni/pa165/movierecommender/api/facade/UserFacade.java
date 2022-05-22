@@ -50,7 +50,7 @@ public interface UserFacade extends GenericFacade<UserDto, UserCreateDto, UserUp
      *
      * @return UserDto dto about currently authenticated user
      */
-    UserDto getLoggedInInfo();
+    UserDto getAuthenticatedUser();
 
     /**
      * Logs in with the given {@code username} and {@code password}.
@@ -72,12 +72,5 @@ public interface UserFacade extends GenericFacade<UserDto, UserCreateDto, UserUp
      * @param user the user to logout
      */
     void logout(UserDto user);
-
-    /**
-     * Checks if the given user is admin.
-     *
-     * @param user to be checked
-     */
-    boolean isAdmin(UserDto user);
 
 }

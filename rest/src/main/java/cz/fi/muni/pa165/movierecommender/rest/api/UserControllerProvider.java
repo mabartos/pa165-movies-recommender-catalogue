@@ -6,9 +6,11 @@ import cz.fi.muni.pa165.movierecommender.api.dto.account.UserDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.account.UserUpdateDto;
 import cz.fi.muni.pa165.movierecommender.api.facade.ReviewFacade;
 import cz.fi.muni.pa165.movierecommender.api.facade.UserFacade;
+import cz.fi.muni.pa165.movierecommender.persistence.entity.User;
 import cz.fi.muni.pa165.movierecommender.rest.core.RoutesHolder;
 import cz.fi.muni.pa165.movierecommender.service.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -71,16 +73,38 @@ public class UserControllerProvider implements UserController {
         return userFacade.create(createDto);
     }
 
+    @PreAuthorize("hasAuthority('TYPE_ADMIN')")
     @DeleteMapping("{id}")
     @ResponseBody
     public void delete(@PathVariable Long id) {
         userFacade.delete(id);
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @DeleteMapping("/me")
+    @ResponseBody
+    public void deleteMe() {
+        userFacade.delete(userFacade.getAuthenticatedUser().getId());
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/me")
+    @ResponseBody
+    public UserDto getMyInfo() {
+        return userFacade.getAuthenticatedUser();
+    }
+
+    @PreAuthorize("isAuthenticated()")
     @PatchMapping
     @ResponseBody
     public UserDto update(@RequestBody UserUpdateDto user) {
-        return userFacade.update(user);
+        final User authUser = userService.getAuthenticatedUser();
+
+        if (user.getId().equals(authUser.getId()) || authUser.isAdmin()) {
+            return userFacade.update(user);
+        } else {
+            throw new IllegalArgumentException("Cannot update this user.");
+        }
     }
 
     @GetMapping("{id}/reviews")

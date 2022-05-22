@@ -1,5 +1,11 @@
 package cz.fi.muni.pa165.movierecommender.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import cz.fi.muni.pa165.movierecommender.persistence.enums.Genre;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -60,18 +66,24 @@ public class Movie extends GenericEntity {
 
     private Integer releaseYear;
 
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "movie", targetEntity = Review.class )
+    @JsonIgnoreProperties(value = "movie",allowSetters = true)
     private Set<Review> reviews;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "director_id")
+    @JsonIgnoreProperties(value = {"directedMovies","actedInMovies"},allowSetters = true)
     public Person director;
+
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "movie_actors",
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "person_id"))
+    @JsonIgnoreProperties(value = {"directedMovies","actedInMovies"},allowSetters = true)
     private Set<Person> actors;
 
     public Set<Genre> getGenres() {

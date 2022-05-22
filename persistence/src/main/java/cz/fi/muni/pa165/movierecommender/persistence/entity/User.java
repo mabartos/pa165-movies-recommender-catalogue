@@ -1,8 +1,12 @@
 package cz.fi.muni.pa165.movierecommender.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import cz.fi.muni.pa165.movierecommender.persistence.enums.UserType;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.security.core.GrantedAuthority;
@@ -69,7 +73,9 @@ public class User extends GenericEntity implements UserDetails {
 
     private String about;
 
+    @JsonBackReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", targetEntity = Review.class)
+    @JsonIgnoreProperties(value = "user",allowSetters = true)
     private final Set<Review> reviews = new HashSet<>();
 
     @JsonCreator

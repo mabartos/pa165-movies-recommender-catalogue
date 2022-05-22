@@ -47,10 +47,10 @@ public interface UserService extends GenericService<User> {
      * Update a given user.
      *
      * @param user modified user to be updated
-     * @param newPassword new modified password (maybe blank or null) - then no change to it
+     * @param changedUnencryptedPassword new unencrypted password (maybe blank or null) - then no change to it
      * @throws BadArgumentException if user is null
      */
-    void updateUser(User user, String newPassword);
+    void updateUser(User user, String changedUnencryptedPassword);
 
 
     /**

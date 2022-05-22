@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 /**
  * @author Petr Šlézar
  *
- * General abstract facade class. Note: each facade must implement its own version of service(), mapToEntity()
+ * General abstract facade class. Note: each facade must implement its own version of service(), mapToCreatedEntity()
  * and merge with entity!
  *
  * @param <ENTITY> of type GenericEntity related to the facade
@@ -51,21 +51,13 @@ public abstract class GenericFacadeImpl
                 .collect(Collectors.toList());
     }
 
-    @Override
     @Transactional
-    public DTO create(CREATE_DTO createDto) {
-
-        ENTITY entity = mapToEntity(createDto);
-        return mapToDto(service().create(entity));
-    }
+    @Override
+    abstract public DTO create(CREATE_DTO createDto);
 
     @Override
     @Transactional
-    public DTO update(UPDATE_DTO updateDto) {
-
-        ENTITY entityToUpdate = mapToUpdatedEntity(updateDto);
-        return mapToDto(service().update(entityToUpdate));
-    }
+    abstract public DTO update(UPDATE_DTO updateDto);
 
     @Override
     @Transactional
@@ -88,7 +80,7 @@ public abstract class GenericFacadeImpl
      * @param dto DTO that should be transformed into create-able entity
      * @return entity for creation
      */
-    protected abstract ENTITY mapToEntity(CREATE_DTO dto);
+    protected abstract ENTITY mapToCreatedEntity(CREATE_DTO dto);
 
     /**
      * Map entity to DTO in subclass to allow using specific classes required by entity mapper.

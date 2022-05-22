@@ -33,12 +33,28 @@ public class PersonFacadeImpl extends GenericFacadeImpl<Person, PersonDto, Perso
     }
 
     @Override
+    @Transactional
+    public PersonDto create(PersonCreateDto createDto) {
+        Person newPerson = mapToCreatedEntity(createDto);
+
+        return mapToDto(personService.create(newPerson));
+    }
+
+    @Override
+    @Transactional
+    public PersonDto update(PersonUpdateDto updateDto) {
+        Person updatedPerson = mapToUpdatedEntity(updateDto);
+
+        return mapToDto(personService.update(updatedPerson));
+    }
+
+    @Override
     protected GenericService<Person> service() {
         return personService;
     }
 
     @Override
-    protected Person mapToEntity(PersonCreateDto dto) {
+    protected Person mapToCreatedEntity(PersonCreateDto dto) {
         return personCreateMapper.toModel(dto);
     }
 

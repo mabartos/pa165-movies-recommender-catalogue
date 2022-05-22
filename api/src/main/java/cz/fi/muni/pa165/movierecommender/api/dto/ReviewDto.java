@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
 @Data
 public class ReviewDto extends GenericEntityDto {
 
-    private UserDto user;
+    private SimpleUserDto user;
     private SimpleMovieDto movie;
     private String text;
     private Integer scriptRating;

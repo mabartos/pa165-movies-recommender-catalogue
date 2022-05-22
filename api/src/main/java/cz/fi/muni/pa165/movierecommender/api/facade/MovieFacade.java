@@ -22,5 +22,25 @@ public interface MovieFacade extends GenericFacade<MovieDto, MovieCreateDto, Mov
     List<MovieDto> findByName(String name);
 
     List<MovieDto> getRecommendedByMovie(Long movieId);
+
+    /**
+     * Creates a movie entity. If this entity contains any actors or director (their ids),
+     * they are modified as well and new movie (this one) is added to their collections
+     * of acted in/directed movies.
+     *
+     * @param createDto entity's create DTO, not null
+     * @return DTO of newly created movie
+     */
+    @Override
+    MovieDto create(MovieCreateDto createDto);
+
+    /**
+     * Updates a movie entity. The behaviour is same asi with create() method.
+     *
+     * @param updateDto entity's update DTO, not null
+     * @return DTO of newly updated movie
+     */
+    @Override
+    MovieDto update(MovieUpdateDto updateDto);
 }
 

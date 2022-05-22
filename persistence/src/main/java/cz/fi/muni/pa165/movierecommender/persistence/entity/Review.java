@@ -1,5 +1,10 @@
 package cz.fi.muni.pa165.movierecommender.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,11 +37,14 @@ public class Review extends GenericEntity {
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = User.class)
     @NotNull
     @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties(value = {"reviews"},allowSetters = true)
     private User user;
+
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Movie.class)
     @NotNull
     @JoinColumn(name = "movie_id")
+    @JsonIgnoreProperties(value = {"reviews"},allowSetters = true)
     private Movie movie;
 
     /**

@@ -31,17 +31,26 @@ public class ExceptionAdvisor {
     public ResponseEntity<?> handleException(Exception exception) {
         ExceptionResponse error = new ExceptionResponse(exception.getClass().getSimpleName(), exception.getMessage());
 
-        HttpStatus httpStatus = switch (exception) {
-            case IllegalArgumentException ignored -> HttpStatus.BAD_REQUEST;
-            case BadArgumentException ignored -> HttpStatus.BAD_REQUEST;
-            case ForbiddenOperationException ignored -> HttpStatus.FORBIDDEN;
-            case LoginFailedException ignored -> HttpStatus.UNAUTHORIZED;
-            case MissingEntityException ignored -> HttpStatus.NOT_FOUND;
-            case EntityExistsException ignored -> HttpStatus.UNPROCESSABLE_ENTITY;
-            case EntityNotFoundException ignored -> HttpStatus.NOT_FOUND;
-            case AuthenticationException ignored -> HttpStatus.UNAUTHORIZED;
-            case default -> HttpStatus.INTERNAL_SERVER_ERROR;
-        };
+        HttpStatus httpStatus;
+        if (exception instanceof BadArgumentException) {
+            httpStatus = HttpStatus.BAD_REQUEST;
+        } else if (exception instanceof ForbiddenOperationException) {
+            httpStatus = HttpStatus.FORBIDDEN;
+        } else if (exception instanceof LoginFailedException) {
+            httpStatus = HttpStatus.UNAUTHORIZED;
+        } else if (exception instanceof MissingEntityException) {
+            httpStatus = HttpStatus.NOT_FOUND;
+        } else if (exception instanceof EntityExistsException) {
+            httpStatus = HttpStatus.UNPROCESSABLE_ENTITY;
+        } else if (exception instanceof EntityNotFoundException) {
+            httpStatus = HttpStatus.NOT_FOUND;
+        } else if (exception instanceof AuthenticationException) {
+            httpStatus = HttpStatus.UNAUTHORIZED;
+        } else if (exception instanceof IllegalArgumentException) {
+            httpStatus = HttpStatus.BAD_REQUEST;
+        } else {
+            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
 
         log.debug("[{}] {} - {}", httpStatus, error.getName(), error.getMessage());
 

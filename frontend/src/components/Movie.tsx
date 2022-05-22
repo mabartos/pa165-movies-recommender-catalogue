@@ -37,10 +37,14 @@ export const Movie = () => {
   };
 
   const { id } = useParams();
-  const { data, error } = useSWR(`movies/${id}`, fetcher)
+  const { data: movie, error: movieError } = useSWR(`movies/${id}`, fetcher)
+  const { data: reviews, error: reviewError } = useSWR(`reviews/search/${id}`, fetcher)
 
-  if (error) return <div>failed to load</div>;
-  if (!data) return <div>loading...</div>;
+  if (movieError) return <div>failed to load</div>;
+  if (!movie) return <div>loading...</div>;
+
+  if (reviewError) return <div>failed to load</div>;
+  if (!reviews) return <div>loading...</div>;
 
   const recommendedMovies = [
     {
@@ -82,13 +86,13 @@ export const Movie = () => {
         <div className="flex flex-col col-span-2 h-full">
           <div className="flex flex-row p-4 border-solid border-r-4 border-slate-900 bg-slate-300 h-full w-full">
             <div className="p-4 flex-shrink-0 h-full w-2/5">
-              <img className="h-full w-full" src={data.poster} alt="Poster"/>
+              <img className="h-full w-full" src={movie.poster} alt="Poster"/>
             </div>
             <div className="flex flex-col p-4">
-              <p className="text-2xl font-bold">{data.name}</p>
-              <p>{data.description}</p>
-              <p className="mt-auto"><b>Duration:</b> {formatDuration(data.duration)}</p>
-              <p className="text-xl"><b>Director:</b> {data.director.name}</p>
+              <p className="text-2xl font-bold">{movie.name}</p>
+              <p>{movie.description}</p>
+              <p className="mt-auto"><b>Duration:</b> {formatDuration(movie.duration)}</p>
+              <p className="text-xl"><b>Director:</b> {movie.director.name}</p>
               <button className="w-max p-4 self-center bg-blue-600 border-2 rounded-3xl border-slate-900"
                       onClick={changeShowStatus}>
                 {showReviews ? 'Show recommended movies' : 'Show reviews'}

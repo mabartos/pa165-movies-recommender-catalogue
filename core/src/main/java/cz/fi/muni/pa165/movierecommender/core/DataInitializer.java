@@ -22,8 +22,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
+/**
+ * @author Petr Šlézar
+ */
 @Slf4j
 @Component
 @Transactional
@@ -34,9 +36,9 @@ public class DataInitializer {
     private final PersonDao personDao;
     private final PasswordEncoder passwordEncoder = new Argon2PasswordEncoder();
 
-    private Map<String,Long> movieIds = new HashMap<>();
-    private Map<String,Long> personIds = new HashMap<>();
-    private Map<String,Long> userIds = new HashMap<>();
+    private Map<String, Long> movieIds = new HashMap<>();
+    private Map<String, Long> personIds = new HashMap<>();
+    private Map<String, Long> userIds = new HashMap<>();
 
     @Autowired
     public DataInitializer(UserDao systemUserDao, MovieDao movieDao, PersonDao personDao) {
@@ -49,23 +51,23 @@ public class DataInitializer {
     @Transactional
     public void createUsers() {
 
-        User admin = new User("admin",passwordEncoder.encode("admin"),"admin@gmail.com", UserType.ADMIN);
+        User admin = new User("admin", passwordEncoder.encode("admin"), "admin@gmail.com", UserType.ADMIN);
         User adminCreated = systemUserDao.create(admin);
-        userIds.put("admin",adminCreated.getId());
+        userIds.put("admin", adminCreated.getId());
 
-        User pepa = new User("pepa",passwordEncoder.encode("pepa"),"pepa@gmail.com",UserType.BASIC_USER);
+        User pepa = new User("pepa", passwordEncoder.encode("pepa"), "pepa@gmail.com", UserType.BASIC_USER);
         User pepaCreated = systemUserDao.create(pepa);
-        userIds.put("pepa",pepaCreated.getId());
+        userIds.put("pepa", pepaCreated.getId());
 
-        User karel = new User("karel",passwordEncoder.encode("karel"),"karel@gmail.com",UserType.BASIC_USER);
+        User karel = new User("karel", passwordEncoder.encode("karel"), "karel@gmail.com", UserType.BASIC_USER);
         User karelCreated = systemUserDao.create(karel);
-        userIds.put("karel",karelCreated.getId());
+        userIds.put("karel", karelCreated.getId());
     }
 
     @Transactional
     public void createMovies() {
 
-        Movie shawshankRedemption = new Movie("The Shawshank Redemption", 142,
+        Movie shawshankRedemption = new Movie(null,"The Shawshank Redemption", 142,
                 "https://play-lh.googleusercontent.com/hqVkofgQryL02Z2g_rsKpu923e2IMr_bXH7mCG0D0QOTLWT_a5qpv4zq3XxJ3vpcFm8hNnVkeLR6KYyi4ss",
                 new HashSet<Genre>(List.of(Genre.CRIME, Genre.DRAMA)),
                 "Mladý bankovní manažer Andy Dufresne (Tim Robbins) je v roce 1947 odsouzen na doživotí za vraždu své " +
@@ -73,11 +75,11 @@ public class DataInitializer {
                         "zde sblíží s černochem Redem (Morgan Freeman), jenž je tu už dvacet let, a během dlouhé doby se" +
                         " jim společně podaří dosáhnout zlepšení zdejších poměrů. Andy se dokonce stane strážcům i " +
                         "nenáviděnému řediteli věznice nepostradatelný jako daňový a finanční poradce.",
-                1994, Collections.emptySet(), null, Collections.emptySet());
-        movieIds.put("shawsankRedemption",movieDao.create(shawshankRedemption).getId());
+                1994, Collections.emptySet(), Collections.emptySet());
+        movieIds.put("shawsankRedemption", movieDao.create(shawshankRedemption).getId());
 
 
-        Movie greenMile = new Movie("The Green Mile", 188,
+        Movie greenMile = new Movie(null,"The Green Mile", 188,
                 "https://img.csfd.cz/files/images/user/profile/159/077/159077077_bf2f37.png",
                 new HashSet<Genre>(List.of(Genre.CRIME, Genre.DRAMA, Genre.MYSTERY)),
                 "Paul Edgecomb se vrací ve vzpomínkách do roku 1935, kdy byl zaměstnán v louisianské věznici " +
@@ -91,10 +93,10 @@ public class DataInitializer {
                         "správce věznice, ke které ho tajně v noci převezou, dokonce oživí cvičenou myš jednoho vězně, " +
                         "kterou zabil zlomyslný Percy. John Coffey, kterého čeká smrt, přijímá svůj úděl odevzdaně a " +
                         "bez hořkosti.",
-                1998, Collections.emptySet(), null, Collections.emptySet());
-        movieIds.put("greenMile",movieDao.create(greenMile).getId());
+                1998, Collections.emptySet(), Collections.emptySet());
+        movieIds.put("greenMile", movieDao.create(greenMile).getId());
 
-        Movie magnificentSeven = new Movie("The Magnificent Seven", 123,
+        Movie magnificentSeven = new Movie(null,"The Magnificent Seven", 123,
                 "https://i.ytimg.com/vi/8XDB7GMnbUQ/sddefault.jpg",
                 new HashSet<Genre>(List.of(Genre.ADVENTURE, Genre.WESTERN)),
                 "Nezapomenutelní pistolníci vyrážejí do boje proti banditům... Obyvatelé malé mexické vesnice" +
@@ -103,10 +105,10 @@ public class DataInitializer {
                         "však dojde trpělivost i jim. Tři z nich se proto vydají k americké hranici. Tam by totiž mohli" +
                         " najít někoho, kdo je naučí bojovat a pomůže jim postavit se Calverovi na odpor. Jako první " +
                         "přijme jejich skromnou nabídku sympatický holohlavý pistolník Chris. ",
-                1960, Collections.emptySet(), null, Collections.emptySet());
-        movieIds.put("magnificentSeven",movieDao.create(magnificentSeven).getId());
+                1960, Collections.emptySet(),  Collections.emptySet());
+        movieIds.put("magnificentSeven", movieDao.create(magnificentSeven).getId());
 
-        Movie cuckoosNest = new Movie("One Flew over the Cuckoo's Nest", 133,
+        Movie cuckoosNest = new Movie(null,"One Flew over the Cuckoo's Nest", 133,
                 "https://m.media-amazon.com/images/I/61ah-D5Hc9L._AC_SY679_.jpg",
                 new HashSet<Genre>(List.of(Genre.DRAMA)),
                 "Předlohou k filmu Přelet nad kukaččím hnízdem byl režiséru Miloši Formanovi román Kena " +
@@ -118,10 +120,10 @@ public class DataInitializer {
                         "Zrzavý irský rváč a profesionální karbaník Randle Patrick McMurphy si odpykává trest za " +
                         "opakované násilné napadení a sexuální zneužití. Místo aby se držel v pracovním táboře, hraje " +
                         "pomateného a nechá se poslat do zdánlivého klidu psychiatrické léčebny.",
-                1975, Collections.emptySet(), null, Collections.emptySet());
-        movieIds.put("cuckoosNest",movieDao.create(cuckoosNest).getId());
+                1975, Collections.emptySet(),  Collections.emptySet());
+        movieIds.put("cuckoosNest", movieDao.create(cuckoosNest).getId());
 
-        Movie marecek = new Movie("Marecku, podejte mi pero!", 91,
+        Movie marecek = new Movie(null,"Marecku, podejte mi pero!", 91,
                 "https://m.media-amazon.com/images/I/61ah-D5Hc9L._AC_SY679_.jpg",
                 new HashSet<Genre>(List.of(Genre.COMEDY)),
                 "Jiří Kroupa, mistr v továrně na zemědělské stroje, je závodní radou donucen zasednout do " +
@@ -130,121 +132,121 @@ public class DataInitializer {
                         "šplhoun Hujer, koketní paní Týfová, třídní rošťáci Tuček a Šlajs, zmatkář Plha nebo věčný " +
                         "ospalec Dudek. Zkrátka chybí jen Hliník, který se odstěhoval do Humpolce. Přestože jsou to " +
                         "vesměs lidé středního věku, znovu se mění ve školáky. ",
-                1976, Collections.emptySet(), null, Collections.emptySet());
-        movieIds.put("marecek",movieDao.create(marecek).getId());
+                1976, Collections.emptySet(),  Collections.emptySet());
+        movieIds.put("marecek", movieDao.create(marecek).getId());
 
-        Movie dogs = new Movie("Reservoir dogs",120,
+        Movie dogs = new Movie(null,"Reservoir dogs", 120,
                 "https://m.media-amazon.com/images/M/MV5BZmExNmEwYWItYmQzOS00YjA5LTk2MjktZjEyZDE1Y2QxNjA1XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_FMjpg_UX1000_.jpg",
                 new HashSet<Genre>(List.of(new Genre[]{Genre.ACTION, Genre.CRIME, Genre.THRILLER})),
-                "About Reservoir Dogs",1992,Collections.emptySet(),null,Collections.emptySet());
-        movieIds.put("dogs",movieDao.create(dogs).getId());
+                "About Reservoir Dogs", 1992, Collections.emptySet(),  Collections.emptySet());
+        movieIds.put("dogs", movieDao.create(dogs).getId());
 
-        Movie monty =new Movie("Monty Python and Holy Grail",120,
+        Movie monty = new Movie(null,"Monty Python and Holy Grail", 120,
                 "https://m.media-amazon.com/images/I/510HSMCnKsL._AC_.jpg",
                 new HashSet<Genre>(List.of(new Genre[]{Genre.COMEDY, Genre.ADVENTURE, Genre.FANTASY, Genre.ACTION})),
-                "About Monty Python and Holy Grail",1982, Collections.emptySet(),null,Collections.emptySet());
-        movieIds.put("monty",movieDao.create(monty).getId());
+                "About Monty Python and Holy Grail", 1982, Collections.emptySet(),  Collections.emptySet());
+        movieIds.put("monty", movieDao.create(monty).getId());
 
-        Movie pulpFiction= new Movie("Pulp fiction",120,"https://static.posters.cz/image/750/plakaty/pulp-fiction-cover-i1288.jpg",
+        Movie pulpFiction = new Movie(null,"Pulp fiction", 120, "https://static.posters.cz/image/750/plakaty/pulp-fiction-cover-i1288.jpg",
                 new HashSet<Genre>(List.of(new Genre[]{Genre.ACTION, Genre.CRIME, Genre.SLICE_OF_LIFE})),
-                "About Pulp Fiction",1994,Collections.emptySet(),null,Collections.emptySet());
-        movieIds.put("pulpFiction",movieDao.create(pulpFiction).getId());
+                "About Pulp Fiction", 1994, Collections.emptySet(),  Collections.emptySet());
+        movieIds.put("pulpFiction", movieDao.create(pulpFiction).getId());
 
     }
 
     @Transactional
     public void createPersons() {
 
-        Person frankDarabont = new Person("Frank Darabont", LocalDate.of(1959,01,28),
+        Person frankDarabont = new Person("Frank Darabont", LocalDate.of(1959, 01, 28),
                 "About Frank",
                 "https://image.pmgstatic.com/cache/resized/w100h132crop/files/images/creator/photos/162/616/162616697_7a42e4.png"
-                ,Collections.emptySet(),Collections.emptySet());
-        personIds.put("frankDarabont",personDao.create(frankDarabont).getId());
+                , Collections.emptySet(), Collections.emptySet());
+        personIds.put("frankDarabont", personDao.create(frankDarabont).getId());
 
-        Person timRobbins =  new Person("Tim Robbins", LocalDate.of(1958,10,16),
+        Person timRobbins = new Person("Tim Robbins", LocalDate.of(1958, 10, 16),
                 "About Timothy Robbins",
                 "https://image.pmgstatic.com/cache/resized/w100h132crop/files/images/creator/photos/163/921/163921450_a7778f.jpg"
-                ,Collections.emptySet(),Collections.emptySet());
-        personIds.put("timRobbins",personDao.create(timRobbins).getId());
+                , Collections.emptySet(), Collections.emptySet());
+        personIds.put("timRobbins", personDao.create(timRobbins).getId());
 
-        Person morganFreeman =  new Person("Morgan Freeman", LocalDate.of(1939,6,1),
+        Person morganFreeman = new Person("Morgan Freeman", LocalDate.of(1939, 6, 1),
                 "About Morgan Freeman",
                 "https://image.pmgstatic.com/cache/resized/w100h132crop/files/images/creator/photos/164/428/164428581_c81e3f.png"
-                ,Collections.emptySet(),Collections.emptySet());
-        personIds.put("morganFreeman",personDao.create(morganFreeman).getId());
+                , Collections.emptySet(), Collections.emptySet());
+        personIds.put("morganFreeman", personDao.create(morganFreeman).getId());
 
-        Person tomHanks =  new Person("Tom Hanks", LocalDate.of(1956,7,9),
+        Person tomHanks = new Person("Tom Hanks", LocalDate.of(1956, 7, 9),
                 "About Tom Hanks",
                 "https://image.pmgstatic.com/cache/resized/w100h132crop/files/images/creator/photos/163/996/163996832_9f4783.jpg"
-                ,Collections.emptySet(),Collections.emptySet());
-        personIds.put("tomHanks",personDao.create(tomHanks).getId());
+                , Collections.emptySet(), Collections.emptySet());
+        personIds.put("tomHanks", personDao.create(tomHanks).getId());
 
-        Person michaelDuncan = new Person("Michael Duncan", LocalDate.of(1957,12,10),
+        Person michaelDuncan = new Person("Michael Duncan", LocalDate.of(1957, 12, 10),
                 "About Clarke Duncan",
                 "https://image.pmgstatic.com/cache/resized/w100h132crop/files/images/creator/photos/162/677/162677644_fc444a.jpg"
-                ,Collections.emptySet(),Collections.emptySet());
-        personIds.put("michaelDuncan",personDao.create(michaelDuncan).getId());
+                , Collections.emptySet(), Collections.emptySet());
+        personIds.put("michaelDuncan", personDao.create(michaelDuncan).getId());
 
-        Person johnSturges = new Person("John Sturges", LocalDate.of(1910,1,3),
+        Person johnSturges = new Person("John Sturges", LocalDate.of(1910, 1, 3),
                 "About John Sturges",
                 "https://image.pmgstatic.com/files/images/creator/photos/000/269/269933_3a0f0a.jpg"
-                ,Collections.emptySet(),Collections.emptySet());
-        personIds.put("johnSturges",personDao.create(johnSturges).getId());
+                , Collections.emptySet(), Collections.emptySet());
+        personIds.put("johnSturges", personDao.create(johnSturges).getId());
 
-        Person yulBrynner = new Person("Yul Brynner", LocalDate.of(1920,7,11),
+        Person yulBrynner = new Person("Yul Brynner", LocalDate.of(1920, 7, 11),
                 "About yulBrynner",
                 "https://image.pmgstatic.com/cache/resized/w100h132crop/files/images/creator/photos/164/368/164368516_44aeda.png"
-                ,Collections.emptySet(),Collections.emptySet());
-        personIds.put("yulBrynner",personDao.create(yulBrynner).getId());
+                , Collections.emptySet(), Collections.emptySet());
+        personIds.put("yulBrynner", personDao.create(yulBrynner).getId());
 
-        Person milosForman = new Person("Milos Forman", LocalDate.of(1932,2,10),
+        Person milosForman = new Person("Milos Forman", LocalDate.of(1932, 2, 10),
                 "About Milos Forman",
                 "https://image.pmgstatic.com/cache/resized/w100h132crop/files/images/creator/photos/165/528/165528862_917733.jpg"
-                ,Collections.emptySet(),Collections.emptySet());
-        personIds.put("milosForman",personDao.create(milosForman).getId());
+                , Collections.emptySet(), Collections.emptySet());
+        personIds.put("milosForman", personDao.create(milosForman).getId());
 
-        Person jackNickolson = new Person("Jack Nicholson", LocalDate.of(1937,4,22),
+        Person jackNickolson = new Person("Jack Nicholson", LocalDate.of(1937, 4, 22),
                 "About Jack Nicholson",
                 "https://image.pmgstatic.com/cache/resized/w100h132crop/files/images/creator/photos/164/611/164611889_ce96ff.jpg"
-                ,Collections.emptySet(),Collections.emptySet());
-        personIds.put("jackNickolson",personDao.create(jackNickolson).getId());
+                , Collections.emptySet(), Collections.emptySet());
+        personIds.put("jackNickolson", personDao.create(jackNickolson).getId());
 
-        Person oldrichLipsky = new Person("Oldrich Lipsky", LocalDate.of(1986,7,4),
+        Person oldrichLipsky = new Person("Oldrich Lipsky", LocalDate.of(1986, 7, 4),
                 "About Oldrich Lipsky",
                 "https://image.pmgstatic.com/files/images/creator/photos/000/269/269819_ce82e6.jpg"
-                ,Collections.emptySet(),Collections.emptySet());
-        personIds.put("oldrichLipsky",personDao.create(oldrichLipsky).getId());
+                , Collections.emptySet(), Collections.emptySet());
+        personIds.put("oldrichLipsky", personDao.create(oldrichLipsky).getId());
 
-        Person jiriSovak = new Person("Jiri Sovak", LocalDate.of(1920,12,27),
+        Person jiriSovak = new Person("Jiri Sovak", LocalDate.of(1920, 12, 27),
                 "About Oldrich Lipsky",
                 "https://image.pmgstatic.com/files/images/creator/photos/000/268/268142_d299ab.jpg"
-                ,Collections.emptySet(),Collections.emptySet());
-        personIds.put("jiriSovak",personDao.create(jiriSovak).getId());
+                , Collections.emptySet(), Collections.emptySet());
+        personIds.put("jiriSovak", personDao.create(jiriSovak).getId());
 
         Person quentin =
                 new Person("Quentin Tarantino", LocalDate.of(1963, Month.MARCH, 27),
-                        "About Tarantino","https://image.pmgstatic.com/cache/resized/w100h132crop/files/images/creator/photos/164/515/164515525_b98f8a.jpg",
+                        "About Tarantino", "https://image.pmgstatic.com/cache/resized/w100h132crop/files/images/creator/photos/164/515/164515525_b98f8a.jpg",
                         Collections.emptySet(),
                         Collections.emptySet());
-        personIds.put("quentin",personDao.create(quentin).getId());
+        personIds.put("quentin", personDao.create(quentin).getId());
 
         Person tim =
-                new Person("Tim Roth",LocalDate.of(1961, Month.MAY, 14),
-                        "About Roth","https://image.pmgstatic.com/cache/resized/w100h132crop/files/images/creator/photos/162/387/162387459_f9d1c0.jpg",
+                new Person("Tim Roth", LocalDate.of(1961, Month.MAY, 14),
+                        "About Roth", "https://image.pmgstatic.com/cache/resized/w100h132crop/files/images/creator/photos/162/387/162387459_f9d1c0.jpg",
                         Collections.emptySet(),
                         Collections.emptySet());
-        personIds.put("tim",personDao.create(tim).getId());
+        personIds.put("tim", personDao.create(tim).getId());
 
         Person terry =
-                new Person("Terry Jones",LocalDate.of(1942, Month.FEBRUARY, 1),
-                        "About Terry","https://image.pmgstatic.com/files/images/creator/photos/000/269/269441_e9126b.jpg"
-                        ,Collections.emptySet()
-                        ,Collections.emptySet());
-        personIds.put("terry",personDao.create(terry).getId());
+                new Person("Terry Jones", LocalDate.of(1942, Month.FEBRUARY, 1),
+                        "About Terry", "https://image.pmgstatic.com/files/images/creator/photos/000/269/269441_e9126b.jpg"
+                        , Collections.emptySet()
+                        , Collections.emptySet());
+        personIds.put("terry", personDao.create(terry).getId());
     }
 
     @Transactional
-    public void connectFilmsAndPersons(){
+    public void connectFilmsAndPersons() {
 
         Movie shawsankRedemption = movieDao.findById(movieIds.get("shawsankRedemption"));
         Movie greenMile = movieDao.findById(movieIds.get("greenMile"));
@@ -253,11 +255,11 @@ public class DataInitializer {
         Movie marecek = movieDao.findById(movieIds.get("marecek"));
         Movie dogs = movieDao.findById(movieIds.get("dogs"));
         Movie monty = movieDao.findById(movieIds.get("monty"));
-        Movie pulpFiction= movieDao.findById(movieIds.get("pulpFiction"));
+        Movie pulpFiction = movieDao.findById(movieIds.get("pulpFiction"));
 
         Person frankDarabont = personDao.findById(personIds.get("frankDarabont"));
-        Person timRobbins =  personDao.findById(personIds.get("timRobbins"));
-        Person morganFreeman =  personDao.findById(personIds.get("morganFreeman"));
+        Person timRobbins = personDao.findById(personIds.get("timRobbins"));
+        Person morganFreeman = personDao.findById(personIds.get("morganFreeman"));
         Person tomHanks = personDao.findById(personIds.get("tomHanks"));
         Person michaelDuncan = personDao.findById(personIds.get("michaelDuncan"));
         Person johnSturges = personDao.findById(personIds.get("johnSturges"));
@@ -271,11 +273,11 @@ public class DataInitializer {
         Person terry = personDao.findById(personIds.get("terry"));
 
         shawsankRedemption.setDirector(frankDarabont);
-        shawsankRedemption.setActors(new HashSet<>(List.of(timRobbins,morganFreeman)));
+        shawsankRedemption.setActors(new HashSet<>(List.of(timRobbins, morganFreeman)));
         movieDao.update(shawsankRedemption);
 
         greenMile.setDirector(frankDarabont);
-        greenMile.setActors(new HashSet<>(List.of(tomHanks,michaelDuncan)));
+        greenMile.setActors(new HashSet<>(List.of(tomHanks, michaelDuncan)));
         movieDao.update(greenMile);
 
         magnificentSeven.setDirector(johnSturges);
@@ -291,7 +293,7 @@ public class DataInitializer {
         movieDao.update(marecek);
 
         dogs.setDirector(quentin);
-        marecek.setActors(new HashSet<>(List.of(quentin,tim)));
+        marecek.setActors(new HashSet<>(List.of(quentin, tim)));
         movieDao.update(dogs);
 
         monty.setDirector(terry);
@@ -299,10 +301,10 @@ public class DataInitializer {
         movieDao.update(monty);
 
         pulpFiction.setDirector(quentin);
-        pulpFiction.setActors(new HashSet<>(List.of(quentin,tim)));
+        pulpFiction.setActors(new HashSet<>(List.of(quentin, tim)));
         movieDao.update(pulpFiction);
 
-        frankDarabont.setDirectedMovies(new HashSet<>(List.of(shawsankRedemption,greenMile)));
+        frankDarabont.setDirectedMovies(new HashSet<>(List.of(shawsankRedemption, greenMile)));
         timRobbins.setActedInMovies(new HashSet<>(List.of(shawsankRedemption)));
         morganFreeman.setActedInMovies(new HashSet<>(List.of(shawsankRedemption)));
         tomHanks.setActedInMovies(new HashSet<>(List.of(greenMile)));
@@ -313,9 +315,9 @@ public class DataInitializer {
         jackNickolson.setActedInMovies(new HashSet<>(List.of(cuckoosNest)));
         oldrichLipsky.setDirectedMovies(new HashSet<>(List.of(marecek)));
         jiriSovak.setActedInMovies(new HashSet<>(List.of(marecek)));
-        quentin.setDirectedMovies(new HashSet<>(List.of(pulpFiction,dogs)));
-        quentin.setActedInMovies(new HashSet<>(List.of(pulpFiction,dogs)));
-        tim.setActedInMovies(new HashSet<>(List.of(pulpFiction,dogs)));
+        quentin.setDirectedMovies(new HashSet<>(List.of(pulpFiction, dogs)));
+        quentin.setActedInMovies(new HashSet<>(List.of(pulpFiction, dogs)));
+        tim.setActedInMovies(new HashSet<>(List.of(pulpFiction, dogs)));
         terry.setDirectedMovies(new HashSet<>(List.of(monty)));
         terry.setActedInMovies(new HashSet<>(List.of(monty)));
         personDao.update(frankDarabont);

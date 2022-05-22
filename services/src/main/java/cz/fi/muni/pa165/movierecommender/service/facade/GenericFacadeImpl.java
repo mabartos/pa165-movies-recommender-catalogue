@@ -2,9 +2,9 @@ package cz.fi.muni.pa165.movierecommender.service.facade;
 
 import cz.fi.muni.pa165.movierecommender.api.dto.create.CreateDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.update.UpdateDto;
+import cz.fi.muni.pa165.movierecommender.api.facade.GenericFacade;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.GenericEntity;
 import cz.fi.muni.pa165.movierecommender.service.service.GenericService;
-import cz.fi.muni.pa165.movierecommender.api.facade.GenericFacade;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -12,14 +12,13 @@ import java.util.stream.Collectors;
 
 
 /**
- * @author Petr Šlézar
- *
- * General abstract facade class. Note: each facade must implement its own version of service(), mapToCreatedEntity()
- * and merge with entity!
- *
- * @param <ENTITY> of type GenericEntity related to the facade
+ * @param <ENTITY>     of type GenericEntity related to the facade
  * @param <CREATE_DTO> of type CreateDTO used for creating new entities
  * @param <UPDATE_DTO> of type UpdateDTO used for updating existing entities
+ * @author Petr Šlézar
+ * <p>
+ * General abstract facade class. Note: each facade must implement its own version of service(), mapToCreatedEntity()
+ * and merge with entity!
  */
 public abstract class GenericFacadeImpl
         <ENTITY extends GenericEntity,
@@ -89,7 +88,7 @@ public abstract class GenericFacadeImpl
     /**
      * Merge DTO with old entity in subclass to allow using specific classes required by DTO mapper.
      *
-     * @param dto       DTO that should be transformed into update-able entity
+     * @param dto DTO that should be transformed into update-able entity
      * @return entity for update
      */
     protected abstract ENTITY mapToUpdatedEntity(UPDATE_DTO dto);

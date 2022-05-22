@@ -12,12 +12,10 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import javax.transaction.Transactional;
-
 import java.util.List;
 import java.util.Optional;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNull;
 
 
 /**
@@ -63,7 +61,7 @@ public class UserDaoTest extends AbstractTestNGSpringContextTests {
         assertEquals(user1, user.get());
 
         user = userDao.findByEmail("user3@smth.com");
-        assertEquals(user,Optional.empty());
+        assertEquals(user, Optional.empty());
     }
 
     @Test

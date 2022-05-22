@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * @author Daniel Puchala
+ */
 @RestController
 @RequestMapping(RoutesHolder.USER_ROUTE)
 public interface UserController {

@@ -3,6 +3,7 @@ package cz.fi.muni.pa165.movierecommender.service.facade;
 import cz.fi.muni.pa165.movierecommender.api.dto.MovieDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.create.MovieCreateDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.update.MovieUpdateDto;
+import cz.fi.muni.pa165.movierecommender.api.facade.MovieFacade;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Movie;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Person;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Review;
@@ -12,7 +13,6 @@ import cz.fi.muni.pa165.movierecommender.service.mapper.create.MovieCreateMapper
 import cz.fi.muni.pa165.movierecommender.service.mapper.update.MovieUpdateMapper;
 import cz.fi.muni.pa165.movierecommender.service.service.GenericService;
 import cz.fi.muni.pa165.movierecommender.service.service.MovieService;
-import cz.fi.muni.pa165.movierecommender.api.facade.MovieFacade;
 import cz.fi.muni.pa165.movierecommender.service.service.PersonService;
 import cz.fi.muni.pa165.movierecommender.service.service.ReviewService;
 import org.mapstruct.factory.Mappers;
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 
 /**
  * @author Maxim Svistunov
- * @author Petr Šlézar - many-to-many
+ * @author Petr Šlézar - delete update create
  */
 @Service
 public class MovieFacadeImpl extends GenericFacadeImpl<Movie, MovieDto, MovieCreateDto, MovieUpdateDto> implements MovieFacade {
@@ -94,7 +94,7 @@ public class MovieFacadeImpl extends GenericFacadeImpl<Movie, MovieDto, MovieCre
         Person director;
         Set<Person> actors = new HashSet<>();
 
-        if(hasDirector){
+        if (hasDirector) {
 
             director = personService.findById(createDto.getDirectorId());
             entity.setDirector(director);
@@ -108,9 +108,9 @@ public class MovieFacadeImpl extends GenericFacadeImpl<Movie, MovieDto, MovieCre
             entity.setDirector(director);
         }
 
-        if(hasActors){
+        if (hasActors) {
 
-            for(Long actorId : createDto.getActorsIds()){
+            for (Long actorId : createDto.getActorsIds()) {
                 Person currentActor = personService.findById(actorId);
                 actors.add(currentActor);
 
@@ -141,7 +141,7 @@ public class MovieFacadeImpl extends GenericFacadeImpl<Movie, MovieDto, MovieCre
         Person director;
         Set<Person> actors = new HashSet<>();
 
-        if(hasDirector){
+        if (hasDirector) {
 
             director = personService.findById(updateDto.getDirectorId());
             entity.setDirector(director);
@@ -155,9 +155,9 @@ public class MovieFacadeImpl extends GenericFacadeImpl<Movie, MovieDto, MovieCre
             entity.setDirector(director);
         }
 
-        if(hasActors){
+        if (hasActors) {
 
-            for(Long actorId : updateDto.getActorsIds()){
+            for (Long actorId : updateDto.getActorsIds()) {
                 Person currentActor = personService.findById(actorId);
                 actors.add(currentActor);
 
@@ -187,21 +187,21 @@ public class MovieFacadeImpl extends GenericFacadeImpl<Movie, MovieDto, MovieCre
         Set<Person> actors = toBeDeleted.getActors();
         Set<Review> reviews = toBeDeleted.getReviews();
 
-        if(director!=null){
+        if (director != null) {
             Set<Movie> directorDirectedMovies = director.getDirectedMovies();
             directorDirectedMovies.remove(toBeDeleted);
             director.setDirectedMovies(directorDirectedMovies);
             personService.update(director);
         }
 
-        for (Person actor : actors){
+        for (Person actor : actors) {
             Set<Movie> currentActorMovies = actor.getActedInMovies();
             currentActorMovies.remove(toBeDeleted);
             actor.setActedInMovies(currentActorMovies);
             personService.update(actor);
         }
 
-        for (Review review : reviews){
+        for (Review review : reviews) {
             review.setMovie(null);
             review.setUser(null);
             review = reviewService.update(review);

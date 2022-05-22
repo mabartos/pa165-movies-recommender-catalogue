@@ -15,17 +15,18 @@ public interface EntityDao<Entity extends GenericEntity> {
      * Creates an entity.
      *
      * @param entity Entity to create
-     * @throws IllegalArgumentException if provided entity is null
+     * @throws IllegalArgumentException                if provided entity is null
      * @throws javax.persistence.EntityExistsException if entity with same ID already exists
      */
     Entity create(Entity entity);
 
     //Still needs to be improved (cascading delete etc.)
+
     /**
      * Deletes an entity in a database
      *
      * @param entity Entity to be deleted
-     * @throws IllegalArgumentException    if provided entity is null
+     * @throws IllegalArgumentException                  if provided entity is null
      * @throws javax.persistence.EntityNotFoundException if there is no pre-existing entity that should be deleted
      */
     void delete(Entity entity);
@@ -34,7 +35,7 @@ public interface EntityDao<Entity extends GenericEntity> {
      * Updates an entity.
      *
      * @param entity Entity to update
-     * @throws IllegalArgumentException if provided entity is null
+     * @throws IllegalArgumentException                  if provided entity is null
      * @throws javax.persistence.EntityNotFoundException if there is no pre-existing entity that should be updated
      */
     Entity update(Entity entity);

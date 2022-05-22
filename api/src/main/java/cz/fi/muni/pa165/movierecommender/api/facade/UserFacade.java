@@ -32,7 +32,7 @@ public interface UserFacade extends GenericFacade<UserDto, UserCreateDto, UserUp
     /**
      * Register the given user with the given unencrypted password.
      *
-     * @param user DTO of newly created user
+     * @param user                DTO of newly created user
      * @param unencryptedPassword chosen password
      */
     void registerUser(UserCreateDto user, String unencryptedPassword);
@@ -40,7 +40,7 @@ public interface UserFacade extends GenericFacade<UserDto, UserCreateDto, UserUp
     /**
      * Register the given user with the given unencrypted password.
      *
-     * @param user DTO of newly created user
+     * @param user        DTO of newly created user
      * @param newPassword newly chosen password
      */
     void changeUser(UserUpdateDto user, String newPassword);

@@ -9,7 +9,7 @@ import java.util.Set;
 
 /**
  * @author Maxim Svistunov
- *
+ * <p>
  * A class for creating a movie
  */
 @Data

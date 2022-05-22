@@ -1,12 +1,11 @@
 package cz.fi.muni.pa165.movierecommender.api.dto;
 
-import cz.fi.muni.pa165.movierecommender.api.dto.account.UserDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
  * @author Petr Šlézar
- *
+ * <p>
  * A Review DTO for server's respose to GET
  */
 @EqualsAndHashCode(callSuper = false)

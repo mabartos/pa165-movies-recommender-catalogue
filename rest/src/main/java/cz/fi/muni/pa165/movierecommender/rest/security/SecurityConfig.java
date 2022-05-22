@@ -1,16 +1,12 @@
 package cz.fi.muni.pa165.movierecommender.rest.security;
 
 import cz.fi.muni.pa165.movierecommender.rest.core.RoutesHolder;
-import cz.fi.muni.pa165.movierecommender.rest.security.NoRedirectStrategy;
-import cz.fi.muni.pa165.movierecommender.rest.security.TokenAuthenticationFilter;
-import cz.fi.muni.pa165.movierecommender.rest.security.TokenAuthenticationProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -27,7 +23,6 @@ import org.springframework.security.web.util.matcher.NegatedRequestMatcher;
 import org.springframework.security.web.util.matcher.OrRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
-
 import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNull;
@@ -35,6 +30,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 
 /**
  * Inspired by https://octoperf.com/blog/2018/03/08/securing-rest-api-spring-security/
+ * @author Petr Šlézar
  */
 @Slf4j
 @Configuration

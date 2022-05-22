@@ -2,6 +2,9 @@ package cz.fi.muni.pa165.movierecommender.rest.core;
 
 import java.util.List;
 
+/**
+ * @author Petr Šlézar
+ */
 public class RoutesHolder {
 
     public static final String LOGIN_ROUTE = "/login"; // PUBLIC route

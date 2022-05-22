@@ -27,7 +27,7 @@ public interface MovieService extends GenericService<Movie> {
      *
      * @param movieId of a movie for which we search for recommendation
      * @return list of movies recommended by the provided movie identifier
-     * @throws BadArgumentException when movie id is null
+     * @throws BadArgumentException   when movie id is null
      * @throws MissingEntityException if movie entity is not found
      */
     List<Movie> getRecommendedByMovie(Long movieId);

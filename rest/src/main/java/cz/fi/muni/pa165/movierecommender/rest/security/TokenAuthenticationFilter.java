@@ -17,9 +17,8 @@ import static java.util.Optional.ofNullable;
 import static org.apache.commons.lang3.StringUtils.removeStart;
 
 /**
- * @author Jakub Petras | xpetras@mail.muni.cz
- *         5/9/21
- * Inspired by https://octoperf.com/blog/2018/03/08/securing-rest-api-spring-security/#jwt-example-1
+ * Inspired by https://octoperf.com/blog/2018/03/08/securing-rest-api-spring-security/
+ * @author Petr Šlézar
  */
 public class TokenAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 

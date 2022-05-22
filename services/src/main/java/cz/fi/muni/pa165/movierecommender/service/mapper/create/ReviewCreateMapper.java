@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 
 /**
  * @author Petr Šlézar
- *
+ * <p>
  * A simple mapper using mapstruct. Those attributes which are not mapped, will be later added in facade.
  */
 @Mapper

@@ -1,10 +1,10 @@
 package cz.fi.muni.pa165.movierecommender.api.movierecommender.daos;
 
 import cz.fi.muni.pa165.movierecommender.api.movierecommender.PersistenceTestConfig;
-import cz.fi.muni.pa165.movierecommender.persistence.enums.Genre;
 import cz.fi.muni.pa165.movierecommender.persistence.dao.PersonDao;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Movie;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Person;
+import cz.fi.muni.pa165.movierecommender.persistence.enums.Genre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -98,7 +98,7 @@ public class PersonDaoTest extends AbstractTestNGSpringContextTests {
     public void findAll() {
         List<Person> obtained = repository.findAll();
 
-        Assert.assertEquals(obtained.size(),3);
+        Assert.assertEquals(obtained.size(), 3);
     }
 
 
@@ -107,7 +107,7 @@ public class PersonDaoTest extends AbstractTestNGSpringContextTests {
         Person obtained = repository.findById(quentin.getId());
 
         Assert.assertNotNull(obtained);
-        Assert.assertEquals(obtained,quentin);
+        Assert.assertEquals(obtained, quentin);
     }
 
     @Test
@@ -115,8 +115,8 @@ public class PersonDaoTest extends AbstractTestNGSpringContextTests {
 
         List<Person> obtained = repository.findByName("Tim Roth");
 
-        Assert.assertNotEquals(obtained.size(),0);
-        Assert.assertEquals(obtained.get(0),tim);
+        Assert.assertNotEquals(obtained.size(), 0);
+        Assert.assertEquals(obtained.get(0), tim);
     }
 
     @Test
@@ -142,7 +142,7 @@ public class PersonDaoTest extends AbstractTestNGSpringContextTests {
         Person obtained = repository.findById(quentin.getId());
 
         Assert.assertNotNull(obtained);
-        Assert.assertEquals(obtained.getName(),"Tarantino Quentin");
+        Assert.assertEquals(obtained.getName(), "Tarantino Quentin");
     }
 
     @Test

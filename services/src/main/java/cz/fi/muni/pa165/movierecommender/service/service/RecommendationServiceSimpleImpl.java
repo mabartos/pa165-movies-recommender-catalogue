@@ -1,10 +1,10 @@
 package cz.fi.muni.pa165.movierecommender.service.service;
 
-import cz.fi.muni.pa165.movierecommender.persistence.enums.Genre;
 import cz.fi.muni.pa165.movierecommender.persistence.dao.MovieDao;
 import cz.fi.muni.pa165.movierecommender.persistence.dao.PersonDao;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Movie;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Person;
+import cz.fi.muni.pa165.movierecommender.persistence.enums.Genre;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.BadArgumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ import java.util.Set;
  * @author Petr Šlézar
  */
 @Service
-public class RecommendationServiceSimpleImpl implements RecommendationService{
+public class RecommendationServiceSimpleImpl implements RecommendationService {
 
     private final MovieDao movieDao;
     private final PersonDao personDao;
@@ -50,11 +50,11 @@ public class RecommendationServiceSimpleImpl implements RecommendationService{
         return new ArrayList<>(recommendedMovies);
     }
 
-    private Set<Movie> getRecommendedByGenres(Set<Genre> genres){
+    private Set<Movie> getRecommendedByGenres(Set<Genre> genres) {
 
         List<Movie> allFound = new ArrayList<>();
 
-        for (Genre genre: genres) {
+        for (Genre genre : genres) {
             allFound.addAll(movieDao.findByGenre(genre));
         }
 
@@ -65,10 +65,10 @@ public class RecommendationServiceSimpleImpl implements RecommendationService{
      We are passing name as the Person object from movie might be incomplete (the movie detail caries simplified person
      info)
      */
-    private Set<Movie> getRecommendedByDirector(String directorName){
+    private Set<Movie> getRecommendedByDirector(String directorName) {
 
         List<Person> directorList = personDao.findByName(directorName);
-        if(directorList.isEmpty()) return Collections.emptySet();
+        if (directorList.isEmpty()) return Collections.emptySet();
 
         //We assume passing full director name from film detail page, therefore exact match for first element
         Person director = directorList.get(0);

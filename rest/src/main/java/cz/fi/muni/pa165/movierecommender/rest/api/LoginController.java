@@ -8,15 +8,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 
-
+/**
+ * @author Petr Šlézar
+ */
 @RestController
 @RequestMapping(RoutesHolder.LOGIN_ROUTE)
 public interface LoginController {
 
 
-    @PostMapping(value = "/",produces = APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/", produces = APPLICATION_JSON_VALUE)
     @ResponseBody
     String login(@RequestBody LoginDto loginDto);
 

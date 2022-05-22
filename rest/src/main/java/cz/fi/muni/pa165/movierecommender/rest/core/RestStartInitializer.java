@@ -10,7 +10,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
 /**
- * @author Adam Radvan | xradvan@mail.muni.cz
+ * Inspired by example project.
+ * @author Petr Šlézar
  */
 public class RestStartInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 

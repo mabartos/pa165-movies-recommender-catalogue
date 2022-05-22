@@ -1,11 +1,6 @@
 package cz.fi.muni.pa165.movierecommender.persistence.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import cz.fi.muni.pa165.movierecommender.persistence.enums.Genre;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -44,46 +39,35 @@ import java.util.Set;
 @ToString
 @Table(name = "MOVIES")
 public class Movie extends GenericEntity {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "director_id")
+    @JsonIgnoreProperties(value = {"directedMovies", "actedInMovies"}, allowSetters = true)
+    public Person director;
     @NotNull
     @Column(nullable = false)
     private String name;
-
     /**
      * Duration of the movie (in minutes)
      */
     private Integer duration;
-
     private String poster;
-
     @ElementCollection(targetClass = Genre.class)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "FILM_GENRE", joinColumns = @JoinColumn(name = "GENRE", referencedColumnName = "ID"))
     private Set<Genre> genres = new HashSet<>();
-
     @Lob
-    @Column(length=1024)
+    @Column(length = 1024)
     private String description;
-
     private Integer releaseYear;
-
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "movie", targetEntity = Review.class )
-    @JsonIgnoreProperties(value = "movie",allowSetters = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "movie", targetEntity = Review.class)
+    @JsonIgnoreProperties(value = "movie", allowSetters = true)
     private Set<Review> reviews;
-
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "director_id")
-    @JsonIgnoreProperties(value = {"directedMovies","actedInMovies"},allowSetters = true)
-    public Person director;
-
-
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "movie_actors",
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "person_id"))
-    @JsonIgnoreProperties(value = {"directedMovies","actedInMovies"},allowSetters = true)
+    @JsonIgnoreProperties(value = {"directedMovies", "actedInMovies"}, allowSetters = true)
     private Set<Person> actors;
 
     public Set<Genre> getGenres() {
@@ -104,7 +88,7 @@ public class Movie extends GenericEntity {
         if (!(o instanceof Movie)) return false;
         if (!super.equals(o)) return false;
         Movie movie = (Movie) o;
-        return Objects.equals(name, movie.name) && Objects.equals(duration, movie.duration) && Objects.equals(poster, movie.poster) && Objects.equals(genres, movie.genres) && Objects.equals(description, movie.description) && Objects.equals(releaseYear, movie.releaseYear)  && Objects.equals(director, movie.director);
+        return Objects.equals(name, movie.name) && Objects.equals(duration, movie.duration) && Objects.equals(poster, movie.poster) && Objects.equals(genres, movie.genres) && Objects.equals(description, movie.description) && Objects.equals(releaseYear, movie.releaseYear) && Objects.equals(director, movie.director);
     }
 
     @Override

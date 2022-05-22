@@ -4,6 +4,7 @@ import lombok.Getter;
 
 /**
  * Inspired by example project's ErrorResource
+ * @author Petr Šlézar
  */
 @Getter
 public class ExceptionResponse {

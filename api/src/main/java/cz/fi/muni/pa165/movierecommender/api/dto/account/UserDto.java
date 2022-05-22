@@ -11,15 +11,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserDto extends GenericEntityDto {
 
-        private String tokenIdentifier;
-        private String email;
-        private String name;
-        private String userType;
-        private String avatar;
-        private String about;
+    private String tokenIdentifier;
+    private String email;
+    private String name;
+    private String userType;
+    private String avatar;
+    private String about;
 
-        public UserDto(String tokenIdentifier, String name){
-                this.tokenIdentifier = tokenIdentifier;
-                this.name = name;
-        }
+    public UserDto(String tokenIdentifier, String name) {
+        this.tokenIdentifier = tokenIdentifier;
+        this.name = name;
+    }
 }

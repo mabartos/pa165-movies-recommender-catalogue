@@ -6,14 +6,13 @@ import cz.fi.muni.pa165.movierecommender.persistence.entity.GenericEntity;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.BadArgumentException;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.MissingEntityException;
 
-
 import java.util.List;
 
 /**
- * @author Daniel Puchala
- *
- * A common interface for all entity service
  * @param <Entity> of type GenericEntity
+ * @author Daniel Puchala
+ * <p>
+ * A common interface for all entity service
  */
 public interface GenericService<Entity extends GenericEntity> {
 

@@ -6,6 +6,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Inspired by https://octoperf.com/blog/2018/03/08/securing-rest-api-spring-security/
+ * @author Petr Šlézar
+ */
 public class NoRedirectStrategy implements RedirectStrategy {
 
     @Override

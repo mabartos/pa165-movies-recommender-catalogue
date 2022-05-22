@@ -26,15 +26,13 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
 public class MovieServiceTest extends ServiceTestBase {
-    @Mock
-    private MovieDao dao;
-
     MovieService service;
-
     Movie movie1 = MockedEntities.RESERVOIR_DOGS;
     Movie movie2 = MockedEntities.MONTY_PYTHON;
     Movie movie3 = MockedEntities.PULP_FICTION;
     Movie nonExistingMovie = MockedEntities.NON_EXISTENT_MOVIE;
+    @Mock
+    private MovieDao dao;
 
     @Override
     protected void assignService() {
@@ -46,7 +44,7 @@ public class MovieServiceTest extends ServiceTestBase {
         List<Movie> allMovies = List.of(movie1, movie2, movie3);
         when(dao.findAll()).thenReturn(allMovies);
 
-        for (Movie movie: allMovies) {
+        for (Movie movie : allMovies) {
             when(dao.findById(movie.getId())).thenReturn(movie);
             when(dao.findByName(movie.getName())).thenReturn(List.of(movie));
         }

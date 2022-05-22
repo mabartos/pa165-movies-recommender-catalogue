@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 /**
  * @author Petr Šlézar
- *
+ * <p>
  * Common superclass DTO for all entity responses that should contain all entity's metadata.
  */
 @Getter

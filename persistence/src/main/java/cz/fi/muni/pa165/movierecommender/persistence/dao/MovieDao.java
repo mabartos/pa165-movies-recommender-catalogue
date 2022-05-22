@@ -1,8 +1,8 @@
 package cz.fi.muni.pa165.movierecommender.persistence.dao;
 
-import cz.fi.muni.pa165.movierecommender.persistence.enums.Genre;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Movie;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Person;
+import cz.fi.muni.pa165.movierecommender.persistence.enums.Genre;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -34,7 +34,7 @@ public interface MovieDao extends EntityDao<Movie> {
     /**
      * Find movies by director
      *
-     * @param  director director of type Person whose movies we want to get
+     * @param director director of type Person whose movies we want to get
      * @return list of movies
      * @throws IllegalArgumentException if director is null
      */

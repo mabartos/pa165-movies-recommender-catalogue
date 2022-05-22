@@ -3,8 +3,8 @@ package cz.fi.muni.pa165.movierecommender.service.facade;
 import cz.fi.muni.pa165.movierecommender.api.dto.ReviewDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.create.ReviewCreateDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.update.ReviewUpdateDto;
+import cz.fi.muni.pa165.movierecommender.api.facade.ReviewFacade;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Movie;
-import cz.fi.muni.pa165.movierecommender.persistence.entity.Person;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Review;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.User;
 import cz.fi.muni.pa165.movierecommender.service.mapper.ReviewMapper;
@@ -15,7 +15,6 @@ import cz.fi.muni.pa165.movierecommender.service.service.MovieService;
 import cz.fi.muni.pa165.movierecommender.service.service.ReviewService;
 import cz.fi.muni.pa165.movierecommender.service.service.UserService;
 import cz.fi.muni.pa165.movierecommender.service.service.exception.BadArgumentException;
-import cz.fi.muni.pa165.movierecommender.api.facade.ReviewFacade;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -85,7 +84,7 @@ public class ReviewFacadeImpl extends GenericFacadeImpl<Review, ReviewDto, Revie
     @Override
     @Transactional(readOnly = true)
     public ReviewDto findById(Long id) {
-        if(id == null) throw new BadArgumentException("Id is null!");
+        if (id == null) throw new BadArgumentException("Id is null!");
 
         Review entity = service().findById(id);
         return mapper.toDto(entity);
@@ -101,7 +100,7 @@ public class ReviewFacadeImpl extends GenericFacadeImpl<Review, ReviewDto, Revie
     @Override
     @Transactional(readOnly = true)
     public List<ReviewDto> findByUser(Long userId) {
-        if(userId == null) throw new BadArgumentException("User id is null!");
+        if (userId == null) throw new BadArgumentException("User id is null!");
 
         User user = userService.findById(userId);
 
@@ -112,7 +111,7 @@ public class ReviewFacadeImpl extends GenericFacadeImpl<Review, ReviewDto, Revie
     @Override
     @Transactional(readOnly = true)
     public List<ReviewDto> findByMovie(Long movieId) {
-        if(movieId == null) throw new BadArgumentException("Movie id is null!");
+        if (movieId == null) throw new BadArgumentException("Movie id is null!");
 
         Movie movie = movieService.findById(movieId);
 

@@ -27,6 +27,7 @@ public interface ReviewFacade extends GenericFacade<ReviewDto, ReviewCreateDto, 
      * @return list of all reviews
      */
     List<ReviewDto> findAll();
+
     /**
      * Find all reviews created by a specific 'user'
      *
@@ -47,7 +48,7 @@ public interface ReviewFacade extends GenericFacade<ReviewDto, ReviewCreateDto, 
      * Find a review related to a given 'movie' and created by a specific 'user'
      *
      * @param movieId required movie id which review is to be found
-     * @param userId required user id which review is to be found
+     * @param userId  required user id which review is to be found
      * @return a single review
      */
     ReviewDto findByMovieAndUser(Long movieId, Long userId);

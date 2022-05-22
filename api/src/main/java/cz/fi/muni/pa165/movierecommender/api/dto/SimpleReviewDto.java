@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class SimpleReviewDto extends GenericEntityDto{
+public class SimpleReviewDto extends GenericEntityDto {
 
     private SimpleUserDto user;
     private SimpleMovieDto movie;

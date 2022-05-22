@@ -34,9 +34,9 @@ public class MovieServiceImpl extends GenericServiceImpl<Movie> implements Movie
 
     @Override
     public List<Movie> getRecommendedByMovie(Long movieId) {
-        if(movieId == null) throw new BadArgumentException("Movie id is null");
+        if (movieId == null) throw new BadArgumentException("Movie id is null");
         final Movie movie = movieDao.findById(movieId);
-        if(movie == null) throw new MissingEntityException(Movie.class,movieId);
+        if (movie == null) throw new MissingEntityException(Movie.class, movieId);
 
         return recService.getRecommendedByMovie(movie);
     }

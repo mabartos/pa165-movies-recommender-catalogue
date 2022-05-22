@@ -56,6 +56,24 @@ public class MovieControllerProvider implements MovieController {
         return movieService.getCount();
     }
 
+    @PostMapping
+    @ResponseBody
+    public MovieDto create(@RequestBody MovieCreateDto createDto) {
+        return movieFacade.create(createDto);
+    }
+
+    @DeleteMapping("{id}")
+    @ResponseBody
+    public void delete(@PathVariable Long id) {
+        movieFacade.delete(id);
+    }
+
+    @PatchMapping
+    @ResponseBody
+    public MovieDto update(@RequestBody MovieUpdateDto movie) {
+        return movieFacade.update(movie);
+    }
+
     @GetMapping("{id}/recommended")
     @ResponseBody
     public List<MovieDto> getRecommendedMovies(@PathVariable Long id) {

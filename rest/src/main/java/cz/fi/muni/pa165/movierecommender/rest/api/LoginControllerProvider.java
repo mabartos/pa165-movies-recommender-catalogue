@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 
 /**
- * @author Jakub Petráš | xpetras@mail.muni.cz
+ * @author Petr Šlézar
  */
 @Slf4j
 @RestController

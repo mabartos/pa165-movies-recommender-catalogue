@@ -50,4 +50,21 @@ public class PersonControllerProvider implements PersonController {
         return personService.getCount();
     }
 
+    @PostMapping
+    @ResponseBody
+    public PersonDto create(@RequestBody PersonCreateDto createDto) {
+        return personFacade.create(createDto);
+    }
+
+    @DeleteMapping("{id}")
+    @ResponseBody
+    public void delete(@PathVariable Long id) {
+        personFacade.delete(id);
+    }
+
+    @PatchMapping
+    @ResponseBody
+    public PersonDto update(@RequestBody PersonUpdateDto person) {
+        return personFacade.update(person);
+    }
 }

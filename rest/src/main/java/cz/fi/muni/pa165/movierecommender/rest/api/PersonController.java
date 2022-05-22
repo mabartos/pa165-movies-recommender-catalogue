@@ -31,4 +31,15 @@ public interface PersonController {
     @ResponseBody
     Long getCount();
 
+    @PostMapping
+    @ResponseBody
+    PersonDto create(@RequestBody PersonCreateDto createDto);
+
+    @DeleteMapping("{id}")
+    @ResponseBody
+    void delete(@PathVariable Long id);
+
+    @PatchMapping
+    @ResponseBody
+    PersonDto update(@RequestBody PersonUpdateDto person);
 }

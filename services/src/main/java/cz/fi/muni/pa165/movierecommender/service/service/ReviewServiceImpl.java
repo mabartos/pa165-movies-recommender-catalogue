@@ -50,6 +50,18 @@ public class ReviewServiceImpl extends GenericServiceImpl<Review> implements Rev
         return reviewDao.update(entity);
     }
 
+    //I am not sure if modifying the relevant user and movie is necessary as Review is association entity.
+    @Override
+    public void delete(Review entity) {
+        if (entity == null) throw new BadArgumentException("Provided Entity is null");
+
+        entity.setMovie(null);
+        entity.setUser(null);
+        entity = reviewDao.update(entity);
+
+        reviewDao.delete(entity);
+    }
+
     @Override
     public List<Review> findByUser(User user) {
         if(user == null) throw new BadArgumentException("User is null");

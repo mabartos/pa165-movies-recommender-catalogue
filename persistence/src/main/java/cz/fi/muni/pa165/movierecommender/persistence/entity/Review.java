@@ -35,14 +35,12 @@ import java.util.Objects;
 public class Review extends GenericEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = User.class)
-    @NotNull
     @JoinColumn(name = "user_id")
     @JsonIgnoreProperties(value = {"reviews"},allowSetters = true)
     private User user;
 
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Movie.class)
-    @NotNull
     @JoinColumn(name = "movie_id")
     @JsonIgnoreProperties(value = {"reviews"},allowSetters = true)
     private Movie movie;

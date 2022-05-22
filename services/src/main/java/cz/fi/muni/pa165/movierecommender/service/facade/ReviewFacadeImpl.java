@@ -183,4 +183,11 @@ public class ReviewFacadeImpl extends GenericFacadeImpl<Review, ReviewDto, Revie
 
         return mapToDto(service().create(entity));
     }
+
+    @Override
+    @Transactional
+    public void delete(Long id) {
+        Review entity = reviewService.findById(id);
+        reviewService.delete(entity);
+    }
 }

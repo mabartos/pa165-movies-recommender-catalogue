@@ -76,7 +76,7 @@ public class User extends GenericEntity implements UserDetails {
     @JsonBackReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", targetEntity = Review.class)
     @JsonIgnoreProperties(value = "user",allowSetters = true)
-    private final Set<Review> reviews = new HashSet<>();
+    private Set<Review> reviews = new HashSet<>();
 
     @JsonCreator
     public User(@JsonProperty("username") final String username,

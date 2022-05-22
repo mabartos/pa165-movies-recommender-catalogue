@@ -61,11 +61,7 @@ public abstract class GenericFacadeImpl
 
     @Override
     @Transactional
-    public void delete(Long id) {
-
-        ENTITY entity = service().findById(id);
-        service().delete(entity);
-    }
+    abstract public void delete(Long id);
 
     /**
      * Obtain the main service of the facade

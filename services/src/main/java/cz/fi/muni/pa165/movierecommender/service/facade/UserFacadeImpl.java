@@ -3,11 +3,13 @@ package cz.fi.muni.pa165.movierecommender.service.facade;
 import cz.fi.muni.pa165.movierecommender.api.dto.account.UserCreateDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.account.UserDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.account.UserUpdateDto;
+import cz.fi.muni.pa165.movierecommender.persistence.entity.Review;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.User;
 import cz.fi.muni.pa165.movierecommender.service.mapper.account.UserMapper;
 import cz.fi.muni.pa165.movierecommender.service.mapper.account.UserCreateMapper;
 import cz.fi.muni.pa165.movierecommender.service.mapper.account.UserUpdateMapper;
 import cz.fi.muni.pa165.movierecommender.service.service.GenericService;
+import cz.fi.muni.pa165.movierecommender.service.service.ReviewService;
 import cz.fi.muni.pa165.movierecommender.service.service.UserService;
 import cz.fi.muni.pa165.movierecommender.api.facade.UserFacade;
 import org.apache.commons.lang3.NotImplementedException;
@@ -26,13 +28,15 @@ import java.util.Optional;
 public class UserFacadeImpl extends GenericFacadeImpl<User, UserDto, UserCreateDto, UserUpdateDto> implements UserFacade {
 
     private final UserService userService;
+    private final ReviewService reviewService;
     private final UserCreateMapper createMapper = Mappers.getMapper(UserCreateMapper.class);
     private final UserUpdateMapper updateMapper = Mappers.getMapper(UserUpdateMapper.class);
     private final UserMapper mapper = Mappers.getMapper(UserMapper.class);
 
     @Autowired
-    public UserFacadeImpl(UserService userService) {
+    public UserFacadeImpl(UserService userService, ReviewService reviewService) {
         this.userService = userService;
+        this.reviewService = reviewService;
     }
 
     @Override
@@ -47,6 +51,19 @@ public class UserFacadeImpl extends GenericFacadeImpl<User, UserDto, UserCreateD
     public UserDto update(UserUpdateDto updateDto) {
         throw new NotImplementedException("This method is not implemented for User " +
                 "- use changeUser(UserCreateDTO, String) with specified new password (null if no change)");
+    }
+
+    //First, we need to remove all reviews.
+    @Override
+    @Transactional
+    public void delete(Long id) {
+        User entity = userService.findById(id);
+
+        for(Review review : entity.getReviews()){
+            reviewService.delete(review);
+        }
+
+        userService.delete(entity);
     }
 
     @Override

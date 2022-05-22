@@ -5,6 +5,7 @@ import cz.fi.muni.pa165.movierecommender.api.dto.create.MovieCreateDto;
 import cz.fi.muni.pa165.movierecommender.api.dto.update.MovieUpdateDto;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Movie;
 import cz.fi.muni.pa165.movierecommender.persistence.entity.Person;
+import cz.fi.muni.pa165.movierecommender.persistence.entity.Review;
 import cz.fi.muni.pa165.movierecommender.persistence.enums.Genre;
 import cz.fi.muni.pa165.movierecommender.service.mapper.MovieMapper;
 import cz.fi.muni.pa165.movierecommender.service.mapper.create.MovieCreateMapper;
@@ -13,10 +14,12 @@ import cz.fi.muni.pa165.movierecommender.service.service.GenericService;
 import cz.fi.muni.pa165.movierecommender.service.service.MovieService;
 import cz.fi.muni.pa165.movierecommender.api.facade.MovieFacade;
 import cz.fi.muni.pa165.movierecommender.service.service.PersonService;
+import cz.fi.muni.pa165.movierecommender.service.service.ReviewService;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -32,12 +35,14 @@ public class MovieFacadeImpl extends GenericFacadeImpl<Movie, MovieDto, MovieCre
     private final MovieMapper mapper = Mappers.getMapper(MovieMapper.class);
     private final MovieService movieService;
     private final PersonService personService;
+    private final ReviewService reviewService;
     private final MovieCreateMapper createMapper = Mappers.getMapper(MovieCreateMapper.class);
     private final MovieUpdateMapper updateMapper = Mappers.getMapper(MovieUpdateMapper.class);
 
-    public MovieFacadeImpl(MovieService movieService, PersonService personService) {
+    public MovieFacadeImpl(MovieService movieService, PersonService personService, ReviewService reviewService) {
         this.movieService = movieService;
         this.personService = personService;
+        this.reviewService = reviewService;
     }
 
     @Override
@@ -167,6 +172,48 @@ public class MovieFacadeImpl extends GenericFacadeImpl<Movie, MovieDto, MovieCre
         }
 
         return mapToDto(service().update(entity));
+    }
+
+    //We first remove ONE to MANY Relation between a person and their movies
+    //Im not sure if after clearing collecions of the movie entity, it is necessary to update it, before deleting it.
+    //Maybe just setting it to empty or null before removing it would be sufficient. This one is safe though.
+    @Override
+    @Transactional
+    public void delete(Long id) {
+
+        Movie toBeDeleted = movieService.findById(id);
+
+        Person director = toBeDeleted.getDirector();
+        Set<Person> actors = toBeDeleted.getActors();
+        Set<Review> reviews = toBeDeleted.getReviews();
+
+        if(director!=null){
+            Set<Movie> directorDirectedMovies = director.getDirectedMovies();
+            directorDirectedMovies.remove(toBeDeleted);
+            director.setDirectedMovies(directorDirectedMovies);
+            personService.update(director);
+        }
+
+        for (Person actor : actors){
+            Set<Movie> currentActorMovies = actor.getActedInMovies();
+            currentActorMovies.remove(toBeDeleted);
+            actor.setActedInMovies(currentActorMovies);
+            personService.update(actor);
+        }
+
+        for (Review review : reviews){
+            review.setMovie(null);
+            review.setUser(null);
+            review = reviewService.update(review);
+            reviewService.delete(review);
+        }
+
+        toBeDeleted.setReviews(Collections.emptySet());
+        toBeDeleted.setActors(Collections.emptySet());
+        toBeDeleted.setDirector(null);
+
+        toBeDeleted = movieService.update(toBeDeleted);
+        movieService.delete(toBeDeleted);
     }
 
 }

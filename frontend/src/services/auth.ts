@@ -1,13 +1,12 @@
 import instance from '../models/axios';
 import jwtDecode from 'jwt-decode';
 
-
 export const login = async (name: string, password: string) => {
   try {
     const response = await instance.post('login', {
       name, password
     });
-    localStorage.setItem('user', JSON.stringify(jwtDecode(response.data)));
+    sessionStorage.setItem('user', JSON.stringify(jwtDecode(response.data)));
     return response;
   } catch (error) {
     return error;
@@ -15,10 +14,10 @@ export const login = async (name: string, password: string) => {
 }
 
 export const logout = () => {
-  localStorage.removeItem('user');
+  sessionStorage.removeItem('user');
 }
 
 export const getUser = () => {
-  const user = localStorage.getItem('user');
+  const user = sessionStorage.getItem('user');
   return user ? JSON.parse(user) : null;
 }

@@ -8,11 +8,7 @@ import instance from '../models/axios';
 import useSWR from 'swr';
 import fetcher from '../models/fetcher';
 import { getUser } from '../services/auth';
-
-function formatDuration(num: number) {
-  const hours = Math.floor(num / 60);
-  return hours ? (`${hours} hours ${num % 60} minutes`) : (`${num % 60} minutes`);
-}
+import formatDuration from '../services/formatDuration';
 
 export const Movie = () => {
   const [ showReviews, setShowReviews ] = useState<boolean>(false);
@@ -39,6 +35,7 @@ export const Movie = () => {
   const { id } = useParams();
   const { data: movie, error: movieError } = useSWR(`movies/${id}`, fetcher)
   const { data: reviews, error: reviewError } = useSWR(`reviews/search/${id}`, fetcher)
+  const { data: recommended, error: recommendedError } = useSWR(`movies/${id}/recommended`, fetcher)
 
   if (movieError) return <div>failed to load</div>;
   if (!movie) return <div>loading...</div>;
@@ -46,38 +43,10 @@ export const Movie = () => {
   if (reviewError) return <div>failed to load</div>;
   if (!reviews) return <div>loading...</div>;
 
-  const recommendedMovies = [
-    {
-      name: 'Movie', id: 1,
-      poster: 'https://cdn.shopify.com/s/files/1/0057/3728/3618/products/0ef9608d2219e0695a1b79af254f6e44_480x.progressive.jpg?v=1573572669',
-      duration: 120
-    },
-    {
-      name: 'Movie', id: 2,
-      poster: 'https://cdn.shopify.com/s/files/1/0057/3728/3618/products/0ef9608d2219e0695a1b79af254f6e44_480x.progressive.jpg?v=1573572669',
-      duration: 120
-    },
-    {
-      name: 'Some novie with absrudhlt long name that i just made up', id: 3,
-      poster: 'https://cdn.shopify.com/s/files/1/0057/3728/3618/products/0ef9608d2219e0695a1b79af254f6e44_480x.progressive.jpg?v=1573572669',
-      duration: 120
-    },
-    {
-      name: 'Movie', id: 4,
-      poster: 'https://cdn.shopify.com/s/files/1/0057/3728/3618/products/0ef9608d2219e0695a1b79af254f6e44_480x.progressive.jpg?v=1573572669',
-      duration: 120
-    },
-    {
-      name: 'Movie', id: 5,
-      poster: 'https://cdn.shopify.com/s/files/1/0057/3728/3618/products/0ef9608d2219e0695a1b79af254f6e44_480x.progressive.jpg?v=1573572669',
-      duration: 120
-    },
-    {
-      name: 'Movie', id: 6,
-      poster: 'https://cdn.shopify.com/s/files/1/0057/3728/3618/products/0ef9608d2219e0695a1b79af254f6e44_480x.progressive.jpg?v=1573572669',
-      duration: 120
-    }
-  ];
+  if (recommendedError) return <div>failed to load</div>;
+  if (!recommended) return <div>loading...</div>;
+
+  const recommendedMovies = recommended.slice(0, 5)
 
   return (
     <div>
@@ -104,7 +73,7 @@ export const Movie = () => {
         <div className={`h-full ${showReviews && 'hidden'}`}>
           <p className="text-2xl text-center font-bold">Recommended movies</p>
           <div className="flex flex-row flex-wrap p-4">
-            {recommendedMovies.map((movie) => <MovieCard key={movie.id} {...movie} mode={MovieCardMode.Recommend}/>)}
+            {recommendedMovies.map((movie: any) => <MovieCard key={movie.id} {...movie} mode={MovieCardMode.Recommend}/>)}
           </div>
         </div>
         <div className={`h-full flex flex-col ${showReviews || 'hidden'}`}>

@@ -7,6 +7,7 @@ import cz.fi.muni.pa165.movierecommender.rest.core.RoutesHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,14 +34,14 @@ public class ReviewControllerProvider implements ReviewController {
         return reviewFacade.findAll();
     }
 
-    @GetMapping("/search")
+    @GetMapping("/search/{movieId}")
     @ResponseBody
-    public ReviewDto findByMovieAndUser(@RequestParam Long movieId, @RequestParam Long userId) {
-        if (movieId == null || userId == null) {
+    public List<ReviewDto> findByMovie(@PathVariable Long movieId) {
+        if (movieId == null) {
             throw new IllegalArgumentException("You need to specify movieId and userId parameters");
         }
 
-        return reviewFacade.findByMovieAndUser(movieId, userId);
+        return reviewFacade.findByMovie(movieId);
     }
 
     @PreAuthorize("isAuthenticated()")

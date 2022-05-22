@@ -99,7 +99,7 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
         return userDao
                 .findByName(username)
                 .filter(user -> encoder.matches(password, user.getPassword()))
-                .map(user -> tokens.expiring(ImmutableMap.of("name", username, "sub", user.getId().toString())))
+                .map(user -> tokens.expiring(ImmutableMap.of("name", username, "role", user.getUserType().toString(), "sub", user.getId().toString())))
                 .orElseThrow(() -> new LoginFailedException("Invalid user credentials"));
     }
 

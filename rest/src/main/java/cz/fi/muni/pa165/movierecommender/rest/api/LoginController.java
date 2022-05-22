@@ -16,7 +16,7 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 public interface LoginController {
 
 
-    @PostMapping(value = "/",produces = APPLICATION_JSON_VALUE)
+    @PostMapping(produces = APPLICATION_JSON_VALUE)
     @ResponseBody
     String login(@RequestBody LoginDto loginDto);
 

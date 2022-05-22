@@ -27,7 +27,7 @@ public class LoginControllerProvider implements LoginController{
         this.accountFacade = accountFacade;
     }
 
-    @PostMapping(value = "/", produces = APPLICATION_JSON_VALUE)
+    @PostMapping(produces = APPLICATION_JSON_VALUE)
     public String login(@RequestBody LoginDto dto) {
         log.debug("Log in of user: " + dto.getName());
         return accountFacade.login(dto.getName(), dto.getPassword());

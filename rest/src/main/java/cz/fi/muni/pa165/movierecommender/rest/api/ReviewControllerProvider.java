@@ -38,7 +38,7 @@ public class ReviewControllerProvider implements ReviewController {
     @ResponseBody
     public List<ReviewDto> findByMovie(@PathVariable Long id) {
         if (id == null) {
-            throw new IllegalArgumentException("You need to specify id and userId parameters");
+            throw new IllegalArgumentException("You need to specify id");
         }
 
         return reviewFacade.findByMovie(id);

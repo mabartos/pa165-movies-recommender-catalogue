@@ -31,6 +31,7 @@ public class ExceptionAdvisor {
         ExceptionResponse error = new ExceptionResponse(exception.getClass().getSimpleName(), exception.getMessage());
 
         HttpStatus httpStatus = switch (exception) {
+            case IllegalArgumentException ignored -> HttpStatus.BAD_REQUEST;
             case BadArgumentException ignored -> HttpStatus.BAD_REQUEST;
             case ForbiddenOperationException ignored -> HttpStatus.FORBIDDEN;
             case LoginFailedException ignored -> HttpStatus.UNAUTHORIZED;
